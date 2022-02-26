@@ -9,13 +9,13 @@ echo -ne "
 ╚═╝░░░░░╚═╝╚═╝░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░░╚═╝░░░░╚═════╝░╚═════╝░
 --------------------------------------------------------------------  
                     Automated Arch Linux Installer
-                        SCRIPTHOME: MickTitus
+                        SCRIPTHOME: Mickium
 --------------------------------------------------------------------
 
 Final Setup and Configurations
 GRUB EFI Bootloader Install & Check
 "
-source /root/MickTitus/setup.conf
+source /root/Mickium/setup.conf
 genfstab -U / >> /etc/fstab
 if [[ -d "/sys/firmware/efi" ]]; then
     grub-install --efi-directory=/boot ${DISK}
@@ -64,10 +64,10 @@ sed -i 's/^%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /et
 # Add sudo rights
 sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 
-rm -r /root/MickTitus
-
+rm -r /root/Mickium
+rm ~/Mickium/setup.conf
 # I rely in this folder so no
-# rm -r /home/$USERNAME/MickTitus
+# rm -r /home/$USERNAME/Mickium
 
 # Replace in the same state
 cd $pwd

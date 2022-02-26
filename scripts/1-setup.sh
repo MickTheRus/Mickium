@@ -1,23 +1,18 @@
 #!/usr/bin/env bash
 echo -ne "
----------------------------------------------------------------------
-███╗░░░███╗██╗░█████╗░██╗░░██╗████████╗██╗████████╗██╗░░░██╗░██████╗
-████╗░████║██║██╔══██╗██║░██╔╝╚══██╔══╝██║╚══██╔══╝██║░░░██║██╔════╝
-██╔████╔██║██║██║░░╚═╝█████═╝░░░░██║░░░██║░░░██║░░░██║░░░██║╚█████╗░
-██║╚██╔╝██║██║██║░░██╗██╔═██╗░░░░██║░░░██║░░░██║░░░██║░░░██║░╚═══██╗
-██║░╚═╝░██║██║╚█████╔╝██║░╚██╗░░░██║░░░██║░░░██║░░░╚██████╔╝██████╔╝
-╚═╝░░░░░╚═╝╚═╝░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░░╚═╝░░░░╚═════╝░╚═════╝░
---------------------------------------------------------------------  
-       
-                    Automated Arch Linux Installer
-                        SCRIPTHOME: MickTitus 
---------------------------------------------------------------------
-"
-source /root/MickTitus/setup.conf
+-----------------------------------------------------
+███╗░░░███╗██╗░█████╗░██╗░░██╗██╗██╗░░░██╗███╗░░░███╗
+████╗░████║██║██╔══██╗██║░██╔╝██║██║░░░██║████╗░████║
+██╔████╔██║██║██║░░╚═╝█████═╝░██║██║░░░██║██╔████╔██║
+██║╚██╔╝██║██║██║░░██╗██╔═██╗░██║██║░░░██║██║╚██╔╝██║
+██║░╚═╝░██║██║╚█████╔╝██║░╚██╗██║╚██████╔╝██║░╚═╝░██║
+╚═╝░░░░░╚═╝╚═╝░╚════╝░╚═╝░░╚═╝╚═╝░╚═════╝░╚═╝░░░░░╚═╝
+-----------------------------------------------------"
+source /root/Mickium/setup.conf
 echo -ne "
---------------------------------------------------------------------
+------------------------------------------------------
                     Network Setup 
---------------------------------------------------------------------"
+------------------------------------------------------"
 pacman -S networkmanager dhclient --noconfirm --needed
 systemctl enable --now NetworkManager
 echo -ne "
@@ -68,7 +63,7 @@ echo -ne "
 ----------------------------------------------------------------------
                     Installing Base System  
 ----------------------------------------------------------------------"
-cat /root/MickTitus/pkg-files/pacman-pkgs.txt | while read line 
+cat /root/Mickium/pkg-files/pacman-pkgs.txt | while read line 
 do
     echo "INSTALLING: ${line}"
    sudo pacman -S --noconfirm --needed ${line}
@@ -107,7 +102,7 @@ elif grep -E "Intel Corporation UHD" <<< ${gpu_type}; then
 fi
 
 #SETUP IS WRONG THIS IS RUN
-if ! source /root/MickTitus/setup.conf; then
+if ! source /root/Mickium/setup.conf; then
 	# Loop through user input until the user gives a valid username
 	while true
 	do 
@@ -121,11 +116,11 @@ if ! source /root/MickTitus/setup.conf; then
 		echo "Incorrect username."
 	done 
 # convert name to lowercase before saving to setup.conf
-echo "username=${username,,}" >> ${HOME}/MickTitus/setup.conf
+echo "username=${username,,}" >> ${HOME}/Mickium/setup.conf
 
     #Set Password
     read -p "Please enter password:" password
-echo "password=${password,,}" >> ${HOME}/MickTitus/setup.conf
+echo "password=${password,,}" >> ${HOME}/Mickium/setup.conf
 
     # Loop through user input until the user gives a valid hostname, but allow the user to force save 
 	while true
@@ -144,7 +139,7 @@ echo "password=${password,,}" >> ${HOME}/MickTitus/setup.conf
 		fi 
 	done 
 
-    echo "nameofmachine=${nameofmachine,,}" >> ${HOME}/MickTitus/setup.conf
+    echo "nameofmachine=${nameofmachine,,}" >> ${HOME}/Mickium/setup.conf
 fi
 echo -ne "
 ----------------------------------------------------------------------
@@ -155,9 +150,8 @@ if [ $(whoami) = "root"  ]; then
 
 # use chpasswd to enter $USERNAME:$password
     echo "$USERNAME:$PASSWORD" | chpasswd
-	cp -R /root/MickTitus /home/$USERNAME/
-    chown -R $USERNAME: /home/$USERNAME/MickTitus
-# enter $nameofmachine to /etc/hostname
+	cp -R /root/Mickium /home/$USERNAME/
+    chown -R $USERNAME: /home/$USERNAME/Mickium
 	echo $nameofmachine > /etc/hostname
 else
 	echo "You are already a user proceed with aur installs"

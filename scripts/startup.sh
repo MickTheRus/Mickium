@@ -148,6 +148,7 @@ read -p "Please enter your username: " username
 set_option USERNAME ${username,,} # convert to lower case as in issue #109 
 read -rep "Please enter your hostname: " nameofmachine
 set_option nameofmachine $nameofmachine
+echo "Please enter your password"
 read -s password # read password without echo
 set_option PASSWORD $password
 }

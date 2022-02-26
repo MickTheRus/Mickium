@@ -1,4 +1,4 @@
-# MickTitus Installer Script
+# Mickium Installer Script
 This README contains the steps I do to install and configure a fully-functional Arch Linux installation containing a desktop environment, all the support packages (network, bluetooth, audio, printers, etc.), along with all my preferred applications and utilities. The shell scripts in this repo allow the entire process to be automated.)
 
 ---
@@ -12,9 +12,9 @@ From initial Prompt type the following commands:
 
 ```
 pacman -Sy git
-git clone https://github.com/MickTitus/MickTitus
-cd MickTitus
-./micktitus.sh
+git clone https://github.com/MickTheRus/Mickium
+cd Mickium
+./mickium.sh
 ```
 
 ### System Description
@@ -37,7 +37,5 @@ __[Arch Linux Installation Guide](https://github.com/rickellis/Arch-Linux-Instal
 #5: Find your network, and run `station [device name] connect [network name]`, enter your password and run `exit`. You can test if you have internet connection by running `ping google.com`. 
 
 ## Credits
-
-- Original packages script was a post install cleanup script called ArchMatic located here: https://github.com/rickellis/ArchMatic
 - The original ArchTitus Script was "borrowed" from Chris Titus, https://github.com/ChrisTitusTech/ArchTitus
 
