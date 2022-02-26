@@ -1,11 +1,11 @@
-lightdm-webkit-theme-aether
-qt5-styleplugins
 brave-bin
 candy-icons-git
 datagrip
 datagrip-jre
-rider
-i3lock-fancy-git
-wmctrl
-dracula-gtk-theme
 dracula-grub-theme-git
+dracula-gtk-theme
+i3lock-fancy-git
+lightdm-webkit-theme-aether
+qt5-styleplugins
+rider
+wmctrl

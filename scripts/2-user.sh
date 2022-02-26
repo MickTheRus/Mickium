@@ -10,7 +10,7 @@ echo -ne "
 -----------------------------------------------------
             Automated Arch Linux Installer
                    SCRIPTHOME: Mickium
------------------------------------------------------
+--------------------------------------------------------------------
 Installing AUR Softwares"
 source $HOME/Mickium/setup.conf
 
@@ -35,7 +35,7 @@ Host github.com
 
 echo -ne "
 export ZDOTDIR=$HOME/Mickium/misc/configs/zsh
-source '$ZDOTDIR'/.zshrc" > $HOME/.zshrc
+source $HOME/Mickium/misc/configs/zsh/.zshrc" > $HOME/.zshrc
 
 echo -ne "
 [Desktop Entry]

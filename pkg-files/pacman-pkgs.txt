@@ -43,11 +43,9 @@ nodejs
 npm
 rust
 
-
 accountsservice
 base
 base-devel
-gnome-keyring
 bind
 btrfs-progs
 discord
@@ -55,9 +53,9 @@ dosfstools
 efibootmgr
 exfat-utils
 extra-cmake-modules
-prettier
 fuse2
 fuse3
+gnome-keyring
 gptfdisk
 grub
 gst-libav
@@ -81,11 +79,14 @@ p7zip
 pacman-contrib
 python-pip
 rsync
-sshfs
 snapper
+sshfs
 ttf-iosevka-nerd
 unrar
 unzip
 xdg-user-dirs
 zip
 zsh
+
+
+
