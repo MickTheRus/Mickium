@@ -12,9 +12,9 @@ echo -ne "
            Automated Arch Linux Installer
 -----------------------------------------------------
        Scripts are in directory named Mickium"
-    bash startup.sh
+    bash scripts/startup.sh
     source $SCRIPT_DIR/setup.conf
-    bash 0-preinstall.sh
+    bash scripts/0-preinstall.sh
     arch-chroot /mnt /root/Mickium/scripts/1-setup.sh
     arch-chroot /mnt /usr/bin/runuser -u $USERNAME -- /home/$USERNAME/Mickium/scripts/2-user.sh
     arch-chroot /mnt /root/Mickium/scripts/3-post-setup.sh
