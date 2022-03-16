@@ -101,6 +101,9 @@ return packer.startup(function(use)
   -- Discord RP
   use 'andweeb/presence.nvim'
 
+  -- Save as Root
+  use 'lambdalisue/suda.vim'
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then

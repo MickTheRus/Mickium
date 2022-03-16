@@ -6,14 +6,6 @@ local hotkeys_popup = require('awful.hotkeys_popup').widget
 local modkey = require('configuration.keys.mod').modKey
 local altkey = require('configuration.keys.mod').altKey
 local apps = require('configuration.apps')
--- local layout_indicator = require("keyboard")
-
--- kbdcfg = layout_indicator({
---     layouts = {
---         {name="ru",  layout="ru",  variant=nil},
---         {name="us",  layout="us",  variant=nil}
---     },
--- })
 
 -- Key bindings
 local globalKeys =
@@ -29,14 +21,6 @@ local globalKeys =
   -- Default client focus
   awful.key(
     {modkey},
-    's',
-    function()
-      awful.client.focus.byidx(1)
-    end,
-    {description = 'Focus next by index', group = 'client'}
-  ),
-  awful.key(
-    {modkey},
     'a',
     function()
       awful.client.focus.byidx(-1)
@@ -50,22 +34,6 @@ local globalKeys =
       awful.spawn('rofi -combi-modi window,drun -show combi -modi combi')
     end,
     {description = 'Main menu', group = 'awesome'}
-  ),
-  awful.key(
-    {modkey, 'Shift'},
-    'r',
-    function()
-      awful.spawn('reboot')
-    end,
-    {description = 'Reboot Computer', group = 'awesome'}
-  ),
-  awful.key(
-    {modkey, 'Shift'},
-    's',
-    function()
-      awful.spawn('shutdown now')
-    end,
-    {description = 'Shutdown Computer', group = 'awesome'}
   ),
   awful.key(
     {modkey, 'Shift'},
@@ -105,49 +73,9 @@ local globalKeys =
     {modkey},
     'l',
     function()
-      awful.spawn(apps.default.lock)
+      awful.spawn(apps.default.lock .. " -p")
     end,
     {description = 'Lock the screen', group = 'awesome'}
-  ),
-  awful.key(
-    {modkey},
-    'Print',
-    function()
-      awful.util.spawn_with_shell(apps.default.delayed_screenshot)
-    end,
-    {description = 'Mark an area and screenshot it 10 seconds later (clipboard)', group = 'screenshots (clipboard)'}
-  ),
-  awful.key(
-    {modkey},
-    'p',
-    function()
-      awful.util.spawn_with_shell(apps.default.screenshot)
-    end,
-    {description = 'Take a screenshot of your active monitor and copy it to clipboard', group = 'screenshots (clipboard)'}
-  ),
-  awful.key(
-    {altkey, 'Shift'},
-    'p',
-    function()
-      awful.util.spawn_with_shell(apps.default.region_screenshot)
-    end,
-    {description = 'Mark an area and screenshot it to your clipboard', group = 'screenshots (clipboard)'}
-  ),
-  awful.key(
-    {modkey},
-    'c',
-    function()
-      awful.util.spawn(apps.default.editor)
-    end,
-    {description = 'Open a text/code editor', group = 'launcher'}
-  ),
-  awful.key(
-    {modkey},
-    'b',
-    function()
-      awful.util.spawn(apps.default.browser)
-    end,
-    {description = 'Open a browser', group = 'launcher'}
   ),
   -- Standard program
   awful.key(
@@ -254,35 +182,6 @@ local globalKeys =
     {description = 'restore minimized', group = 'client'}
   ),
   -- Dropdown application
-  awful.key(
-    {modkey},
-    'z',
-    function()
-      _G.toggle_quake()
-    end,
-    {description = 'dropdown application', group = 'launcher'}
-  ),
-  -- Widgets popups
-  --[[awful.key(
-    {altkey},
-    'h',
-    function()
-      if beautiful.fs then
-        beautiful.fs.show(7)
-      end
-    end,
-    {description = 'Show filesystem', group = 'widgets'}
-  ),
-  awful.key(
-    {altkey},
-    'w',
-    function()
-      if beautiful.weather then
-        beautiful.weather.show(7)
-      end
-    end,
-    {description = 'Show weather', group = 'widgets'}
-  ),--]]
   -- Brightness
   awful.key(
     {},
@@ -300,7 +199,7 @@ local globalKeys =
     end,
     {description = '-10%', group = 'hotkeys'}
   ),
-  -- PulseAudio volume control
+  -- PipeWire volume control
   awful.key(
     {},
     'XF86AudioRaiseVolume',
@@ -355,47 +254,6 @@ local globalKeys =
     'o',
     awful.client.movetoscreen,
     {description = 'move window to next screen', group = 'client'}
-  ),
-  -- Open default program for tag
-  awful.key(
-    {modkey},
-    't',
-    function()
-      awful.spawn(
-          awful.screen.focused().selected_tag.defaultApp,
-          {
-            tag = _G.mouse.screen.selected_tag,
-            placement = awful.placement.bottom_right
-          }
-        )
-    end,
-    {description = 'Open default program for tag/workspace', group = 'tag'}
-  ),
-  -- System Monitor hotkey
-  awful.key(
-    {modkey},
-    'm',
-    function()
-      awful.util.spawn_with_shell('mate-system-monitor')
-    end
-  ),
-  -- File Manager
-  awful.key(
-    {modkey},
-    'e',
-    function()
-      awful.util.spawn(apps.default.files)
-    end,
-    {description = 'filebrowser', group = 'hotkeys'}
-  ),
-  -- Emoji Picker
-  awful.key(
-    {modkey},
-    'a',
-    function()
-      awful.util.spawn_with_shell('ibus emoji')
-   end,
-    {description = 'Open the ibus emoji picker to copy an emoji to your clipboard', group = 'hotkeys'}
   )
 )
 

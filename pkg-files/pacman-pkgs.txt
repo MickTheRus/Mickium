@@ -6,6 +6,7 @@ xorg-xinput
 
 # Desktop
 awesome
+acpi
 xfce4-power-manager
 picom
 xclip

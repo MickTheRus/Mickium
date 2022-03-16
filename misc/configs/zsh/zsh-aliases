@@ -1,6 +1,6 @@
 #!/bin/sh
 alias ls='ls --color=auto'
-alias l='ls -lah'
+alias l='ls -lAh'
 alias g='lazygit'
 alias v="nvim"
 
