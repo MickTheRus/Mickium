@@ -68,15 +68,6 @@ local globalKeys =
     end,
     {description = 'Switch to previous window', group = 'client'}
   ),
-  -- Programms
-  awful.key(
-    {modkey},
-    'l',
-    function()
-      awful.spawn(apps.default.lock .. " -p")
-    end,
-    {description = 'Lock the screen', group = 'awesome'}
-  ),
   -- Standard program
   awful.key(
     {modkey},

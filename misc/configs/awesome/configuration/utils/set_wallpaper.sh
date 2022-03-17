@@ -8,7 +8,7 @@ feh_command="feh --bg-fill"
 
 for i in "${MAPFILE[@]}"
 do
-    feh_command="$feh_command ~/Mickium/misc/wall.jpg"
+    feh_command="$feh_command ~/.config/awesome/theme/wall.jpg"
 done
 
 eval "$feh_command"
