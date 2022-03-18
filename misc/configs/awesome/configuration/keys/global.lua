@@ -36,10 +36,10 @@ local globalKeys =
     {description = 'Main menu', group = 'awesome'}
   ),
   awful.key(
-    {modkey, 'Shift'},
+    {modkey},
     'l',
     function()
-      _G.exit_screen_show()
+      os.execute('sh ~/.config/awesome/module/exit-screen.sh')
     end,
     {description = 'Log Out Screen', group = 'awesome'}
   ),
@@ -228,14 +228,6 @@ local globalKeys =
     'XF86PowerDown',
     function()
       --
-    end,
-    {description = 'toggle mute', group = 'hotkeys'}
-  ),
-  awful.key(
-    {},
-    'XF86PowerOff',
-    function()
-      _G.exit_screen_show()
     end,
     {description = 'toggle mute', group = 'hotkeys'}
   ),

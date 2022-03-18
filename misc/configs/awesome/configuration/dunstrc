@@ -193,7 +193,7 @@
     min_icon_size = 0
 
     # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 64
+    max_icon_size = 25
 
     # Paths to default icons.
     icon_path = /usr/share/icons/candy-icons/apps/scalable/:/usr/share/icons/candy-icons/devices/scalable/:/usr/share/icons/candy-icons/mimetypes/scalable/:/usr/share/icons/candy-icons/places/48/:/usr/share/icons/candy-icons/preferences/scalable/:/usr/share/icons/candy-icons/preview/
@@ -210,7 +210,7 @@
     ### Misc/Advanced ###
 
     # dmenu path.
-    dmenu = /usr/bin/dmenu -p dunst:
+    dmenu = /usr/bin/rofi -dmenu dunst:
 
     # Browser for opening urls in context menu.
     browser = /usr/bin/brave
@@ -294,7 +294,7 @@
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#282a36"
     foreground = "#6272a4"
-    timeout = 10
+    timeout = 3
     # Icon for notifications with low urgency, uncomment to enable
     #new_icon = /path/to/icon
 
