@@ -13,7 +13,7 @@ return {
     lock = 'i3lock-fancy',
     quake = 'terminator',
     browser = 'brave',
-    editor = 'lvim',
+    editor = 'nvim',
     social = 'discord',
     game = rofi_command,
     files = 'nautilus',
