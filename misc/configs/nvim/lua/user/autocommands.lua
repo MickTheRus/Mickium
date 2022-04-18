@@ -1,10 +1,11 @@
 vim.cmd [[
   augroup _general_settings
     autocmd!
-    autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR> 
+    autocmd FileType qf,help,man,lspinfo,spectre_panel nnoremap <silent> <buffer> q :close<CR> 
     autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 200}) 
     autocmd BufWinEnter * :set formatoptions-=cro
     autocmd FileType qf set nobuflisted
+    autocmd CmdWinEnter * quit
   augroup end
 
   augroup _git
@@ -28,7 +29,23 @@ vim.cmd [[
     autocmd!
     autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
   augroup end
+
+  augroup illuminate_augroup
+    autocmd!
+    autocmd VimEnter * hi link illuminatedWord LspReferenceText
+  augroup END
+
+ " let ftToEnable = ['java']
+  augroup codelens
+    autocmd!
+    autocmd BufWritePost *.java lua vim.lsp.codelens.refresh() 
+  augroup END
+
+  autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 ]]
+
+-- autocmd BufLeave * if (!exists('b:caret')) | let b:caret = winsaveview() | endif
+-- autocmd BufEnter * if (exists('b:caret')) | call winrestview(b:caret) | endif
 
 -- Autoformat
 -- augroup _lsp
