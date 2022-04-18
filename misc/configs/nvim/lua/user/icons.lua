@@ -6,24 +6,21 @@ if vim.fn.has "mac" == 1 then
   -- elseif vim.fn.has "mac" == 1 then
   return {
     kind = {
-      Text = "",
-      Method = "m",
-      Function = "",
-      Constructor = "",
+      -- Text = "",
+      -- Method = "m",
+      -- Function = "",
+      -- Constructor = "",
       Field = "",
       Variable = "",
       Class = "",
       Interface = "",
-      -- Module = "",
       Module = "",
       Property = "",
       Unit = "",
       Value = "",
       Enum = "",
-      -- Keyword = "",
-      Keyword = "",
-      -- Snippet = "",
-      Snippet = "",
+      Keyword = "",
+      Snippet = "",
       Color = "",
       File = "",
       Reference = "",
@@ -34,6 +31,14 @@ if vim.fn.has "mac" == 1 then
       Event = "",
       Operator = "",
       TypeParameter = "",
+
+              Text = " ",
+              Method = " ",
+              Function = " ",
+              Constructor = " ",
+
+
+
     },
     type = {
       Array = "",
