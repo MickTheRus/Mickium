@@ -10,6 +10,8 @@ alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
 
+alias tracert="traceroute"
+
 alias pacman="paru"
 alias upgrade="paru -Syu"
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' 
