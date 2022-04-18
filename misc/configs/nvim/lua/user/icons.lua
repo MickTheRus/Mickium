@@ -102,7 +102,7 @@ if vim.fn.has "mac" == 1 then
     },
   }
 else
-  --   פּ ﯟ   蘒練 some other good icons
+
   return {
     kind = {
       Text = " ",
