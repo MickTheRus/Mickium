@@ -9,4 +9,5 @@ echo -ne "
 ██║░╚═╝░██║██║╚█████╔╝██║░╚██╗██║╚██████╔╝██║░╚═╝░██║
 ╚═╝░░░░░╚═╝╚═╝░╚════╝░╚═╝░░╚═╝╚═╝░╚═════╝░╚═╝░░░░░╚═╝"
 
-sh $SCRIPT_DIR/scripts/0-preinstall.sh
+/bin/sh $SCRIPT_DIR/scripts/0-preinstall.sh
+
