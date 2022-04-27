@@ -145,7 +145,7 @@ _G.packer_plugins = {
     url = "https://github.com/hrsh7th/cmp-path"
   },
   ["cmp-tabnine"] = {
-    config = { "\27LJ\2\nº\1\0\0\6\0\5\0\n6\0\0\0'\2\1\0B\0\2\2\18\3\0\0009\1\2\0005\4\3\0004\5\0\0=\5\4\4B\1\3\1K\0\1\0\23ignored_file_types\1\0\5\tsort\2\14max_lines\3è\a\20max_num_results\3\20\24snippet_placeholder\a..\27run_on_every_keystroke\2\nsetup\23cmp_tabnine.config\frequire\0" },
+    config = { "\27LJ\2\nº\1\0\0\6\0\5\0\n6\0\0\0'\2\1\0B\0\2\2\18\3\0\0009\1\2\0005\4\3\0004\5\0\0=\5\4\4B\1\3\1K\0\1\0\23ignored_file_types\1\0\5\27run_on_every_keystroke\2\tsort\2\14max_lines\3è\a\20max_num_results\3\20\24snippet_placeholder\a..\nsetup\23cmp_tabnine.config\frequire\0" },
     loaded = true,
     path = "/home/mick/.local/share/nvim/site/pack/packer/start/cmp-tabnine",
     url = "https://github.com/tzachar/cmp-tabnine"
@@ -257,11 +257,6 @@ _G.packer_plugins = {
     path = "/home/mick/.local/share/nvim/site/pack/packer/start/neovim",
     url = "https://github.com/rose-pine/neovim"
   },
-  ["neovim-session-manager"] = {
-    loaded = true,
-    path = "/home/mick/.local/share/nvim/site/pack/packer/start/neovim-session-manager",
-    url = "https://github.com/Shatur/neovim-session-manager"
-  },
   ["nlsp-settings.nvim"] = {
     loaded = true,
     path = "/home/mick/.local/share/nvim/site/pack/packer/start/nlsp-settings.nvim",
@@ -330,7 +325,7 @@ _G.packer_plugins = {
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/mick/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
-    url = "https://github.com/christianchiarulli/nvim-lspconfig"
+    url = "https://github.com/neovim/nvim-lspconfig"
   },
   ["nvim-notify"] = {
     loaded = true,
@@ -530,7 +525,7 @@ _G.packer_plugins = {
 time([[Defining packer_plugins]], false)
 -- Config for: cmp-tabnine
 time([[Config for cmp-tabnine]], true)
-try_loadstring("\27LJ\2\nº\1\0\0\6\0\5\0\n6\0\0\0'\2\1\0B\0\2\2\18\3\0\0009\1\2\0005\4\3\0004\5\0\0=\5\4\4B\1\3\1K\0\1\0\23ignored_file_types\1\0\5\tsort\2\14max_lines\3è\a\20max_num_results\3\20\24snippet_placeholder\a..\27run_on_every_keystroke\2\nsetup\23cmp_tabnine.config\frequire\0", "config", "cmp-tabnine")
+try_loadstring("\27LJ\2\nº\1\0\0\6\0\5\0\n6\0\0\0'\2\1\0B\0\2\2\18\3\0\0009\1\2\0005\4\3\0004\5\0\0=\5\4\4B\1\3\1K\0\1\0\23ignored_file_types\1\0\5\27run_on_every_keystroke\2\tsort\2\14max_lines\3è\a\20max_num_results\3\20\24snippet_placeholder\a..\nsetup\23cmp_tabnine.config\frequire\0", "config", "cmp-tabnine")
 time([[Config for cmp-tabnine]], false)
 
 -- Command lazy-loads
