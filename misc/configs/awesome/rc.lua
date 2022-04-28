@@ -3,7 +3,7 @@ local awful = require('awful')
 local wibox = require("wibox")
 require('awful.autofocus')
 local beautiful = require('beautiful')
-
+-- local beautiful = require('widget.menu')
 -- Theme
 beautiful.init(require('theme'))
 
@@ -19,6 +19,8 @@ require('module.decorate-client')
 -- Setup all configurations
 require('configuration.client')
 require('configuration.tags')
+
+
 _G.root.keys(require('configuration.keys.global'))
 
 -- {{{ Screen
