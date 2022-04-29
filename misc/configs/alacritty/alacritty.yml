@@ -115,7 +115,7 @@ font:
     style: normal
   bold:
     family: Iosevka Nerd Font
-    style: Medium
+    style: bold
 
   italic:
     family: Iosevka
@@ -124,7 +124,8 @@ font:
 
 
 
-  size: 6.9
+  size: 9.5
+
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
