@@ -40,7 +40,7 @@ packer.init {
 
 -- Install your plugins here
 return packer.startup(function(use)
-  -- My plugins here
+ -- My plugins here
   use "wbthomason/packer.nvim" -- Have packer manage itself
   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
@@ -85,7 +85,6 @@ return packer.startup(function(use)
     ft = "markdown",
   }
   use "matbme/JABS.nvim"
-
   -- Colorschemes
   use "Mofiqul/dracula.nvim"
   use "yashguptaz/calvera-dark.nvim"
@@ -144,6 +143,8 @@ return packer.startup(function(use)
   use "github/copilot.vim"
   use "RRethy/vim-illuminate"
 
+
+
   -- Java
   use "mfussenegger/nvim-jdtls"
 
@@ -162,6 +163,7 @@ return packer.startup(function(use)
   use "JoosepAlviste/nvim-ts-context-commentstring"
   use { "p00f/nvim-ts-rainbow" }
   -- use {'christianchiarulli/nvim-ts-rainbow'}
+  use "andweeb/presence.nvim"
   use "nvim-treesitter/playground"
   use "windwp/nvim-ts-autotag"
   use "romgrk/nvim-treesitter-context"

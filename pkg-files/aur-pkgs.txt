@@ -1,3 +1,4 @@
+picom-git
 brave-bin
 candy-icons-git
 datagrip
@@ -5,7 +6,7 @@ datagrip-jre
 dracula-grub-theme-git
 dracula-gtk-theme
 i3lock-fancy-git
-lightdm-webkit-theme-aether
+awesome-git
 qt5-styleplugins
 rider
 wmctrl

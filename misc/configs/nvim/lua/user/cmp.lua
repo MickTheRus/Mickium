@@ -17,7 +17,7 @@ end
 
 local icons = require("user.icons")
 
-local kind_icons = icons.kind
+local kind_icons = icons.kind 
 
 cmp.setup({
   snippet = {
@@ -87,15 +87,9 @@ cmp.setup({
         nvim_lua = "[Nvim]",
         luasnip = "[Snippet]",
         buffer = "[Buffer]",
+        tabnine = "[Tabnine]",
         path = "[Path]",
         emoji = "[Emoji]",
-
-  --      nvim_lsp = "",
-    --    nvim_lua = "",
-      --  luasnip = "",
-       -- buffer = "",
-       -- path = "",
-   V    -- emoji = "",
       })[entry.source.name]
       return vim_item
     end,
@@ -113,14 +107,35 @@ cmp.setup({
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
   },
-  -- documentation = true,
+
   window = {
-    completion = cmp.config.window.bordered(),
-    
     documentation = {
-      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+      scrollbar = '',
+      border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
+      winhighlight = 'Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None',
     },
+    completion = {
+      scrollbar = '',
+      border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
+      winhighlight = 'Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None',
+    }
   },
+
+
+
+
+
+
+
+
+  -- documentation = true,
+  -- window = {
+  --   completion = cmp.config.window.bordered(),
+  --
+  --   documentation = {
+  --     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  --   },
+  -- },
   -- documentation = {
   -- 	border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
   -- },

@@ -1,2 +1,2 @@
-export ZDOTDIR=$HOME/MickTitus/misc/configs/zsh
+export ZDOTDIR=~/Mickium/misc/configs/zsh
 source "$ZDOTDIR/.zshrc"

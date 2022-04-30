@@ -1,8 +1,10 @@
 #!/bin/sh
-alias ls='ls --color=auto'
-alias l='ls -lAh'
+
+alias ls='exa'
+alias l='ls -lah'
 alias g='lazygit'
 alias v="nvim"
+alias e="emacs -nw"
 
 alias grep='grep --color=auto'
 
@@ -10,10 +12,11 @@ alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
 
+
 alias tracert="traceroute"
 
-alias pacman="paru"
-alias upgrade="paru -Syu"
+alias pacman="yay"
+alias upgrade="yay -Syu"
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' 
 
 alias df='df -h'     # human-readable sizes

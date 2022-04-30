@@ -1,20 +1,15 @@
-# Xorg Display Stuff
 xorg
 xorg-server
 xorg-xinit
 xorg-xinput
 
-# Desktop
-awesome
 acpi
 xfce4-power-manager
-picom
 xclip
 lightdm
 feh
 flameshot 
 network-manager-applet
-xfce4-power-manager
 noto-fonts-emoji
 pamixer
 rofi  
@@ -23,28 +18,26 @@ pavucontrol
 lxappearance
 
 
-# Audio
 pipewire-pulse
 pipewire-alsa
 picard
 lollypop
 
-# Printers
 cups
 
-# Dev Stuff
 dotnet-sdk
 docker
 docker-compose
 git
 go
-mono
 neovim
 nodejs
 npm
 rust
 
+
 accountsservice
+alacritty
 base
 base-devel
 bind
@@ -64,7 +57,6 @@ gst-plugins-good
 gst-plugins-ugly
 haveged
 iptables-nft
-kitty
 libdvdcss
 libnewt
 linux-firmware
