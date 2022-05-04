@@ -44,26 +44,21 @@ _G.client.connect_signal(
   end
 )
 
--- Enable sloppy focus, so that focus follows mouse.
--- [[
-_G.client.connect_signal(
-  'mouse::enter',
-  function(c)
-    c:emit_signal('request::activate', 'mouse_enter', {raise = true})
-  end
-)
--- ]]
-
--- Make the focused window have a glowing border
-_G.client.connect_signal(
-  'focus',
-  function(c)
-    c.border_color = beautiful.border_focus
-  end
-)
-_G.client.connect_signal(
-  'unfocus',
-  function(c)
-    c.border_color = beautiful.border_normal
-  end
-)
+autorun = true
+autorunApps =
+{
+    'nm-applet --indicator', -- wifi
+    'pasystray', -- shows an audiocontrol applet in systray when installed.
+    'numlockx on', -- enable numlock
+    '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)', -- credential manager
+    'xfce4-power-manager', -- Power manager
+    'flameshot', 
+    '/usr/bin/variety',
+    '~/.config/awesome/configuration/utils/awspawn', -- Spawn "dirty" apps that can linger between sessions
+    'sh ~/.config/awesome/configuration/utils/set_wallpaper.sh',
+}
+if autorun then
+   for app = 1, #autorunApps do
+       awful.util.spawn(autorunApps[app])
+   end
+end
