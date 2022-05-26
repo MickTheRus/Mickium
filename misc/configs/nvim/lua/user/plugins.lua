@@ -40,14 +40,14 @@ packer.init {
 
 -- Install your plugins here
 return packer.startup(function(use)
- -- My plugins here
+  -- My plugins here
   use "wbthomason/packer.nvim" -- Have packer manage itself
   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
   use "numToStr/Comment.nvim"
   use "kyazdani42/nvim-web-devicons"
-  use {"kyazdani42/nvim-tree.lua"}
+  use { "kyazdani42/nvim-tree.lua" }
   use "tamago324/lir.nvim"
   use "akinsho/bufferline.nvim"
   use "moll/vim-bbye"
@@ -66,17 +66,21 @@ return packer.startup(function(use)
   use "monaqa/dial.nvim"
   use "norcalli/nvim-colorizer.lua"
   use "windwp/nvim-spectre"
+  use "folke/zen-mode.nvim"
   use "karb94/neoscroll.nvim"
   use "folke/todo-comments.nvim"
   use "kevinhwang91/nvim-bqf"
   use "ThePrimeagen/harpoon"
   use "MattesGroeger/vim-bookmarks"
+  -- use "lunarvim/vim-solidity"
   use "Mephistophiles/surround.nvim"
   use "tpope/vim-repeat"
+  -- use "Shatur/neovim-session-manager"
   use "rcarriga/nvim-notify"
   use "tversteeg/registers.nvim"
+  -- use "metakirby5/codi.vim"
   use { "nyngwang/NeoZoom.lua", branch = "neo-zoom-original" }
-  use "SmiteshP/nvim-gps"
+  use { "christianchiarulli/nvim-gps", branch = "text_hl" }
   use { "michaelb/sniprun", run = "bash ./install.sh" }
   use {
 
@@ -84,11 +88,25 @@ return packer.startup(function(use)
     run = "cd app && npm install",
     ft = "markdown",
   }
-  use "matbme/JABS.nvim"
+  use {
+    "christianchiarulli/JABS.nvim",
+    requires = { "kyazdani42/nvim-web-devicons" }, --optional
+  }
+
+  use {
+    "ghillb/cybu.nvim",
+    branch = "v1.x", -- won't receive breaking changes
+    -- branch = "main", -- timely updates
+    requires = { "kyazdani42/nvim-web-devicons" }, --optional
+  }
+
   -- Colorschemes
+  use "lunarvim/darkplus.nvim"
   use "Mofiqul/dracula.nvim"
-  use "yashguptaz/calvera-dark.nvim"
- 
+
+
+  -- cmp plugins
+  -- use "hrsh7th/nvim-cmp" -- The completion plugin
   use {
     "hrsh7th/nvim-cmp",
     -- commit = "dbc72290295cfc63075dab9ea635260d2b72f2e5",
@@ -144,8 +162,6 @@ return packer.startup(function(use)
   use "github/copilot.vim"
   use "RRethy/vim-illuminate"
 
-
-
   -- Java
   use "mfussenegger/nvim-jdtls"
 
@@ -164,7 +180,6 @@ return packer.startup(function(use)
   use "JoosepAlviste/nvim-ts-context-commentstring"
   use { "p00f/nvim-ts-rainbow" }
   -- use {'christianchiarulli/nvim-ts-rainbow'}
-  use "andweeb/presence.nvim"
   use "nvim-treesitter/playground"
   use "windwp/nvim-ts-autotag"
   use "romgrk/nvim-treesitter-context"

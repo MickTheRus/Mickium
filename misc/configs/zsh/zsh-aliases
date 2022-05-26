@@ -5,6 +5,8 @@ alias l='ls -lah'
 alias g='lazygit'
 alias v="nvim"
 alias e="emacs -nw"
+alias m="ncmpcpp"
+
 
 alias grep='grep --color=auto'
 

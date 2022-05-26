@@ -4,16 +4,24 @@ if not status_ok then
 end
 
 local servers = {
-  "yamlls",
-  "dockerls",
+  "cssls",
+  "cssmodules_ls",
+  "emmet_ls",
+  "html",
+  -- "jdtls",
   "jsonls",
+  "solc",
   "sumneko_lua",
+  "tflint",
+  "tsserver",
   "pyright",
+  "yamlls",
+  "bashls"
 }
 
 local settings = {
   ensure_installed = servers,
-  automatic_installation = true,
+  -- automatic_installation = false,
   ui = {
     icons = {
       -- server_installed = "◍",

@@ -69,15 +69,6 @@ local spaces = function()
   return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
-local nvim_gps = function()
-  local gps_location = gps.get_location()
-  if gps_location == "error" then
-    return ""
-  else
-    return gps.get_location()
-  end
-end
-
 lualine.setup {
   options = {
     globalstatus = true,
@@ -93,10 +84,10 @@ lualine.setup {
     -- lualine_a = { branch, diagnostics },
     lualine_a = { branch },
     lualine_b = { diagnostics },
-    -- lualine_c = { _gps },
-    lualine_c = {
-      { nvim_gps, cond = hide_in_width },
-    },
+    lualine_c = {},
+    -- lualine_c = {
+    --   { nvim_gps, cond = hide_in_width },
+    -- },
     -- lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_x = { diff, spaces, "encoding", filetype },
     lualine_y = { location },
@@ -113,4 +104,3 @@ lualine.setup {
   tabline = {},
   extensions = {},
 }
-
