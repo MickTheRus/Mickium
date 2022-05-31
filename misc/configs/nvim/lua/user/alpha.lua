@@ -26,7 +26,8 @@ dashboard.section.buttons.val = {
   dashboard.button("t", icons.ui.List .. " Find text", ":Telescope live_grep <CR>"),
   -- dashboard.button("s", icons.ui.SignIn .. " Find Session", ":Telescope sessions save_current=false <CR>"),
   dashboard.button("c", icons.ui.Gear .. " Config", ":e ~/.config/nvim/init.lua <CR>"),
-  dashboard.button("q", icons.diagnostics.Error .. " Quit", ":qa<CR>"),
+  dashboard.button("u", icons.ui.CloudDownload .. " Update", ":PackerSync<CR>"),
+  dashboard.button("q", icons.ui.SignOut .. " Quit", ":qa<CR>"),
 }
 local function footer()
   -- NOTE: requires the fortune-mod package to work
@@ -34,7 +35,7 @@ local function footer()
   -- local fortune = handle:read("*a")
   -- handle:close()
   -- return fortune
-  return "chrisatmachine.com"
+  return "Retards@Home"
 end
 
 dashboard.section.footer.val = footer()
