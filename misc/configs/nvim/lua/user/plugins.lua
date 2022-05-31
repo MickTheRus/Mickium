@@ -101,9 +101,11 @@ return packer.startup(function(use)
   }
 
   -- Colorschemes
+  use "folke/tokyonight.nvim"
+  use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
   use "lunarvim/darkplus.nvim"
-  use "Mofiqul/dracula.nvim"
-
+  use "rose-pine/neovim"
+  -- use "rebelot/kanagawa.nvim"
 
   -- cmp plugins
   -- use "hrsh7th/nvim-cmp" -- The completion plugin

@@ -7,6 +7,15 @@
 --   end,
 -- })
 
+vim.api.nvim_create_autocmd({ "User" }, {
+  pattern = { "AlphaReady" },
+  callback = function()
+    vim.cmd [[
+      set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
+    ]]
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir" },
   callback = function()
@@ -54,11 +63,11 @@ vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
   end,
 })
 
---vim.api.nvim_create_autocmd({ "CursorMoved", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" }, {
---  callback = function()
---    require("user.winbar").get_winbar()
---  end,
---})
+vim.api.nvim_create_autocmd({ "CursorMoved", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" }, {
+  callback = function()
+    require("user.winbar").get_winbar()
+  end,
+})
 
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   callback = function()
