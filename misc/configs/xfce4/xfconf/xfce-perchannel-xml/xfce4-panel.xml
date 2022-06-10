@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-panel" version="1.0">
+  <property name="configver" type="int" value="2"/>
+  <property name="panels" type="array">
+    <value type="int" value="1"/>
+    <property name="dark-mode" type="bool" value="true"/>
+    <property name="panel-1" type="empty">
+      <property name="position" type="string" value="p=6;x=2880;y=13"/>
+      <property name="length" type="uint" value="100"/>
+      <property name="position-locked" type="bool" value="true"/>
+      <property name="icon-size" type="uint" value="0"/>
+      <property name="size" type="uint" value="24"/>
+      <property name="plugin-ids" type="array">
+        <value type="int" value="1"/>
+        <value type="int" value="2"/>
+        <value type="int" value="3"/>
+        <value type="int" value="6"/>
+        <value type="int" value="8"/>
+        <value type="int" value="12"/>
+        <value type="int" value="5"/>
+      </property>
+      <property name="span-monitors" type="bool" value="true"/>
+      <property name="output-name" type="string" value="Primary"/>
+    </property>
+  </property>
+  <property name="plugins" type="empty">
+    <property name="plugin-2" type="string" value="tasklist">
+      <property name="grouping" type="uint" value="1"/>
+      <property name="show-handle" type="bool" value="false"/>
+      <property name="middle-click" type="uint" value="1"/>
+      <property name="show-labels" type="bool" value="true"/>
+      <property name="flat-buttons" type="bool" value="false"/>
+      <property name="switch-workspace-on-unminimize" type="bool" value="false"/>
+    </property>
+    <property name="plugin-3" type="string" value="separator">
+      <property name="expand" type="bool" value="true"/>
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-6" type="string" value="systray">
+      <property name="square-icons" type="bool" value="true"/>
+      <property name="known-legacy-items" type="array">
+        <value type="string" value="thunar"/>
+        <value type="string" value="javaembeddedframe"/>
+        <value type="string" value="xfmpc"/>
+        <value type="string" value="networkmanager applet"/>
+        <value type="string" value="seapplet"/>
+        <value type="string" value="steam"/>
+        <value type="string" value="xfce4-power-manager"/>
+        <value type="string" value="ethernet network connection “enp3s0” active"/>
+      </property>
+      <property name="known-items" type="array">
+        <value type="string" value="flameshot"/>
+        <value type="string" value="cadmus"/>
+        <value type="string" value="jetbrains-toolbox"/>
+        <value type="string" value="steam"/>
+        <value type="string" value="discord1"/>
+        <value type="string" value="dnfdragora-updater"/>
+      </property>
+    </property>
+    <property name="plugin-8" type="string" value="pulseaudio">
+      <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
+      <property name="show-notifications" type="bool" value="true"/>
+      <property name="mpris-players" type="string" value="cantata;chromium.instance10706;chromium.instance11449;chromium.instance11759;chromium.instance13248;chromium.instance14503;chromium.instance1845;chromium.instance1884;chromium.instance1889;chromium.instance19311;chromium.instance1959;chromium.instance1960;chromium.instance1979;chromium.instance1980;chromium.instance1999;chromium.instance2032;chromium.instance2042;chromium.instance2062;chromium.instance2067;chromium.instance2087;chromium.instance2101;chromium.instance2108;chromium.instance21241;chromium.instance2141;chromium.instance2180;chromium.instance2190;chromium.instance2195;chromium.instance2196;chromium.instance2493;chromium.instance2543;chromium.instance2568;chromium.instance2619;chromium.instance2810;chromium.instance2898;chromium.instance2910;chromium.instance2977;chromium.instance2989;chromium.instance3412;chromium.instance3909;chromium.instance4283;chromium.instance5692;chromium.instance62007;chromium.instance6368;chromium.instance7074;chromium.instance8246;chromium.instance9973;firefox.instance10058;firefox.instance15508;firefox.instance1558;firefox.instance1560;firefox.instance1564;firefox.instance17578;firefox.instance19017;firefox.instance19805;firefox.instance20903;firefox.instance21677;firefox.instance2299;firefox.instance2420;firefox.instance26377;firefox.instance28176;firefox.instance3053;firefox.instance47153;firefox.instance52552;firefox.instance59287;firefox.instance60594;firefox.instance66668"/>
+    </property>
+    <property name="plugin-12" type="string" value="clock"/>
+    <property name="plugin-1" type="string" value="applicationsmenu">
+      <property name="button-title" type="string" value=""/>
+    </property>
+    <property name="plugin-5" type="string" value="xfce4-mpc-plugin"/>
+  </property>
+</channel>

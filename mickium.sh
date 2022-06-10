@@ -8,5 +8,8 @@ sudo dnf copr enable agriffis/neovim-nightly
 
 sudo dnf group update core
 
-ln -sf $SCRIPT_DIR/misc/configs/{kitty,nvim} ~/.config/
+ln -sf $SCRIPT_DIR/misc/configs/* ~/.config/
+
+# [net]
+#git-fetch-with-cli = true
 
