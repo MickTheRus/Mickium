@@ -42,12 +42,11 @@ packer.init {
 return packer.startup(function(use)
   -- My plugins here
   use "wbthomason/packer.nvim" -- Have packer manage itself
-  use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
   use "numToStr/Comment.nvim"
   use "kyazdani42/nvim-web-devicons"
-  use { "kyazdani42/nvim-tree.lua" }
+  use "kyazdani42/nvim-tree.lua"
   use "tamago324/lir.nvim"
   use "akinsho/bufferline.nvim"
   use "moll/vim-bbye"
@@ -57,10 +56,9 @@ return packer.startup(function(use)
   use "lewis6991/impatient.nvim"
   use "lukas-reineke/indent-blankline.nvim"
   use "goolord/alpha-nvim"
-  use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
   use "folke/which-key.nvim"
-  use "unblevable/quick-scope"
-  use "phaazon/hop.nvim"
+  -- use "unblevable/quick-scope"
+  use "christianchiarulli/hop.nvim"
   use "andymass/vim-matchup"
   use "nacro90/numb.nvim"
   use "monaqa/dial.nvim"
@@ -74,7 +72,7 @@ return packer.startup(function(use)
   use "MattesGroeger/vim-bookmarks"
   -- use "lunarvim/vim-solidity"
   use "Mephistophiles/surround.nvim"
-  use "tpope/vim-repeat"
+  -- use "tpope/vim-repeat"
   -- use "Shatur/neovim-session-manager"
   use "rcarriga/nvim-notify"
   use "tversteeg/registers.nvim"
@@ -88,23 +86,18 @@ return packer.startup(function(use)
     run = "cd app && npm install",
     ft = "markdown",
   }
-  use {
-    "christianchiarulli/JABS.nvim",
-    requires = { "kyazdani42/nvim-web-devicons" }, --optional
-  }
-
-  use {
-    "ghillb/cybu.nvim",
-    branch = "v1.x", -- won't receive breaking changes
-    -- branch = "main", -- timely updates
-    requires = { "kyazdani42/nvim-web-devicons" }, --optional
-  }
+  -- use {
+  --   "christianchiarulli/JABS.nvim",
+  --   requires = { "kyazdani42/nvim-web-devicons" }, --optional
+  -- }
+  use "lambdalisue/suda.vim"
+  use "ghillb/cybu.nvim"
 
   -- Colorschemes
+  use "Mofiqul/dracula.nvim"
   use "folke/tokyonight.nvim"
   use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
   use "lunarvim/darkplus.nvim"
-  use "rose-pine/neovim"
   -- use "rebelot/kanagawa.nvim"
 
   -- cmp plugins
@@ -120,7 +113,7 @@ return packer.startup(function(use)
   use "hrsh7th/cmp-nvim-lsp"
   use "hrsh7th/cmp-emoji"
   use "hrsh7th/cmp-nvim-lua"
-  use "rcarriga/cmp-dap"
+  -- use "rcarriga/cmp-dap"
   use {
     "tzachar/cmp-tabnine",
     config = function()
@@ -153,7 +146,7 @@ return packer.startup(function(use)
   use "williamboman/nvim-lsp-installer" -- simple to use language server installer
   use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
   use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
-  use "filipdutescu/renamer.nvim"
+  -- use "filipdutescu/renamer.nvim"
   use "simrat39/symbols-outline.nvim"
   use "ray-x/lsp_signature.nvim"
   use "b0o/SchemaStore.nvim"
@@ -161,7 +154,20 @@ return packer.startup(function(use)
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   }
-  use "github/copilot.vim"
+  -- use "github/copilot.vim"
+  use {
+    "zbirenbaum/copilot.lua",
+    event = { "VimEnter" },
+    config = function()
+      vim.defer_fn(function()
+        require("user.copilot")
+      end, 100)
+    end,
+  }
+  use {
+    "zbirenbaum/copilot-cmp",
+    module = "copilot_cmp",
+  }
   use "RRethy/vim-illuminate"
 
   -- Java
@@ -171,21 +177,21 @@ return packer.startup(function(use)
   use "nvim-telescope/telescope.nvim"
   use "tom-anders/telescope-vim-bookmarks.nvim"
   use "nvim-telescope/telescope-media-files.nvim"
-  use "nvim-telescope/telescope-ui-select.nvim"
-  use "nvim-telescope/telescope-file-browser.nvim"
+  -- use "nvim-telescope/telescope-ui-select.nvim"
+  -- use "nvim-telescope/telescope-file-browser.nvim"
 
   -- Treesitter
   use {
     "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
+    -- run = ":TSUpdate",
   }
   use "JoosepAlviste/nvim-ts-context-commentstring"
   use { "p00f/nvim-ts-rainbow" }
   -- use {'christianchiarulli/nvim-ts-rainbow'}
   use "nvim-treesitter/playground"
   use "windwp/nvim-ts-autotag"
-  use "romgrk/nvim-treesitter-context"
-  use "mizlan/iswap.nvim"
+  -- use "romgrk/nvim-treesitter-context"
+  -- use "mizlan/iswap.nvim"
 
   -- Git
   use "lewis6991/gitsigns.nvim"
@@ -197,7 +203,7 @@ return packer.startup(function(use)
 
   -- DAP
   use "mfussenegger/nvim-dap"
-  use "theHamsta/nvim-dap-virtual-text"
+  -- use "theHamsta/nvim-dap-virtual-text"
   use "rcarriga/nvim-dap-ui"
   use "Pocco81/DAPInstall.nvim"
 

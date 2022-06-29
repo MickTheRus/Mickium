@@ -7,7 +7,6 @@ alias v="nvim"
 alias e="emacs -nw"
 alias m="ncmpcpp"
 
-
 alias grep='grep --color=auto'
 
 alias cp="cp -i"
@@ -17,9 +16,6 @@ alias rm='rm -i'
 
 alias tracert="traceroute"
 
-alias pacman="yay"
-alias upgrade="yay -Syu"
-alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' 
 
 alias df='df -h'     # human-readable sizes
 alias free='free -m' # show sizes in MB

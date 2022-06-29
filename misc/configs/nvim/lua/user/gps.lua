@@ -41,7 +41,8 @@ gps.setup {
     ["date-time-name"] = "%#CmpItemKindValue#" .. icons.ui.Table .. "%*" .. space,
     ["inline-table-name"] = "%#CmpItemKindProperty#" .. icons.ui.Calendar .. "%*" .. space,
     ["time-name"] = "%#CmpItemKindValue#" .. icons.misc.Watch .. "%*" .. space,
-    ["module-name"] = "%#CmpItemKindModule#" .. icons.kind.Module .. "%*" .. space, },
+    ["module-name"] = "%#CmpItemKindModule#" .. icons.kind.Module .. "%*" .. space,
+  },
 
   -- Add custom configuration per language or
   -- Disable the plugin for a language
