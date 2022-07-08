@@ -34,6 +34,10 @@ super + shift + {1-5}
     id=$(bspc query -N -n); bspc node -d ^{1-5}; bspc node -f ${id}
 
 # Take screenshot
+
+super + ctrl + a
+  xdotool type " $(date +'%D - %H:%M') $(sleep 0.5) - Team# 0000" && flameshot gui 
+
 Print
   flameshot gui
 

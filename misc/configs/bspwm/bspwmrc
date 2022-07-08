@@ -3,6 +3,9 @@
 pgrep -x polybar > /dev/null || polybar &
 pgrep -x sxhkd > /dev/null || sxhkd -c ~/.config/bspwm/sxhkdrc &
 pgrep -x picom > /dev/null || picom --config ~/.config/bspwm/picom.conf &
+pgrep -x lxsession > /dev/null || lxsession &
+
+
 feh --no-fehbg --bg-scale ~/.config/bspwm/wallpaper.jpg
 
 

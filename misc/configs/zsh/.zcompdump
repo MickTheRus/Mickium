@@ -1,4 +1,4 @@
-#files: 978	version: 5.8.1
+#files: 979	version: 5.8.1
 
 _comps=(
 '-' '_precommand'
@@ -2042,7 +2042,7 @@ autoload -Uz _zscroll _alacritty _bluetoothctl _bootctl _bspc \
             _zip _zle _zlogin _zmodload _zmv \
             _zoneadm _zones _zparseopts _zpool _zpty \
             _zsh _zsh-mime-handler _zsocket _zstyle _ztodo \
-            _zypper _fnm
+            _zypper _fnm _fnm
 autoload -Uz +X _call_program
 
 typeset -gUa _comp_assocs
