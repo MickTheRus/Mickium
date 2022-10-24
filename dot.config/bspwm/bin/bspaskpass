@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+DIR="$HOME/.config/bspwm"
+
+## rofi text dialog to get password
+rofi -dmenu \
+	-password \
+	-i \
+	-no-fixed-num-lines \
+	-p "User Password: " \
+	-theme "$DIR"/rofi/themes/askpass.rasi

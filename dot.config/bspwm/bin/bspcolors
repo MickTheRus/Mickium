@@ -1,0 +1,179 @@
+#!/usr/bin/env bash
+
+## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
+## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
+
+## A script to get colours from the theme file & deploy it to polybar, alacritty, rofi & dunst.
+
+DIR="$HOME/.config/bspwm"
+
+## Current theme ---------------------------------------------#
+source "$DIR"/themes/current.bash
+
+## Get colors
+getcolors() {
+	FOREGROUND="$foreground"
+	BACKGROUND="$background"
+	CURSOR="$cursor"
+	BLACK="$color0"
+	RED="$color1"
+	GREEN="$color2"
+	YELLOW="$color3"
+	BLUE="$color4"
+	MAGENTA="$color5"
+	CYAN="$color6"
+	WHITE="$color7"
+	ALTBLACK="$color8"
+	ALTRED="$color9"
+	ALTGREEN="$color10"
+	ALTYELLOW="$color11"
+	ALTBLUE="$color12"
+	ALTMAGENTA="$color13"
+	ALTCYAN="$color14"
+	ALTWHITE="$color15"
+}
+
+## Write polybar colors file with current theme colors
+bspbar() {
+	cat >"$DIR"/polybar/colors <<-EOF
+		[color]
+
+		FOREGROUND = ${FOREGROUND}
+		BACKGROUND = ${BACKGROUND}
+		BLACK = ${BLACK}
+		RED = ${RED}
+		GREEN = ${GREEN}
+		YELLOW = ${YELLOW}
+		BLUE = ${BLUE}
+		MAGENTA = ${MAGENTA}
+		CYAN = ${CYAN}
+		WHITE = ${WHITE}
+		ALTBLACK = ${ALTBLACK}
+		ALTRED = ${ALTRED}
+		ALTGREEN = ${ALTGREEN}
+		ALTYELLOW = ${ALTYELLOW}
+		ALTBLUE = ${ALTBLUE}
+		ALTMAGENTA = ${ALTMAGENTA}
+		ALTCYAN = ${ALTCYAN}
+		ALTWHITE = ${ALTWHITE}
+	EOF
+}
+
+## Write alacritty colors.yml file with current theme colors
+bspterm() {
+	cat >"$HOME/.config/wezterm/current.lua" <<-_EOF_
+		return {
+		foreground = "$FOREGROUND",
+		background = "$BACKGROUND",
+		cursor_bg = "$CURSOR",
+		cursor_fg = "$BACKGROUND",
+		cursor_border = " #f8f8f2",
+		selection_fg = "none",
+		selection_bg = "$BLACK",
+		scrollbar_thumb = "$BLACK",
+		split = "#6272a4",
+
+		ansi = {
+		"$BLACK",
+		"$RED",
+		"$GREEN",
+		"$YELLOW",
+		"$BLUE",
+		"$MAGENTA",
+		"$CYAN",
+		"$WHITE",
+		},
+		brights = {
+		"$ALTBLACK",
+		"$ALTRED",
+		"$ALTGREEN",
+		"$ALTYELLOW",
+		"$ALTBLUE",
+		"$ALTMAGENTA",
+		"$ALTCYAN",
+		"$ALTWHITE",
+		},
+
+		tab_bar = {
+		background = "$BACKGROUND",
+		active_tab = {
+			bg_color = "$MAGENTA",
+			fg_color = "$BACKGROUND",
+			intensity = "Normal",
+			underline = "None",
+			italic = false,
+			strikethrough = false,
+		},
+
+		nactive_tab = {
+			bg_color = "$BACKGROUND",
+			fg_color = "$FOREGROUND",
+		},
+		inactive_tab_hover = {
+			bg_color = "#6272a4",
+			fg_color = "$FOREGROUND",
+			italic = true,
+		},
+		new_tab = {
+			bg_color = "$BACKGROUND",
+			fg_color = "$FOREGROUND",
+		},
+		new_tab_hover = {
+			bg_color = "$MAGENTA",
+			fg_color = "$FOREGROUND",
+			italic = true,
+		$()  },
+		},
+		}      
+	_EOF_
+}
+
+## Write rofi colors.rasi file with current theme colors
+bsprofi() {
+	cat >"$DIR"/rofi/themes/colors.rasi <<-EOF
+		* {
+		    background:   ${BACKGROUND};
+		    foreground:   ${FOREGROUND};
+		    selected:     ${BLUE};
+		    highlight:    ${YELLOW};
+		    urgent:        ${RED};
+		    on:             ${GREEN};
+		    off:           ${RED};
+		}
+	EOF
+}
+
+## Write dunstrc file with current theme colors
+bspdunst() {
+	sed -i '/urgency_low/Q' "$DIR"/dunstrc
+	cat >>"$DIR"/dunstrc <<-_EOF_
+		[urgency_low]
+		timeout = 2
+		background = "${BACKGROUND}"
+		foreground = "${FOREGROUND}"
+		frame_color = "${BLUE}"
+
+		[urgency_normal]
+		timeout = 5
+		background = "${BACKGROUND}"
+		foreground = "${FOREGROUND}"
+		frame_color = "${BLUE}"
+
+		[urgency_critical]
+		timeout = 0
+		background = "${BACKGROUND}"
+		foreground = "${FOREGROUND}"
+		frame_color = "${RED}"
+	_EOF_
+}
+
+## Execute functions and run main
+main() {
+	getcolors
+	bspbar
+	bspterm
+	bsprofi
+	bspdunst
+}
+
+main
