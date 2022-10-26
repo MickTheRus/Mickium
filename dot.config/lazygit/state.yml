@@ -2,5 +2,6 @@ lastupdatecheck: 0
 recentrepos:
 - /home/mick/Mickium
 startuppopupversion: 5
-customcommandshistory: []
+customcommandshistory:
+- q
 hidecommandlog: false
