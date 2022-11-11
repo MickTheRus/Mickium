@@ -31,7 +31,4 @@ vim.cmd([[
     autocmd BufReadPost *.ejs.t set ft=embedded_template
   augroup end
 
-  augroup _chezmoi
-    autocmd BufWritePost ~/.local/share/chezmoi/* silent exec "!(chezmoi apply --source-path '%'&) > /dev/null"
-  augroup end
 ]])
