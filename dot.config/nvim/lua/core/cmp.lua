@@ -1,6 +1,6 @@
 local cmp = require("cmp")
 local ls = require("luasnip")
-local i = require("config.icons")
+local i = require("icons")
 
 require("luasnip.loaders.from_vscode").lazy_load()
 

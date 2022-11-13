@@ -92,7 +92,7 @@ export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 
 function wget
-wget --hsts-file="$XDG_DATA_HOME/wget-hsts" &argv
+  wget --hsts-file="$XDG_DATA_HOME/wget-hsts" &argv
 end
 
 

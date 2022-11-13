@@ -1,5 +1,5 @@
 local M = {}
-local i = require("config.icons")
+local i = require("icons")
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -45,8 +45,8 @@ end
 
 M.on_attach = function(client, bufnr)
 	require("illuminate").on_attach(client)
-	require("aerial").on_attach(client, bufnr)
-	--[[ require("lsp-inlayhints").on_attach(client, bufnr, false) ]]
+	--[[ require("aerial").on_attach(client, bufnr) ]]
+	require("lsp-inlayhints").on_attach(client, bufnr, false)
 
 	if client.name == "tsserver" then
 		require("which-key").register({

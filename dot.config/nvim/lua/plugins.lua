@@ -15,6 +15,13 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	vim.cmd([[packadd packer.nvim]])
 end
 
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
+]])
+
 -- Use a protected call so we don't error out on first use
 local packer_ok = pcall(require, "packer")
 if not packer_ok then
@@ -43,7 +50,6 @@ return packer.startup(function(use)
 	use("nvim-lua/plenary.nvim")
 	use("MunifTanjim/nui.nvim")
 	use("machakann/vim-sandwich")
-	use("wakatime/vim-wakatime")
 	use("tpope/vim-abolish")
 	use("voldikss/vim-floaterm")
 	use("phaazon/hop.nvim")
@@ -54,8 +60,6 @@ return packer.startup(function(use)
 
 	use("kyazdani42/nvim-tree.lua")
 
-	use("alker0/chezmoi.vim")
-	use("Lilja/vim-chezmoi")
 	use("moll/vim-bbye")
 	use("nvim-lualine/lualine.nvim")
 	use("akinsho/toggleterm.nvim")
@@ -75,19 +79,12 @@ return packer.startup(function(use)
 
 	use("gen740/SmoothCursor.nvim")
 
-	use("ja-ford/delaytrain.nvim")
-
 	use({
 		"ggandor/flit.nvim",
 		requires = {
 			"ggandor/leap.nvim",
 		},
 	})
-
-	-- Colorschemes
-	use({ "catppuccin/nvim", as = "catppuccin" })
-	use("jascha030/nitepal.nvim")
-	use("MickTheRus/Dracula.nvim")
 
 	-- snippets
 	use({ "L3MON4D3/LuaSnip", as = "lua-snip" })
@@ -99,7 +96,7 @@ return packer.startup(function(use)
 		after = { "nvim-lspconfig" },
 		event = { "VimEnter" },
 		config = function()
-			require("config.copilot_rc")
+			require("core.copilot")
 		end,
 	})
 
@@ -113,6 +110,7 @@ return packer.startup(function(use)
 			"hrsh7th/cmp-cmdline",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
+			"LhKipp/nvim-nu",
 		},
 	})
 	use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "nvim_cmp" })
@@ -133,6 +131,7 @@ return packer.startup(function(use)
 	use("b0o/schemastore.nvim")
 	use("jose-elias-alvarez/typescript.nvim")
 	use("mfussenegger/nvim-jdtls")
+	use("lvimuser/lsp-inlayhints.nvim")
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")

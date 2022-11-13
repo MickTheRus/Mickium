@@ -19,8 +19,8 @@ mason.setup(settings)
 mason_lspconfig.setup()
 
 local opts = {
-  on_attach = require("config.lsp.handlers").on_attach,
-  capabilities = require("config.lsp.handlers").capabilities,
+  on_attach = require("core.lsp.handlers").on_attach,
+  capabilities = require("core.lsp.handlers").capabilities,
 }
 
 mason_lspconfig.setup_handlers({
@@ -29,7 +29,7 @@ mason_lspconfig.setup_handlers({
   end,
 
   ["sumneko_lua"] = function()
-    lspconfig.sumneko_lua.setup(vim.tbl_deep_extend("force", require("config.lsp.settings.sumneko_lua"), opts) or {})
+    lspconfig.sumneko_lua.setup(vim.tbl_deep_extend("force", require("core.lsp.settings.sumneko_lua"), opts) or {})
     require("neodev").setup({
       override = function(root_dir, library)
         print(root_dir)
@@ -42,15 +42,15 @@ mason_lspconfig.setup_handlers({
   end,
 
   ["jsonls"] = function()
-    lspconfig.jsonls.setup(vim.tbl_deep_extend("force", require("config.lsp.settings.jsonls"), opts) or {})
+    lspconfig.jsonls.setup(vim.tbl_deep_extend("force", require("core.lsp.settings.jsonls"), opts) or {})
   end,
 
   ["yamlls"] = function()
-    lspconfig.yamlls.setup(vim.tbl_deep_extend("force", require("config.lsp.settings.yamlls"), opts) or {})
+    lspconfig.yamlls.setup(vim.tbl_deep_extend("force", require("core.lsp.settings.yamlls"), opts) or {})
   end,
 
   ["denols"] = function()
-    lspconfig.denols.setup(vim.tbl_deep_extend("force", require("config.lsp.settings.denols"), opts) or {})
+    lspconfig.denols.setup(vim.tbl_deep_extend("force", require("core.lsp.settings.denols"), opts) or {})
   end,
 
   ["tsserver"] = function()

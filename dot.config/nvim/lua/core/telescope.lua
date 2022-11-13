@@ -5,12 +5,12 @@ local windowpicker = require("window-picker")
 local utils = require("utils")
 local builtin = require("telescope.builtin")
 
-local i = require("config.icons")
+local i = require("icons")
 
 telescope.setup({
 	defaults = {
 		history = {
-			path = vim.fn.stdpath("data") .. "/databases/telescope_history.sqlite3",
+			path = vim.fn.stdpath("data") .. "/telescope_history.sqlite3",
 			limit = 100,
 		},
 		prompt_prefix = i.Telescope,

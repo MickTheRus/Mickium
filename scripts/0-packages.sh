@@ -10,8 +10,8 @@ elif grep -E "Leap" <<<${release_type}; then
 	zypper addrepo --refresh "https://download.nvidia.com/opensuse/leap/$releasever" NVIDIA
 fi
 
-echo -ne "[Adding User]"
-if grep -E "NVIDIA|GeForce" <<<${gpu_type}; then
+echo -ne "[Adding User Repos]"
+if grep -E "NVIDIA|GeForce" <<< ${gpu_type}; then
 	select opt in G04 G05 G06; do
 
 		case $opt in

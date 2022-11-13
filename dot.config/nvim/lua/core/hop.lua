@@ -1,5 +1,5 @@
 local hop = require("hop")
-local icons = require("config.icons")
+local icons = require("icons")
 local utils = require("utils")
 
 hop.setup()

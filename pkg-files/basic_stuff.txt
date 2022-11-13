@@ -12,6 +12,8 @@ xauth
 
 
 alacritty
+ripgrep 
+bat
 bspwm
 fish
 shfmt

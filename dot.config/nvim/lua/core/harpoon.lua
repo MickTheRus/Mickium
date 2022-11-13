@@ -1,7 +1,7 @@
 local wk = require("which-key")
 local ui = require("harpoon.ui")
 local mark = require("harpoon.mark")
-local icons = require("config.icons")
+local icons = require("icons")
 
 require("harpoon").setup()
 

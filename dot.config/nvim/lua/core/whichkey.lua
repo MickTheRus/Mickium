@@ -1,6 +1,6 @@
 local wk = require("which-key")
 
-local i = require("config.icons")
+local i = require("icons")
 
 local setup = {
 	plugins = {

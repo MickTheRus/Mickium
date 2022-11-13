@@ -1,4 +1,4 @@
-local icons = require("config.icons")
+local icons = require("icons")
 
 require("smoothcursor").setup({
   cursor = icons.ChevronRight,

@@ -1,10 +1,3 @@
-# -----------------------------------------------------------------------------
-# Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
-# Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
-#
-# Beach color scheme
-# -----------------------------------------------------------------------------
-
 # Wallpaper
 wallpaper='/usr/share/backgrounds/beach.jpg'
 

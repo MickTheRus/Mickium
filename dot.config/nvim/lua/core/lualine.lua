@@ -1,4 +1,4 @@
-local i = require("config.icons")
+local i = require("icons")
 local git_blame = require("gitblame")
 
 local hide_in_width = function()

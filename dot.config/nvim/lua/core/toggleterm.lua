@@ -1,4 +1,4 @@
-local icons = require("config.icons")
+local icons = require("icons")
 local toggleterm = require("toggleterm")
 
 toggleterm.setup({

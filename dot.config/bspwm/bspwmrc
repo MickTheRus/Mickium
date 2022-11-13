@@ -139,6 +139,7 @@ bspc rule -a NetworkManager-connection-editor state=floating manage=off
 # Kill if already running
 killall -9 mpd nm-applet sxhkd dunst ksuperkey lxsession
 
+
 # Enabe polkit agent
 lxsession &
 

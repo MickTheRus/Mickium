@@ -1,5 +1,5 @@
 local cybu = require("cybu")
-local i = require("config.icons")
+local i = require("icons")
 
 cybu.setup({
   position = {
