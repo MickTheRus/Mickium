@@ -11,13 +11,13 @@ end
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
+--[[ https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#formatting ]]
 local formatting = null_ls.builtins.formatting
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+--[[ https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#diagnostics ]]
 local linters = null_ls.builtins.diagnostics
--- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#code-actions
+--[[ https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#code-actions ]]
 local code_actions = null_ls.builtins.code_actions
--- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#hover
+--[[ https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#hover ]]
 local hover = null_ls.builtins.hover
 
 null_ls.setup({
@@ -26,8 +26,10 @@ null_ls.setup({
 		formatting.prettier,
 		formatting.stylelint,
 		formatting.stylua,
+		formatting.beautysh,
 		hover.dictionary,
 		hover.printenv,
+		code_actions.shellcheck,
 		linters.luacheck,
 	},
 	on_attach = function(client, bufnr)

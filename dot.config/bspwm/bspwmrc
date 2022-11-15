@@ -9,7 +9,7 @@ export PATH="${PATH}:$HOME/.config/bspwm/bin"
 
 ## Run java applications without issues
 export _JAVA_AWT_WM_NONREPARENTING=1
-#wmname LG3D
+# wmname Weiners
 
 ## Current theme ---------------------------------------------#
 
@@ -48,14 +48,22 @@ CURRENT_SRATIO='0.50'
 ## Configurations --------------------------------------------#
 
 ## Manager Workspaces
+
 workspaces() {
-	name=1
-	for monitor in $(bspc query -M); do
-		bspc monitor ${monitor} -n "$name" -d 'I' 'II' 'III' 'IV' 'V' 'VI' 'VII' 'VIII'
-		let name++
-	done
+  name=69
+  mainMonitor="$(xrandr -q | grep "primary" | awk '{print $1}')"
+  bspc monitor $mainMonitor -n "$name" -d 'I' 'II' 'III' 'IV' 'V' 'VI' 'VII' 'VIII'
 }
+
+# workspaces() {
+# 	name=2
+# 	for monitor in $(xrandr -q | grep "primary" | awk '{print $1}'); do
+# 		bspc monitor ${monitor} -n "$name" -d 'I' 'II' 'III' 'IV' 'V' 'VI' 'VII' 'VIII'
+# 		let name++
+# 	done
+# }
 workspaces
+
 
 ## Apply bspwm configurations
 bspc config border_width "$CURRENT_BORDER"

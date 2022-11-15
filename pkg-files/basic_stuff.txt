@@ -10,8 +10,7 @@ xdg-desktop-portal
 xdg-desktop-portal-gtk
 xauth
 
-
-alacritty
+wezterm
 ripgrep 
 bat
 bspwm
