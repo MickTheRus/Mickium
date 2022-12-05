@@ -17,6 +17,9 @@ super + r
 super + n
 	nmd
 
+alt + tab
+  setxkbmap {ru,en}
+
 # Rofi Themes Menu
 ctrl + alt + t
 	sh ~/.config/bspwm/rofi/bin/themes

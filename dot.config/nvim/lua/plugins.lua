@@ -100,6 +100,10 @@ return packer.startup(function(use)
 		end,
 	})
 
+	-- Dap Plugins
+	use("mfussenegger/nvim-dap")
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+
 	-- cmp plugins
 	use({
 		"hrsh7th/nvim-cmp",
@@ -132,6 +136,7 @@ return packer.startup(function(use)
 	use("jose-elias-alvarez/typescript.nvim")
 	use("mfussenegger/nvim-jdtls")
 	use("lvimuser/lsp-inlayhints.nvim")
+	use("nanotee/sqls.nvim")
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
