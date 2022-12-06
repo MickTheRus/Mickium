@@ -18,7 +18,7 @@ end
 vim.cmd([[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+    autocmd BufWritePost plugins.lua source <afile> | PackerInstall
   augroup end
 ]])
 
@@ -101,9 +101,20 @@ return packer.startup(function(use)
 	})
 
 	-- Dap Plugins
-	use("mfussenegger/nvim-dap")
-	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+	use({
+		"mfussenegger/nvim-dap",
+		as = "nvim-dap",
+		requires = {
+			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
+			"nvim-telescope/telescope-dap.nvim",
+		},
+		config = function()
+			require("core.dap")
+		end,
+	})
 
+	use("Hoffs/omnisharp-extended-lsp.nvim")
 	-- cmp plugins
 	use({
 		"hrsh7th/nvim-cmp",
