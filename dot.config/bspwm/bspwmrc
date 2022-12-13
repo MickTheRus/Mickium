@@ -50,9 +50,9 @@ CURRENT_SRATIO='0.50'
 ## Manager Workspaces
 
 workspaces() {
-  name=69
-  mainMonitor="$(xrandr -q | grep "primary" | awk '{print $1}')"
-  bspc monitor $mainMonitor -n "$name" -d 'I' 'II' 'III' 'IV' 'V' 'VI' 'VII' 'VIII'
+    name=69
+    mainMonitor="$(xrandr -q | grep "primary" | awk '{print $1}')"
+    bspc monitor $mainMonitor -n "$name" -d 'I' 'II' 'III' 'IV' 'V' 'VI' 'VII' 'VIII'
 }
 
 # workspaces() {
@@ -109,8 +109,8 @@ bspc rule -r *:*
 
 ## 5 > office and docs (always open office/doc apps on workspace-5)
 # declare -a office=(Gucharmap Atril Evince \
-# libreoffice-writer libreoffice-calc libreoffice-impress \
-# libreoffice-startcenter libreoffice Soffice *:libreofficedev *:soffice)
+    # libreoffice-writer libreoffice-calc libreoffice-impress \
+    # libreoffice-startcenter libreoffice Soffice *:libreofficedev *:soffice)
 # for i in ${office[@]}; do
 #    bspc rule -a $i desktop='^5' follow=on focus=on; done
 
@@ -128,14 +128,14 @@ bspc rule -r *:*
 # bspc rule -a 'VirtualBox Manager' desktop='^8' follow=on focus=on
 # bspc rule -a GParted desktop='^8' follow=on focus=on
 # declare -a settings=(Lxappearance Lxtask Lxrandr Arandr \
-# System-config-printer.py Pavucontrol Exo-helper-1 \
-# Xfce4-power-manager-settings)
+    # System-config-printer.py Pavucontrol Exo-helper-1 \
+    # Xfce4-power-manager-settings)
 # for i in ${settings[@]}; do
 #    bspc rule -a $i desktop='^8' state=floating follow=on focus=on; done
 
 ## Always Floating Apps
 # declare -a floating=(alacritty-float Pcmanfm Thunar Onboard Yad 'Firefox:Places' \
-# Viewnior feh Nm-connection-editor)
+    # Viewnior feh Nm-connection-editor)
 # for i in ${floating[@]}; do
 #    bspc rule -a $i state=floating follow=on focus=on; done
 #
