@@ -1,2 +1,5 @@
 [install]
 root = $HOME/.local/share/cargo/
+
+[net]
+git-fetch-with-cli = true

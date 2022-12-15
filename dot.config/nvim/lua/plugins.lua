@@ -52,9 +52,6 @@ return packer.startup(function(use)
 	use("nvim-lua/popup.nvim")
 	use("stevearc/dressing.nvim")
 
-	-- Time management
-	use("wakatime/vim-wakatime")
-
 	-- Terminal
 	use("akinsho/toggleterm.nvim")
 
@@ -124,7 +121,7 @@ return packer.startup(function(use)
 	-- LSP
 	use("neovim/nvim-lspconfig")
 	use("williamboman/mason-lspconfig.nvim")
-	use("folke/neodev.nvim")
+	use({ "folke/neodev.nvim" })
 	use("folke/neoconf.nvim")
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("b0o/schemastore.nvim")
@@ -161,6 +158,9 @@ return packer.startup(function(use)
 
 	-- Greeter
 	use("goolord/alpha-nvim")
+
+	-- Discord
+	use("andweeb/presence.nvim")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

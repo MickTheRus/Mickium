@@ -2,7 +2,14 @@
 local sumneko_lua = {
 	settings = {
 		Lua = {
+			runtime = {
+				version = "LuaJIT",
+			},
 			workspace = {
+				library = {
+					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+					[vim.fn.stdpath("config") .. "/lua"] = true,
+				},
 				checkThirdParty = false,
 			},
 			globals = { "vim" },

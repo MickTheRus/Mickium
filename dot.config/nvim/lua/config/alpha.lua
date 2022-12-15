@@ -22,7 +22,7 @@ dashboard.section.buttons.val = {
 	dashboard.button("q", " " .. " Quit", ":qa<CR>"),
 }
 local function footer()
-	return os.getenv("USER") .. "@mick.lol"
+	return "Retards@Home"
 end
 
 dashboard.section.footer.val = footer()
