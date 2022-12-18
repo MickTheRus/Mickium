@@ -7,7 +7,9 @@ return {
 	colors = current,
 	tab_bar_at_bottom = true,
 	use_fancy_tab_bar = false,
-
+ 
+  audible_belll = "Disabled",
+  
 	keys = {
 		{ key = "i", mods = "CTRL|SHIFT", action = act.SwitchToWorkspace },
 	},
