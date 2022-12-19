@@ -1,12 +1,6 @@
 local servers = {
 	"sumneko_lua",
-	"cssls",
-	"html",
-	"tsserver",
 	"pyright",
-	"bashls",
-	"jsonls",
-	"yamlls",
 }
 
 local settings = {
@@ -25,6 +19,7 @@ local settings = {
 require("mason").setup(settings)
 require("mason-lspconfig").setup({
 	ensure_installed = servers,
+	"netcoredbg",
 	automatic_installation = true,
 })
 
