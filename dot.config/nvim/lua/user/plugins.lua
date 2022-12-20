@@ -48,20 +48,20 @@ return packer.startup(function(use)
 	use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used by lots of plugins
 	use({ "windwp/nvim-autopairs" }) -- Autopairs, integrates with both cmp and treesitter
 	use({ "numToStr/Comment.nvim" })
-	use({ "JoosepAlviste/nvim-ts-context-commentstring" })
 	use({ "kyazdani42/nvim-web-devicons" })
 	use({ "kyazdani42/nvim-tree.lua" })
 	use({ "akinsho/bufferline.nvim" })
 	use({ "moll/vim-bbye" })
 	use({ "nvim-lualine/lualine.nvim" })
 	use({ "akinsho/toggleterm.nvim" })
-	use({ "ahmedkhalf/project.nvim" })
 	use({ "lewis6991/impatient.nvim" })
 	use({ "lukas-reineke/indent-blankline.nvim" })
 	use({ "goolord/alpha-nvim" })
 	use({ "linty-org/key-menu.nvim" }) -- Keymap manager
 	use({ "andweeb/presence.nvim" }) -- Discord RP
 	use("lambdalisue/suda.vim") -- Save as root
+
+	use({ "williamboman/mason.nvim" })
 
 	-- cmp plugins
 	use({ "hrsh7th/nvim-cmp" }) -- The completion plugin
@@ -76,23 +76,32 @@ return packer.startup(function(use)
 	use({ "rafamadriz/friendly-snippets" }) -- a bunch of snippets to use
 
 	-- LSP
-	use({ "neovim/nvim-lspconfig" }) -- enable LSP
-	use({ "williamboman/mason.nvim" })
-	use({ "williamboman/mason-lspconfig.nvim" })
-	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
-	use({ "RRethy/vim-illuminate" })
+	use("neovim/nvim-lspconfig")
+	use("williamboman/mason-lspconfig.nvim")
+	use({ "folke/neodev.nvim" })
+	use("folke/neoconf.nvim")
+	use("jose-elias-alvarez/null-ls.nvim")
+	use("b0o/schemastore.nvim")
+	use("stevearc/aerial.nvim")
+	use("windwp/nvim-autopairs")
+	use("ahmedkhalf/project.nvim")
 	use({ "lvimuser/lsp-inlayhints.nvim" })
 
 	-- Telescope
 	use({ "nvim-telescope/telescope.nvim" })
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	use("nvim-telescope/telescope-ui-select.nvim")
+	use("nvim-telescope/telescope-file-browser.nvim")
+	use("ThePrimeagen/harpoon")
+	use({ "nvim-telescope/Telescope-frecency.nvim", requires = { "tami5/sqlite.lua" } })
 
 	-- Treesitter
-	use({
-		"nvim-treesitter/nvim-treesitter",
-	})
+	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+	use({ "JoosepAlviste/nvim-ts-context-commentstring" })
 
 	-- Git
 	use({ "lewis6991/gitsigns.nvim" })
+	use("f-person/git-blame.nvim")
 
 	-- DAP
 	use({ "mfussenegger/nvim-dap" })

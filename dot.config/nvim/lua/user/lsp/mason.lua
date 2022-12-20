@@ -19,7 +19,6 @@ local settings = {
 require("mason").setup(settings)
 require("mason-lspconfig").setup({
 	ensure_installed = servers,
-	"netcoredbg",
 	automatic_installation = true,
 })
 

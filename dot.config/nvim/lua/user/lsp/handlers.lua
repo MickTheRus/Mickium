@@ -53,17 +53,17 @@ end
 
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
-	local keymap = vim.api.nvim_buf_set_keymap
+	local keymap = vim.keymap.set
 
 	local km = require("key-menu").set
 
 	km("n", "f")
-	keymap(bufnr, "n", "fD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	keymap(bufnr, "n", "fd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	keymap(bufnr, "n", "fK", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	keymap(bufnr, "n", "fI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	keymap(bufnr, "n", "fr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	keymap(bufnr, "n", "fl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	keymap("n", "fD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+	keymap("n", "fd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	keymap("n", "fK", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	keymap("n", "fI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	keymap("n", "fr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	keymap("n", "fl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 end
 
 M.on_attach = function(client, bufnr)
