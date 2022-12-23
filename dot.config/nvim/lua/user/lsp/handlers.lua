@@ -50,22 +50,16 @@ M.setup = function()
 		border = "rounded",
 	})
 end
+require("key-menu").set("n", "f")
 
-local function lsp_keymaps(bufnr)
-	local opts = { noremap = true, silent = true }
-	local keymap = vim.keymap.set
-
-	local km = require("key-menu").set
-
-	km("n", "f")
-	keymap("n", "fD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	keymap("n", "fd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	keymap("n", "fK", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	keymap("n", "fI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	keymap("n", "fr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	keymap("n", "fl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-end
-
+local opts = { noremap = true, silent = true }
+local keymap = vim.keymap.set
+keymap("n", "fD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Declaration" }, opts)
+keymap("n", "fd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Definition" }, opts)
+keymap("n", "fK", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Description" }, opts)
+keymap("n", "fI", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Implementation" }, opts)
+keymap("n", "fr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "References" }, opts)
+keymap("n", "fl", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Diagnostic" }, opts)
 M.on_attach = function(client, bufnr)
 	if client.name == "tsserver" then
 		client.server_capabilities.documentFormattingProvider = false
@@ -75,7 +69,6 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
 	end
 
-	lsp_keymaps(bufnr)
 	local status_ok, illuminate = pcall(require, "illuminate")
 	if not status_ok then
 		return

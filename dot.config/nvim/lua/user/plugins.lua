@@ -54,14 +54,17 @@ return packer.startup(function(use)
 	use({ "moll/vim-bbye" })
 	use({ "nvim-lualine/lualine.nvim" })
 	use({ "akinsho/toggleterm.nvim" })
+	use({ "ahmedkhalf/project.nvim" })
 	use({ "lewis6991/impatient.nvim" })
 	use({ "lukas-reineke/indent-blankline.nvim" })
 	use({ "goolord/alpha-nvim" })
 	use({ "linty-org/key-menu.nvim" }) -- Keymap manager
 	use({ "andweeb/presence.nvim" }) -- Discord RP
-	use("lambdalisue/suda.vim") -- Save as root
-
-	use({ "williamboman/mason.nvim" })
+	use({ "lambdalisue/suda.vim" }) -- Save as root
+	use({ "folke/neodev.nvim" })
+	use({ "folke/neoconf.nvim" })
+	use({ "stevearc/aerial.nvim" })
+  use {"ellisonleao/glow.nvim"}
 
 	-- cmp plugins
 	use({ "hrsh7th/nvim-cmp" }) -- The completion plugin
@@ -70,43 +73,44 @@ return packer.startup(function(use)
 	use({ "saadparwaiz1/cmp_luasnip" }) -- snippet completions
 	use({ "hrsh7th/cmp-nvim-lsp" })
 	use({ "hrsh7th/cmp-nvim-lua" })
+	use({ "LhKipp/nvim-nu" })
 
 	-- snippets
 	use({ "L3MON4D3/LuaSnip" }) --snippet engine
 	use({ "rafamadriz/friendly-snippets" }) -- a bunch of snippets to use
 
 	-- LSP
-	use("neovim/nvim-lspconfig")
-	use("williamboman/mason-lspconfig.nvim")
-	use({ "folke/neodev.nvim" })
-	use("folke/neoconf.nvim")
-	use("jose-elias-alvarez/null-ls.nvim")
-	use("b0o/schemastore.nvim")
-	use("stevearc/aerial.nvim")
-	use("windwp/nvim-autopairs")
-	use("ahmedkhalf/project.nvim")
-	use({ "lvimuser/lsp-inlayhints.nvim" })
+	use({ "neovim/nvim-lspconfig" }) -- enable LSP
+	use({ "williamboman/mason.nvim" })
+	use({ "williamboman/mason-lspconfig.nvim" })
+	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
+	use({ "RRethy/vim-illuminate" })
+	use({ "j-hui/fidget.nvim" })
 
 	-- Telescope
 	use({ "nvim-telescope/telescope.nvim" })
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-	use("nvim-telescope/telescope-ui-select.nvim")
-	use("nvim-telescope/telescope-file-browser.nvim")
-	use("ThePrimeagen/harpoon")
+	use({ "nvim-telescope/telescope-ui-select.nvim" })
+	use({ "ThePrimeagen/refactoring.nvim" })
+	use({ "nvim-telescope/telescope-file-browser.nvim" })
 	use({ "nvim-telescope/Telescope-frecency.nvim", requires = { "tami5/sqlite.lua" } })
+	use({ "nvim-telescope/telescope-smart-history.nvim" })
+	use({ "s1n7ax/nvim-window-picker" })
+	use({ "ThePrimeagen/harpoon" })
 
 	-- Treesitter
-	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+	use({ "nvim-treesitter/nvim-treesitter" })
 	use({ "JoosepAlviste/nvim-ts-context-commentstring" })
 
 	-- Git
 	use({ "lewis6991/gitsigns.nvim" })
-	use("f-person/git-blame.nvim")
 
 	-- DAP
 	use({ "mfussenegger/nvim-dap" })
 	use({ "rcarriga/nvim-dap-ui" })
-	use({ "ravenxrz/DAPInstall.nvim" })
+	use({ "theHamsta/nvim-dap-virtual-text" })
+  use({"ravenxrz/DAPInstall.nvim"})
+
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

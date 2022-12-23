@@ -1,6 +1,7 @@
+require("fidget").setup({})
+
 local servers = {
-	"sumneko_lua",
-	"pyright",
+	lsp = { "sumneko_lua", "clangd", "cssls", "html", "tsserver", "pyright", "bashls", "jsonls", "yamlls", "omnisharp" },
 }
 
 local settings = {
@@ -18,7 +19,7 @@ local settings = {
 
 require("mason").setup(settings)
 require("mason-lspconfig").setup({
-	ensure_installed = servers,
+	ensure_installed = servers.lsp,
 	automatic_installation = true,
 })
 
@@ -29,7 +30,7 @@ end
 
 local opts = {}
 
-for _, server in pairs(servers) do
+for _, server in pairs(servers.lsp) do
 	opts = {
 		on_attach = require("user.lsp.handlers").on_attach,
 		capabilities = require("user.lsp.handlers").capabilities,
