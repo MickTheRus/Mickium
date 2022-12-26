@@ -43,8 +43,12 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
-	-- My plugins here
+	-- Package Managers
 	use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
+	use({ "williamboman/mason.nvim" }) --
+	use({ "WhoIsSethDaniel/mason-tool-installer.nvim" }) -- Keep all utilities up to date
+
+	-- My plugins here
 	use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used by lots of plugins
 	use({ "windwp/nvim-autopairs" }) -- Autopairs, integrates with both cmp and treesitter
 	use({ "numToStr/Comment.nvim" })
@@ -61,10 +65,12 @@ return packer.startup(function(use)
 	use({ "linty-org/key-menu.nvim" }) -- Keymap manager
 	use({ "andweeb/presence.nvim" }) -- Discord RP
 	use({ "lambdalisue/suda.vim" }) -- Save as root
-	use({ "folke/neodev.nvim" })
+	use({ "folke/neodev.nvim" }) -- Descriptions and ussage for neovim
 	use({ "folke/neoconf.nvim" })
 	use({ "stevearc/aerial.nvim" })
-  use {"ellisonleao/glow.nvim"}
+	use({ "ellisonleao/glow.nvim" }) -- Terminal Markdown preview
+  -- #TODO: Rewrite in Lua 
+  use({"kovetskiy/sxhkd-vim"}) -- Sxhkd Highlighting
 
 	-- cmp plugins
 	use({ "hrsh7th/nvim-cmp" }) -- The completion plugin
@@ -73,7 +79,7 @@ return packer.startup(function(use)
 	use({ "saadparwaiz1/cmp_luasnip" }) -- snippet completions
 	use({ "hrsh7th/cmp-nvim-lsp" })
 	use({ "hrsh7th/cmp-nvim-lua" })
-	use({ "LhKipp/nvim-nu" })
+	use({ "LhKipp/nvim-nu" }) -- Completion for Nushell configuration
 
 	-- snippets
 	use({ "L3MON4D3/LuaSnip" }) --snippet engine
@@ -81,11 +87,12 @@ return packer.startup(function(use)
 
 	-- LSP
 	use({ "neovim/nvim-lspconfig" }) -- enable LSP
-	use({ "williamboman/mason.nvim" })
 	use({ "williamboman/mason-lspconfig.nvim" })
+
 	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
 	use({ "RRethy/vim-illuminate" })
 	use({ "j-hui/fidget.nvim" })
+	use({ "Hoffs/omnisharp-extended-lsp.nvim" })
 
 	-- Telescope
 	use({ "nvim-telescope/telescope.nvim" })
@@ -93,6 +100,7 @@ return packer.startup(function(use)
 	use({ "nvim-telescope/telescope-ui-select.nvim" })
 	use({ "ThePrimeagen/refactoring.nvim" })
 	use({ "nvim-telescope/telescope-file-browser.nvim" })
+	-- Performance Increase
 	use({ "nvim-telescope/Telescope-frecency.nvim", requires = { "tami5/sqlite.lua" } })
 	use({ "nvim-telescope/telescope-smart-history.nvim" })
 	use({ "s1n7ax/nvim-window-picker" })
@@ -109,8 +117,6 @@ return packer.startup(function(use)
 	use({ "mfussenegger/nvim-dap" })
 	use({ "rcarriga/nvim-dap-ui" })
 	use({ "theHamsta/nvim-dap-virtual-text" })
-  use({"ravenxrz/DAPInstall.nvim"})
-
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

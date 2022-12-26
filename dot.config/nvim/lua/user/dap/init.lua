@@ -1,6 +1,6 @@
- local dap = require( "dap")
+local dap = require("dap")
 
-local dapui = require ("dapui")
+local dapui = require("dapui")
 
 dapui.setup({
 	expand_lines = true,
@@ -23,7 +23,8 @@ dapui.setup({
 				{ id = "watches", size = 0.25 },
 			},
 			size = 0.33,
-			position = "right",nvim 
+			position = "right",
+			nvim,
 		},
 		{
 			elements = {
@@ -58,3 +59,4 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 	dapui.close()
 end
 
+require("user.dap.netcoredbg")

@@ -43,16 +43,16 @@ set -g __fish_git_prompt_show_informative_status 1
 set -g __fish_git_prompt_showupstream informative
 set -g __fish_git_prompt_showdirtystate yes
 set -g __fish_git_prompt_char_stateseparator ' '
-set -g __fish_git_prompt_char_cleanstate '✔'
-set -g __fish_git_prompt_char_dirtystate '✚'
-set -g __fish_git_prompt_char_invalidstate '✖'
-set -g __fish_git_prompt_char_stagedstate '●'
-set -g __fish_git_prompt_char_stashstate '⚑'
-set -g __fish_git_prompt_char_untrackedfiles '?'
-set -g __fish_git_prompt_char_upstream_ahead ''
-set -g __fish_git_prompt_char_upstream_behind ''
-set -g __fish_git_prompt_char_upstream_diverged 'ﱟ'
-set -g __fish_git_prompt_char_upstream_equal ''
+set -g __fish_git_prompt_char_cleanstate '✔ '
+set -g __fish_git_prompt_char_dirtystate '✚ '
+set -g __fish_git_prompt_char_invalidstate '✖ '
+set -g __fish_git_prompt_char_stagedstate '● '
+set -g __fish_git_prompt_char_stashstate '⚑ '
+set -g __fish_git_prompt_char_untrackedfiles '? '
+set -g __fish_git_prompt_char_upstream_ahead ' '
+set -g __fish_git_prompt_char_upstream_behind ' '
+set -g __fish_git_prompt_char_upstream_diverged 'ﱟ '
+set -g __fish_git_prompt_char_upstream_equal ' '
 set -g __fish_git_prompt_char_upstream_prefix ''''
 
 
@@ -75,26 +75,9 @@ export EDITOR="$VISUAL"
 # Term
 export TERM="wezterm"
 
-# Set XDG Variables
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_STATE_HOME="$HOME/.local/state"
-export XDG_CACHE_HOME="$HOME/.cache"
-
-# Cleanup my $HOME 
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
-export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
-export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-export GOPATH="$XDG_DATA_HOME"/go
-export GNUPGHOME="$XDG_DATA_HOME"/gnupg
-export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
-
 function wget
   wget --hsts-file="$XDG_DATA_HOME/wget-hsts" &argv
 end
-
 
 # Add things to path
 fish_add_path -a -g "$HOME/.local/bin"
@@ -114,11 +97,6 @@ abbr -a -g genpass 'openssl rand -base64 20'													# Generate a random, 20
 abbr -a -g sha 'shasum -a 256'																			# Test checksum
 abbr -a -g ips 'ip link show'																					# Get network interfaces information
 abbr -a -g v 'nvim'
-# Source plugins
-# Useful plugins: archlinux bang-bang cd colorman sudope vcs
-if test -d "$HOME/.local/share/omf/pkg/colorman/"
-	source ~/.local/share/omf/pkg/colorman/init.fish
-end
 
 # Make su launch fish
 function su
