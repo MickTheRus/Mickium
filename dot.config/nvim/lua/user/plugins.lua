@@ -13,13 +13,6 @@ vim.opt.runtimepath:prepend(lazypath)
 
 local lazy = require("lazy")
 
--- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-	return
-end
-
-
 local opts = {
 colorscheme = {"MickTheme"}
   }
@@ -56,6 +49,9 @@ local plugins = {
   -- #TODO: Rewrite in Lua 
   {"kovetskiy/sxhkd-vim"}, -- Sxhkd Highlighting
 
+  {"folke/lsp-colors.nvim"},
+
+
 	-- cmp plugins
 	{ "hrsh7th/nvim-cmp" }, -- The completion plugin
 	{ "hrsh7th/cmp-buffer" }, -- buffer completions
@@ -64,6 +60,11 @@ local plugins = {
 	{ "hrsh7th/cmp-nvim-lsp" },
 	{ "hrsh7th/cmp-nvim-lua" },
 	{ "LhKipp/nvim-nu" }, -- Completion for Nushell configuration
+
+  -- Coq nvim
+  {"ms-jpq/coq_nvim"}, -- Completion Engine 
+  {"ms-jpq/coq.artifacts"},
+  {"ms-jpq/coq.thirdparty"},
 
 	-- snippets
 	{ "L3MON4D3/LuaSnip" }, --snippet engine
@@ -80,7 +81,7 @@ local plugins = {
 
 	-- Telescope
 	{ "nvim-telescope/telescope.nvim" },
-	{ "nvim-telescope/telescope-fzf-native.nvim",build = "make" },
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
 	{ "ThePrimeagen/refactoring.nvim" },
 	{ "nvim-telescope/telescope-file-browser.nvim" },

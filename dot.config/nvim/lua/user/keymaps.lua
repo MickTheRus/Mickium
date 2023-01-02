@@ -67,13 +67,13 @@ keymap("n", "<leader>tt", "<cmd>Telescope live_grep<CR>", { desc = "Find Text" }
 keymap("n", "<leader>tp", "<cmd>Telescope projects<CR>", { desc = "Projects" }, opts)
 keymap("n", "<leader>tb", "<cmd>Telescope buffers<CR>", { desc = "Buffers" }, opts)
 
--- Packer
-km("n", "<leader>p", { desc = "Packer" }, opts)
-keymap("n", "<leader>pS", "<cmd>PackerStatus<CR>", { desc = "Status" }, opts)
-keymap("n", "<leader>pc", "<cmd>PackerCompile<CR>", { desc = "Compile" }, opts)
-keymap("n", "<leader>pi", "<cmd>PackerInstall<CR>", { desc = "Install" }, opts)
-keymap("n", "<leader>ps", "<cmd>PackerSync<CR>", { desc = "Sync" }, opts)
-keymap("n", "<leader>pu", "<cmd>PackerUpdate<CR>", { desc = "Update" }, opts)
+-- Lazy 
+km("n", "<leader>p", { desc = "Lazy" }, opts)
+keymap("n", "<leader>pS", "<cmd>Lazy Status<CR>", { desc = "Status" }, opts)
+keymap("n", "<leader>pc", "<cmd>Lazy Compile<CR>", { desc = "Compile" }, opts)
+keymap("n", "<leader>pi", "<cmd>Lazy Install<CR>", { desc = "Install" }, opts)
+keymap("n", "<leader>ps", "<cmd>Lazy Sync<CR>", { desc = "Sync" }, opts)
+keymap("n", "<leader>pu", "<cmd>Lazy Update<CR>", { desc = "Update" }, opts)
 keymap("n", "<leader>pr", "<cmd>so %<CR>", { desc = "Source Current File" }, opts)
 
 -- Git
