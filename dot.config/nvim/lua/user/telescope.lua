@@ -11,8 +11,8 @@ telescope.setup({
 			path = vim.fn.stdpath("data") .. "/telescope_history.sqlite3",
 			limit = 100,
 		},
-		prompt_prefix = "Telescope",
-		selection_caret = "ChevronRight",
+		prompt_prefix = " ",
+		selection_caret = " ",
 		path_display = { "truncate" },
 		layout_config = {
 			prompt_position = "top",

@@ -14,9 +14,8 @@ local servers = {
 		"yamlls",
 		"omnisharp",
 	},
-	dap = { "bash", "go" },
+	dap = { "vscode-bash-debug", "vscode-go" },
 	formatter = { "csharpier", "stylua", "black", "prettier" },
-	linter = {},
 }
 
 local settings = {
@@ -33,13 +32,21 @@ local settings = {
 }
 
 require("mason").setup({ settings, ensure_installed = servers })
-require("mason-lspconfig").setup({})
-require("mason-tool-installer").setup({
-	ensure_installed = servers.formatter,
-	automatic_installation = true,
-	auto_update = true,
-	run_on_start = true,
+require("mason-lspconfig").setup({
+  ensure_installed = servers.lsp,
+  automatic_installation = true,
 })
+
+require("mason-nvim-dap").setup({
+  ensure_installed = servers.dap,
+  automatic_installation = true,
+})
+
+require("mason-null-ls").setup({
+  ensure_installed = servers.formatter,
+  automatic_installation = true,
+})
+
 
 vim.api.nvim_create_autocmd("User", {
 	pattern = "MasonToolsUpdateCompleted",
