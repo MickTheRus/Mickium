@@ -8,6 +8,11 @@ if not snip_status_ok then
 	return
 end
 
+local lspkind_status, lspkind = pcall(require, "lspkind")
+if not lspkind_status then
+	return
+end
+
 require("luasnip/loaders/from_vscode").lazy_load()
 
 local check_backspace = function()
@@ -97,12 +102,12 @@ cmp.setup({
 		format = function(entry, vim_item)
 			vim_item.kind = kind_icons[vim_item.kind]
 			vim_item.menu = ({
-				nvim_lsp = "Lsp",
-				nvim_lua = "Lua",
-				luasnip = "Snippet",
-				buffer = "Buffer",
-				path = "Path",
-				emoji = "Emoji",
+				nvim_lsp = "[Lsp]",
+				nvim_lua = "[Lua]",
+				luasnip = "[Snippet]",
+				buffer = "[Buffer]",
+				path = "[Path]",
+				emoji = "[Emoji]",
 			})[entry.source.name]
 			return vim_item
 		end,
@@ -114,6 +119,7 @@ cmp.setup({
 		{ name = "buffer" },
 		{ name = "path" },
 	},
+
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
 		select = false,

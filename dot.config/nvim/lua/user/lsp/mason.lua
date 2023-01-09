@@ -2,7 +2,8 @@ require("fidget").setup({})
 
 local servers = {
 	lsp = {
-		"sumneko_lua",
+		"vimls",
+    "sumneko_lua",
 		"marksman",
 		"clangd",
 		"cssls",
@@ -13,7 +14,8 @@ local servers = {
 		"jsonls",
 		"yamlls",
 		"omnisharp",
-	},
+    "dockerls",
+  },
 	dap = { "vscode-bash-debug", "vscode-go" },
 	formatter = { "csharpier", "stylua", "black", "prettier" },
 }
@@ -47,15 +49,6 @@ require("mason-null-ls").setup({
   automatic_installation = true,
 })
 
-
-vim.api.nvim_create_autocmd("User", {
-	pattern = "MasonToolsUpdateCompleted",
-	callback = function()
-		vim.schedule(function()
-			print("mason-tool-installer has finished")
-		end)
-	end,
-})
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status_ok then
 	return

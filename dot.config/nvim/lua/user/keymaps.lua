@@ -67,7 +67,7 @@ keymap("n", "<leader>tt", "<cmd>Telescope live_grep<CR>", { desc = "Find Text" }
 keymap("n", "<leader>tp", "<cmd>Telescope projects<CR>", { desc = "Projects" }, opts)
 keymap("n", "<leader>tb", "<cmd>Telescope buffers<CR>", { desc = "Buffers" }, opts)
 
--- Lazy 
+-- Lazy
 km("n", "<leader>p", { desc = "Lazy" }, opts)
 keymap("n", "<leader>pS", "<cmd>Lazy Status<CR>", { desc = "Status" }, opts)
 keymap("n", "<leader>pc", "<cmd>Lazy Compile<CR>", { desc = "Compile" }, opts)
@@ -97,11 +97,12 @@ keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", { desc = "Exi
 
 -- Lsp
 km("n", "<leader>l", { desc = "LSP" })
-keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", { desc = "Format" }, opts)
+keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", { desc = "Format" }, opts)
 keymap("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Info" }, opts)
 keymap("n", "<leader>lI", "<cmd>Mason<cr>", { desc = "Mason Info" }, opts)
 keymap("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Code Action " }, opts)
-keymap("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>",{ desc = "Next Diagnostic" }, opts)
-keymap("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>",{ desc = "Prev Diagnostic" }, opts)
+keymap("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", { desc = "Next Diagnostic" }, opts)
+keymap("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", { desc = "Prev Diagnostic" }, opts)
 keymap("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "Rename" }, opts)
+keymap("n", "<leader>lR", "<cmd>LspRestart<CR>", { desc = "Restart Server" }, opts)
 keymap("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", { desc = "Quickfix" }, opts)
