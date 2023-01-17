@@ -1,8 +1,10 @@
-local status_ok, toggleterm = pcall(require, "toggleterm")
-if not status_ok then
-	return
-end
-
+---@type LazyPluginSpec[]
+local M = {
+	"akinsho/toggleterm.nvim" ,
+	config = function ()
+		
+	
+local toggleterm = require("toggleterm")
 toggleterm.setup({
 	size = 20,
 	open_mapping = [[<c-\>]],
@@ -37,3 +39,7 @@ local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
 function _LAZYGIT_TOGGLE()
 	lazygit:toggle()
 end
+end
+}
+
+return M

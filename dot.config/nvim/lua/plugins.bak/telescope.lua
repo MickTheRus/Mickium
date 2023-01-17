@@ -3,9 +3,24 @@ local actions = require("telescope.actions")
 local themes = require("telescope.themes")
 local windowpicker = require("window-picker")
 local builtin = require("telescope.builtin")
+local M = {
 
+  "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = "BufReadPost",
+	dependencies {
+	{ "nvim-telescope/telescope.nvim" },
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	{ "nvim-telescope/telescope-ui-select.nvim" },
+	{ "ThePrimeagen/refactoring.nvim" },
+	{ "nvim-telescope/telescope-file-browser.nvim" },
+	{ "nvim-telescope/Telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
+	{ "nvim-telescope/telescope-smart-history.nvim" },
+	{ "s1n7ax/nvim-window-picker" },
+	{ "ThePrimeagen/harpoon" },
+	},
 
-telescope.setup({
+	setup = {
 	defaults = {
 		history = {
 			path = vim.fn.stdpath("data") .. "/telescope_history.sqlite3",
@@ -89,14 +104,14 @@ telescope.setup({
 			},
 		},
 	},
-})
-
-telescope.load_extension("fzf")
-telescope.load_extension("ui-select")
-telescope.load_extension("refactoring")
-telescope.load_extension("projects")
-telescope.load_extension("file_browser")
-telescope.load_extension("smart_history")
-telescope.load_extension("harpoon")
-telescope.load_extension("aerial")
-
+},
+telescope.load_extension("fzf"),
+telescope.load_extension("ui-select"),
+telescope.load_extension("refactoring"),
+telescope.load_extension("projects"),
+telescope.load_extension("file_browser"),
+telescope.load_extension("smart_history"),
+telescope.load_extension("harpoon"),
+telescope.load_extension("aerial"),
+}
+return M

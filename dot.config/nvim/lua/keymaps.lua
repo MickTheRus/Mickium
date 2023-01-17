@@ -1,4 +1,3 @@
-local km = require("key-menu").set
 -- Shorten function name
 local keymap = vim.keymap.set
 -- Silent keymap option
@@ -6,7 +5,6 @@ local opts = { silent = true }
 
 --Remap space as leader key
 keymap("", "<Space>", "<Nop>", opts)
-km("", "<Space>", opts)
 vim.g.mapleader = " "
 
 -- Modes
@@ -38,7 +36,6 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", { desc = "Clear Highlights" }, opts)
 
 -- Close buffers
-km("n", "<leader>b", { desc = "Buffers" })
 keymap("n", "<leader>bd", "<cmd>Bdelete!<CR>", { desc = "Close Buffer" }, opts)
 keymap("n", "<leader>bs", "<cmd>w!<CR>", { desc = "Save" }, opts)
 keymap("n", "<leader>bS", "<cmd>SudaWrite<CR>", { desc = "Sudo Save" }, opts)
@@ -61,14 +58,12 @@ keymap("v", ">", ">gv", opts)
 keymap("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Project Explorer" }, opts)
 
 -- Telescope
-km("n", "<leader>t", { desc = "Telescope" })
 keymap("n", "<leader>tf", "<cmd>Telescope find_files<CR>", { desc = "Find Files" }, opts)
 keymap("n", "<leader>tt", "<cmd>Telescope live_grep<CR>", { desc = "Find Text" }, opts)
 keymap("n", "<leader>tp", "<cmd>Telescope projects<CR>", { desc = "Projects" }, opts)
 keymap("n", "<leader>tb", "<cmd>Telescope buffers<CR>", { desc = "Buffers" }, opts)
 
 -- Lazy
-km("n", "<leader>p", { desc = "Lazy" }, opts)
 keymap("n", "<leader>pS", "<cmd>Lazy Status<CR>", { desc = "Status" }, opts)
 keymap("n", "<leader>pc", "<cmd>Lazy Compile<CR>", { desc = "Compile" }, opts)
 keymap("n", "<leader>pi", "<cmd>Lazy Install<CR>", { desc = "Install" }, opts)
@@ -77,14 +72,12 @@ keymap("n", "<leader>pu", "<cmd>Lazy Update<CR>", { desc = "Update" }, opts)
 keymap("n", "<leader>pr", "<cmd>so %<CR>", { desc = "Source Current File" }, opts)
 
 -- Git
-km("n", "<leader>g", { desc = "Git" })
 keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
 
 -- Comment
 keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", { desc = "Comment" }, opts)
 
 -- DAP
-km("n", "<leader>d", { desc = "Debug" }, opts)
 keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { desc = "Breakpoint" }, opts)
 keymap("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", { desc = "Continue" }, opts)
 keymap("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", { desc = "Into" }, opts)
@@ -96,7 +89,6 @@ keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", { desc = "Dap 
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", { desc = "Exit" }, opts)
 
 -- Lsp
-km("n", "<leader>l", { desc = "LSP" })
 keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", { desc = "Format" }, opts)
 keymap("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Info" }, opts)
 keymap("n", "<leader>lI", "<cmd>Mason<cr>", { desc = "Mason Info" }, opts)
@@ -106,3 +98,9 @@ keymap("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", {
 keymap("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "Rename" }, opts)
 keymap("n", "<leader>lR", "<cmd>LspRestart<CR>", { desc = "Restart Server" }, opts)
 keymap("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", { desc = "Quickfix" }, opts)
+
+
+-- if vim. == "sqls" then
+  -- km("n","<leader>s", { desc = "Sql"})
+
+-- end

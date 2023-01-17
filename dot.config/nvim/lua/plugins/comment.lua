@@ -1,8 +1,8 @@
-local status_ok, comment = pcall(require, "Comment")
-if not status_ok then
-	return
-end
-
+---@type LazyPluginSpec[]
+local M = {
+	"numToStr/Comment.nvim",
+config = function()
+local comment = require("Comment")
 comment.setup({
 	pre_hook = function(ctx)
 		-- Only calculate commentstring for tsx filetypes
@@ -27,3 +27,7 @@ comment.setup({
 		end
 	end,
 })
+end
+}
+
+return M

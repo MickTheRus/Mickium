@@ -1,5 +1,4 @@
 local dap = require("dap")
-
 local dapui = require("dapui")
 
 dapui.setup({
@@ -59,4 +58,5 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 	dapui.close()
 end
 
-require("user.dap.netcoredbg")
+require("dap.settings.netcoredbg")
+require("dap.settings.bashdb")

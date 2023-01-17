@@ -1,8 +1,7 @@
-local status_ok, signature = pcall(require, "lsp_signature")
-if not status_ok then
-  return
-end
-
+local M = {
+  "ray-x/lsp_signature.nvim",
+  config = function ()
+local signature = require("lsp_signature")
 local cfg = {
   debug = false, -- set to true to enable debug logging
   log_path = "debug_log_file_path", -- debug log path
@@ -33,7 +32,7 @@ local cfg = {
     border = "rounded", -- double, rounded, single, shadow, none
   },
 
-  always_trigger = false, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
+  always_trigger = true, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
 
   auto_close_after = nil, -- autoclose signature float win after x sec, disabled if nil.
   extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
@@ -55,4 +54,5 @@ signature.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
 -- note: on_attach deprecated
 -- require("lsp_signature").on_attach(cfg, bufnr) -- no need to specify bufnr if you don't use toggle_key
 signature.on_attach(cfg) -- no need to specify bufnr if you don't use toggle_key
-
+end
+}

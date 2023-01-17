@@ -79,12 +79,6 @@ function wget
   wget --hsts-file="$XDG_DATA_HOME/wget-hsts" &argv
 end
 
-# Add things to path
-fish_add_path -a -g "$HOME/.local/bin"
-fish_add_path -a -g "$XDG_DATA_HOME/cargo/bin"
-fish_add_path -a -g "$XDG_DATA_HOME/gem/ruby/3.1.0/bin"
-
-
 # Launch GPG agent 
 export GPG_TTY=$(tty)
 

@@ -70,8 +70,8 @@ M.on_attach = function(client, bufnr)
 	end
 
 	require("illuminate").on_attach(client, bufnr)
-	require("lsp-inlayhints").on_attach(client, bufnr)
 	require("lsp_signature").on_attach(client, bufnr)
+ 	require("sqls").on_attach(client, bufnr)
 end
 
 return M

@@ -60,16 +60,16 @@ fi
 chosen="$(echo -e "$options" | $rofi_cmd -p "$current" -dmenu $active $urgent -selected-row 0)"
 case $chosen in
 $button_previous)
-	mpc -q prev && kunst --size 60x60 --silent
+	mpc -q prev 
 	;;
 $toggle)
-	mpc -q toggle && kunst --size 60x60 --silent
+	mpc -q toggle 
 	;;
 $button_stop)
 	mpc -q stop
 	;;
 $button_next)
-	mpc -q next && kunst --size 60x60 --silent
+	mpc -q next 
 	;;
 $tog_repeat)
 	mpc -q repeat

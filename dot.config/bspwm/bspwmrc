@@ -4,8 +4,6 @@
 ## Bspwm config directory
 BSPDIR="$HOME/.config/bspwm"
 
-## Export bspwm/bin dir to PATH
-export PATH="${PATH}:$HOME/.config/bspwm/bin"
 
 ## Run java applications without issues
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -21,6 +19,9 @@ export XDG_MUSIC_DIR="$HOME/Music"
 # Default apps
 # export XDG_DA /
 
+export XDG_CURRENT_DESKTOP=bspwm 
+export QT_QPA_PLATFORMTHEME=gtk2
+
 # Cleanup my $HOME 
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export CARGO_CONFIG="$XDG_CONFIG_HOME/cargo"
@@ -31,6 +32,14 @@ export GOPATH="$XDG_DATA_HOME"/go
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+
+## Export bspwm/bin dir to PATH
+export PATH="${PATH}:$XDG_CONFIG_HOME/bspwm/bin"
+export PATH="${PATH}:$XDG_DATA_HOME/go/bin"
+export PATH="${PATH}:$HOME/.local/bin/"
+export PATH="${PATH}:$XDG_DATA_HOME/cargo/bin/"
+export PATH="${PATH}:$XDG_DATA_HOME/gem/ruby/*/bin"
+
 
 ## Current theme ---------------------------------------------#
 

@@ -56,8 +56,9 @@ $suspend)
 	if [[ $ans == "yes" ]] || [[ $ans == "YES" ]] || [[ $ans == "y" ]]; then
 		mpc -q pause
 		amixer set Master mute
-		betterlockscreen --suspend
-	elif [[ $ans == "no" ]] || [[ $ans == "NO" ]] || [[ $ans == "n" ]]; then
+		i3lock -c 000000
+    systemctl suspend 
+  elif [[ $ans == "no" ]] || [[ $ans == "NO" ]] || [[ $ans == "n" ]]; then
 		exit
 	else
 		show_msg

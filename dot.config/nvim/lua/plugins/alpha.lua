@@ -1,8 +1,10 @@
-local status_ok, alpha = pcall(require, "alpha")
-if not status_ok then
-	return
-end
-
+---@type LazyPluginSpec[]
+local M = {
+	 "goolord/alpha-nvim" ,
+	dependencies = 	{ "kyazdani42/nvim-web-devicons" },
+	config = function ()
+		
+	local alpha = require("alpha")
 local dashboard = require("alpha.themes.dashboard")
 dashboard.section.header.val = {
 	[[                               __                ]],
@@ -33,3 +35,6 @@ dashboard.section.buttons.opts.hl = "Keyword"
 
 dashboard.opts.opts.noautocmd = true
 alpha.setup(dashboard.opts)
+end
+}
+return M
