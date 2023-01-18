@@ -1,0 +1,9 @@
+rm *
+ls
+fetch https://raw.githubusercontent.com/Jan9103/nushell_docker/main/docker.nu | save docker.nu
+ls
+fetch https://api.github.com/repos/MickTheRus/Mickium 
+fetch https://api.github.com/repos/MickTheRus/Mickium | get owner
+which ls
+which ssh
+ssh -T git@github.com
