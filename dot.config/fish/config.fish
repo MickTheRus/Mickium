@@ -75,10 +75,6 @@ export EDITOR="$VISUAL"
 # Term
 export TERM="wezterm"
 
-function wget
-  wget --hsts-file="$XDG_DATA_HOME/wget-hsts" &argv
-end
-
 # Launch GPG agent 
 export GPG_TTY=$(tty)
 
@@ -102,3 +98,4 @@ fnm env --use-on-cd | source
 
 # Initialize Starship 
 starship init fish | source
+fish_add_path /home/mick/.spicetify

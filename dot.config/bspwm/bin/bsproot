@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-DIR="$HOME/.config/bspwm"
-
-## rofi sudo password helper
-export SUDO_ASKPASS="$DIR"/bin/bspaskpass
-
-## execute the application
-sudo -A $1
