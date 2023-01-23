@@ -1,19 +1,9 @@
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- * 
- * Rofi Theme File
- * Rofi Version: 1.7.3
- **/
-
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "drun,run,filebrowser,window";
+	modi:                       "drun,run,window";
     show-icons:                 true;
     display-drun:               "APPS";
     display-run:                "RUN";
-    display-filebrowser:        "FILES";
     display-window:             "WINDOW";
 	drun-display-format:        "{name}";
 	window-format:              "{w} · {c} · {t}";
@@ -21,13 +11,13 @@ configuration {
 
 /*****----- Global Properties -----*****/
 * {
-    font:                        "JetBrains Mono Nerd Font 10";
-    background:                  #201A41;
-    background-alt:              #392684;
+    font:                        "Iosevka Nerd Font 10";
+    background:                  #181825;
+    background-alt:              #181825;
     foreground:                  #FFFFFF;
-    selected:                    #F801E8;
-    active:                      #00CCF5;
-    urgent:                      #8D0083;
+    selected:                    #292c3c;
+    active:                      #292c3c;
+    urgent:                      #292c3c;
 }
 
 /*****----- Main Window -----*****/
@@ -58,9 +48,9 @@ mainbox {
 }
 
 imagebox {
-    padding:                     20px;
+    padding:                     10px;
     background-color:            transparent;
-    background-image:            url("~/.config/rofi/images/a.png", height);
+    background-image:            url("~/.config/rofi/images/alena-aenami-bluehour-1k-crop.png");
     orientation:                 vertical;
     children:                    [ "inputbar", "dummy", "mode-switcher" ];
 }

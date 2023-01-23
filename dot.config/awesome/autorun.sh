@@ -9,8 +9,8 @@ run() {
 
 run "picom"
 run "unclutter"
-run "redshift"
 run "discord"
+run "nm-applet"
 run "/usr/bin/lxsession"
 
 killall -q polybar
