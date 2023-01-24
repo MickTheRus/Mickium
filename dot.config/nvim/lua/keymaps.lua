@@ -54,8 +54,8 @@ keymap("v", ">", ">gv", opts)
 
 -- Plugins --
 
--- NvimTree
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Project Explorer" }, opts)
+-- Neo-tree
+keymap("n", "<leader>e", "<cmd>NeoTreeShowToggle<CR>", { desc = "Project Explorer" }, opts)
 
 -- Telescope
 keymap("n", "<leader>tf", "<cmd>Telescope find_files<CR>", { desc = "Find Files" }, opts)
@@ -98,9 +98,3 @@ keymap("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", {
 keymap("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "Rename" }, opts)
 keymap("n", "<leader>lR", "<cmd>LspRestart<CR>", { desc = "Restart Server" }, opts)
 keymap("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", { desc = "Quickfix" }, opts)
-
-
--- if vim. == "sqls" then
-  -- km("n","<leader>s", { desc = "Sql"})
-
--- end

@@ -12,7 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", {
-  colorscheme = "MickTheme",
   performance = {
     rtp = {
       disabled_plugins = {
