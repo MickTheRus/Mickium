@@ -7,13 +7,9 @@ run() {
   fi
 }
 
+
+run "flameshot 2> /dev/null"
 run "picom"
-run "unclutter"
 run "discord"
 run "nm-applet"
 run "/usr/bin/lxsession"
-
-killall -q polybar
-polybar left &
-polybar right &
-polybar middle &
