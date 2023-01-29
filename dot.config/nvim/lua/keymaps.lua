@@ -36,7 +36,7 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", { desc = "Clear Highlights" }, opts)
 
 -- Close buffers
-keymap("n", "<leader>bd", "<cmd>Bdelete!<CR>", { desc = "Close Buffer" }, opts)
+keymap("n", "<leader>bd", "<cmd>bd<CR>", { desc = "Close Buffer" }, opts)
 keymap("n", "<leader>bs", "<cmd>w!<CR>", { desc = "Save" }, opts)
 keymap("n", "<leader>bS", "<cmd>SudaWrite<CR>", { desc = "Sudo Save" }, opts)
 

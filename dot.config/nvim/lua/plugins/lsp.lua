@@ -86,8 +86,6 @@ function M.config()
 
   lsp.setup()
 
-  vim.cmd [[autocmd BufWritePre * LspZeroFormat]]
-
   M.on_attach = function(client, bufnr)
     require("illuminate").on_attach(client, bufnr)
   end
