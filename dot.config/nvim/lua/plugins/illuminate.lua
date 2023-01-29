@@ -3,7 +3,6 @@ local M = {
   dependencies = {
     "neovim/nvim-lspconfig",
   }
-
 }
 
 function M.config()

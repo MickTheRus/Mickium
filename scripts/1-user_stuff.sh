@@ -20,13 +20,12 @@ sudo groupadd lightdb
 sudo usermod -a -G tty,polkitd,rpc,mail,lp,audio $USER
 
 opi dotnet
-opi lazygit
 opi procps-ng
 opi brave
 
 mkdir $HOME/.config
 mkdir $HOME/.local/{bin,share}
-rm -rf $HOME/.config/{bspwm,fish,gtk-2.0,gtk-3.0,mpd,ncmpcpp,neofetch,nvim,qt5ct,starship}
+rm -rf $HOME/.config/{fish,gtk-2.0,gtk-3.0,mpd,ncmpcpp,neofetch,nvim,qt5ct,starship}
 ln -sf $HOME/Mickium/dot.config/* ~/.config/
 sudo cp -r $HOME/Mickium/misc/Iosevka /usr/share/fonts/
 

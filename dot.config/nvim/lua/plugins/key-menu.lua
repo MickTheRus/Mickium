@@ -1,7 +1,8 @@
 ---@type LazyPluginSpec[]
 local M = {
-      "linty-org/key-menu.nvim",
-config = function ()
+  "MickTheRus/key-menu.nvim",
+}
+function M.config()
   require("key-menu").set("", "<Space>")
   require("key-menu").set("n", "<leader>t", { desc = "Telescope" })
   require("key-menu").set("n", "<leader>p", { desc = "Lazy" })
@@ -10,5 +11,5 @@ config = function ()
   require("key-menu").set("n", "<leader>b", { desc = "Buffers" })
   require("key-menu").set("n", "<leader>l", { desc = "LSP" })
 end
-}
+
 return M

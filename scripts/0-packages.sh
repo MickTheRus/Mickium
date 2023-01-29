@@ -12,7 +12,6 @@ if grep -E "NVIDIA|GeForce" <<< ${gpu_type}; then
         zypper addrepo --refresh "https://download.nvidia.com/opensuse/leap/$releasever" NVIDIA
     fi
     select opt in G04 G05 G06; do
-
         case $opt in
             G04)
                 zypper install --auto-agree-with-licenses --no-confirm x11-video-nvidiaG04 x11-video-nvidiaG04-32bit nvidia-glG04

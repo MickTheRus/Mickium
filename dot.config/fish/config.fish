@@ -1,6 +1,7 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
+
 # TokyoNight Color Palette
 set -l foreground c0caf5
 set -l selection 33467C
