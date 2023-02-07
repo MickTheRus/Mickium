@@ -5,13 +5,19 @@ local M = {
     "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
   },
-  config = function()
-    vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+
+	keys = {
+		{ "<leader>e", "<cmd>Neotree toggle<CR>", {desc = "Project Explorer"} },
+	},
+}
+
+  function M.config()
+	vim.g.neo_tree_remove_legacy_commands = 1
     require("neo-tree").setup({
       window = {
         width = "30",
       },
     })
-  end,
-}
+  end
+
 return M

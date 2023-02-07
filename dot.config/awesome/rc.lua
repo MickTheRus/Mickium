@@ -1194,7 +1194,7 @@ autorun = true
 autorunApps =
 {
   "picom",
-  "lxpolkit",
+    "/usr/libexec/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)", 
 }
 if autorun then
   for app = 1, #autorunApps do
