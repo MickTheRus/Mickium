@@ -1,44 +1,94 @@
 local M = {
-	'goolord/alpha-nvim',
-	disable  = false,
-	event    = 'VimEnter',
-	dependencies = {
-		{
-			'nvim-tree/nvim-web-devicons',
-			config = function ()
-				require('nvim-web-devicons').setup()
-			end
-		},
-	},
+	"goolord/alpha-nvim",
+	event = "VimEnter",
 }
 
 function M.config()
-	local alpha    = require('alpha')
-	local startify = require('alpha.themes.startify')
-	startify.section.header.val = {
-		[[                                   __                ]],
-		[[      ___     ___    ___   __  __ /\_\    ___ ___    ]],
-		[[     / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
-		[[    /\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-		[[    \ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
-		[[     \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
-	}
-	startify.section.top_buttons.val = {
-		startify.button( 'e', '  New file' , '<cmd>ene <BAR> startinsert <CR>'),
-	}
-	startify.nvim_web_devicons.enabled = true
-	startify.section.bottom_buttons.val = {
-		startify.button( 'q', '  Quit this Screen' , '<cmd>bdelete<CR>'),
-		startify.button( 'X', '  Quit NV!M' , '<cmd>qall<CR>'),
-	}
-	startify.section.footer = {
-		{ type = 'text', val = "Retards@" .. os.getenv("HOME") },
-	}
-	startify.mru_opts.ignore = function(path, _)
+	local status_ok, alpha = pcall(require, "alpha")
+	if not status_ok then
 		return
-		(string.find(path, 'COMMIT_EDITMSG'))
 	end
 
-	alpha.setup(startify.config)
+	local dashboard = require("alpha.themes.dashboard")
+	-- dashboard.section.header.val = {
+	-- 	"⣿⣿⣿⡿⠛⢉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠙⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ",
+	-- 	"⣿⣿⠋⠄⠈⠁⠄⠄⠄⠄⠄⢀⠄⠄⠄⠄⠄⠄⠄⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ",
+	-- 	"⣿⠃⠄⠄⠄⠄⠄⠄⠄⠄⠄⣾⣷⣄⠄⠄⠄⠄⠄⠄⠄⢻⣿⣿⣿⣿⣿⣿⣿⣿ ",
+	-- 	"⡇⠄⠄⠄⠄⠄⠄⠄⠄⠄⣸⣿⣿⣿⣷⠄⠄⠄⠄⠄⠄⠈⣿⣿⡿⠿⠿⣿⣿⣿ ",
+	-- 	"⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣻⣿⣿⣿⣿⣿⣦⠄⠄⠄⠄⠄⢹⣿⠄⢰⣤⠈⣿⣿ ",
+	-- 	"⠄⠄⠄⠄⠄⠄⠄⢰⠄⣾⣿⣿⣿⣿⣿⣿⡿⢢⡇⠄⠄⠄⠈⣿⡶⠚⠉⢀⣿⣿ ",
+	-- 	"⠄⠄⠄⠄⠄⠄⠄⢸⡏⢸⣿⣿⣿⣿⣿⣿⡇⠄⣿⠄⠄⠄⠄⣿⡁⢰⣿⣿⣿⣿ ",
+	-- 	"⠄⠄⠄⠄⠄⠄⠄⢸⡇⠄⢿⣿⣿⣿⣿⣿⣿⠄⣿⡇⠄⠄⠄⢻⣿⣿⣿⣿⣿⣿ ",
+	-- 	"⠄⠄⠄⣀⠄⠄⠄⢸⣿⠄⠸⣿⣿⣿⣿⣿⣿⣀⣿⣧⠄⠄⠄⠸⣿⣿⣿⣿⣿⣿ ",
+	-- 	"⠄⠄⠄⢏⡀⠄⠄⢸⣿⣷⣴⣿⣿⣿⣿⣿⣿⣿⣿⣹⠄⠄⢀⠄⢻⣿⣿⣿⣿⣿ ",
+	-- 	"⡀⠄⣤⡈⠓⠄⠄⠘⣿⣿⣿⣿⣿⣿⡿⢿⣿⣿⡿⠃⠄⠄⢸⣧⠄⢻⣿⣿⣿⣿ ",
+	-- 	"⣷⣤⣿⣿⣿⡆⠄⠄⠄⢈⠉⠛⠛⠓⠒⠛⠋⠁⣤⡞⠄⠄⣾⣿⣷⣄⠙⣿⣿⣿ ",
+	-- 	"⣿⣿⣿⣿⣿⠿⠄⠄⢰⢸⣆⠲⣦⣄⡀⣠⣿⣤⣌⠃⠄⢠⣿⣿⣿⣿⣿⣿⣿⣿ ",
+	-- 	"⣿⣿⣿⠟⠁⠄⠄⢆⠄⠈⣿⣿⣾⢏⡱⣿⡏⣿⣿⠄⠄⠘⢿⣿⣿⣿⣿⣿⣿⣿ ",
+	-- 	"⣿⣿⠃⠄⠄⠄⠄⠄⠄⠄⢈⣋⣵⣿⣿⣶⡾⠟⠁⠄⠄⠄⠄⢻⣿⣿⣿⣿⣿⣿",
+	-- }
+	-- dashboard.section.header.val = {
+	-- 	"			⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⠀⠀⠀⣀⣄⠀",
+	-- 	"⠀⠀⠀⠀⠀⠀⠈⡿⠻⠷⠶⣦⣤⣀⠀⢀⡠⠞⠋⠀⣿⣠⠴⠖⢒⣦⠶⠚⠋⠁⣉⢳⡀⠀⠀⠀⠀⠀",
+	-- 	"⠀⠀⠀⠀⠀⠀⢠⠇⠀⡖⠦⢤⣀⡉⠙⠋⠀⠀⠀⠈⠉⠀⠀⠠⠞⠋⠀⠠⣞⠋⢹⠀⡇⠀⠀⠀⠀⠀",
+	-- 	"⠀⠀⠀⠀⠀⠀⡏⠀⠀⡇⠀⣀⡖⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⠚⠀⣿⠀⠀⠀⠀⠀",
+	-- 	"⠀⠀⠀⠀⠀⣼⠁⠀⠀⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀⠀",
+	-- 	"⠀⠀⠀⠀⢠⡟⠂⠀⠀⠀⠀⠀⠀⠀⣴⣶⣄⠀⠀⠀⠀⠀⠀⣖⣶⡄⠀⠀⠀⠀⠀⠀⠀⡏⢦⣀⠀⠀",
+	-- 	"⠀⠀⣠⡖⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⣯⣹⠀⠀⠀⠀⠀⠀⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠇⠀⠉⢷⡆",
+	-- 	"⢶⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣛⡻⠀⠀⢀⣤⣄⠀⠙⠿⠋⠀⠀⠀⠀⠀⠀⠀⣀⣀⡤⠾⠃",
+	-- 	"⠀⠉⠓⢦⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⢤⡀⠀⠀⠀⣀⣀⣀⡀⠀⣠⠀⠀⠀⠀⠀⠀⠀⠀⠈⢷⡄⠀⠀",
+	-- 	"⠀⠀⠀⠀⣴⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠒⠚⠁⠀⠀⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠭⠃⠀",
+	-- 	"⠀⠀⣠⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠤⢤⡤⠴⠶⠊⠉⠉⠁⠀⠀⠀⠀",
+	-- 	"⠀⠀⠙⠓⠒⢺⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⢆⣀⠀⠀⠀⠀⠀⠀⠀⠀",
+	-- 	"⠀⠀⢀⣀⣠⠞⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡤⠚⠃⠀⠀⠀⠀⠀⠀⠀",
+	-- 	"⠐⠛⠋⠉⠁⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	-- 	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀hewo!! <3:",
+	-- }
+	--
+	dashboard.section.header.val = {
+		"⣿⣿⣿⣿⣯⣿⣿⠄⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠈⣿⣿⣿⣿⣿⣿⣆⠄",
+		"⢻⣿⣿⣿⣾⣿⢿⣢⣞⣿⣿⣿⣿⣷⣶⣿⣯⣟⣿⢿⡇⢃⢻⣿⣿⣿⣿⣿⢿⡄",
+		"⠄⢿⣿⣯⣏⣿⣿⣿⡟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣧⣾⢿⣮⣿⣿⣿⣿⣾⣷",
+		"⠄⣈⣽⢾⣿⣿⣿⣟⣄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣝⣯⢿⣿⣿⣿⣿",
+		"⣿⠟⣫⢸⣿⢿⣿⣾⣿⢿⣿⣿⢻⣿⣿⣿⢿⣿⣿⣿⢸⣿⣼⣿⣿⣿⣿⣿⣿⣿",
+		"⡟⢸⣟⢸⣿⠸⣷⣝⢻⠘⣿⣿⢸⢿⣿⣿⠄⣿⣿⣿⡆⢿⣿⣼⣿⣿⣿⣿⢹⣿",
+		"⡇⣿⡿⣿⣿⢟⠛⠛⠿⡢⢻⣿⣾⣞⣿⡏⠖⢸⣿⢣⣷⡸⣇⣿⣿⣿⢼⡿⣿⣿",
+		"⣡⢿⡷⣿⣿⣾⣿⣷⣶⣮⣄⣿⣏⣸⣻⣃⠭⠄⠛⠙⠛⠳⠋⣿⣿⣇⠙⣿⢸⣿",
+		"⠫⣿⣧⣿⣿⣿⣿⣿⣿⣿⣿⣿⠻⣿⣾⣿⣿⣿⣿⣿⣿⣿⣷⣿⣿⣹⢷⣿⡼⠋",
+		"⠄⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⣿⣿⣿⠄⠄",
+		"⠄⠄⢻⢹⣿⠸⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣼⣿⣿⣿⣿⡟⠄⠄",
+		"⠄⠄⠈⢸⣿⠄⠙⢿⣿⣿⣹⣿⣿⣿⣿⣟⡃⣽⣿⣿⡟⠁⣿⣿⢻⣿⣿⢿⠄⠄",
+		"⠄⠄⠄⠘⣿⡄⠄⠄⠙⢿⣿⣿⣾⣿⣷⣿⣿⣿⠟⠁⠄⠄⣿⣿⣾⣿⡟⣿⠄⠄",
+		"⠄⠄⠄⠄⢻⡇⠸⣆⠄⠄⠈⠻⣿⡿⠿⠛⠉⠄⠄⠄⠄⢸⣿⣇⣿⣿⢿⣿⠄⠄",
+	}
+
+	dashboard.section.buttons.val = {
+		dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
+		dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
+		dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
+		dashboard.button("l", "鈴" .. " Lazy", ":Lazy<CR>"),
+		dashboard.button("q", " " .. " Quit", ":qa<CR>"),
+	}
+	-- local function footer()
+	-- 	return "~wahid@orbit~"
+	-- end
+	--
+	-- dashboard.section.footer.val = footer()
+	--
+	dashboard.section.footer.opts.hl = "Type"
+	dashboard.section.header.opts.hl = "Include"
+	dashboard.section.buttons.opts.hl = "Keyword"
+	dashboard.opts.opts.noautocmd = true
+	alpha.setup(dashboard.opts)
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "LazyVimStarted",
+		callback = function()
+			local stats = require("lazy").stats()
+			local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+			dashboard.section.footer.val = "⚡loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+			pcall(vim.cmd.AlphaRedraw)
+		end,
+	})
 end
+
 return M
