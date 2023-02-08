@@ -13,7 +13,6 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup("plugins", {
 	defaults = { lazy = true },
-	-- install = { colorscheme = { "Catppucchin" } },
 	ui = {
 		border = 'rounded',
 	},
@@ -26,7 +25,6 @@ require("lazy").setup("plugins", {
 			--   VimEnter: not useful to cache anything else beyond startup
 			--   BufReadPre: this will be triggered early when opening a file from the command line directly
 			disable_events = { "VimEnter", "BufReadPre" },
-			-- ttl = 3600  24  5, -- keep unused modules for up to 5 days
 		},
 		rtp = {
 			disabled_plugins = {

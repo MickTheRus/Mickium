@@ -99,7 +99,6 @@ local M = {
 
 function M.config()
 	require('plugins.lsp.pylance')
-
 	--[[ require("neodev").setup({
 		debug = true,
 		experimental = {

@@ -1,10 +1,5 @@
--- Copyright (c) 2022 Ratheesh <ratheeshreddy@gmail.com>
--- License: MIT
--- Keybindings
-
 local gitsigns = require('gitsigns')
 
--- works only with NVIM 0.7+
 local function map(mode, new_keys, to_do, options)
   local keymap = vim.keymap.set
   local default_options = {
@@ -31,9 +26,6 @@ map("n", "<C-k>", "<C-w>k")
 map("n", "<C-l>", "<C-w>l")
 map("n", "<C-j>", "<Cmd>e #<CR>")
 map("n", "gV", "`[v`]")
-
---[[ map('n', '<Tab>', ':bn<CR>')
-map('n', '<S-Tab>', ':bp<CR>') ]]
 
 map('i', '<S-CR>', '<C-o>o')
 
@@ -68,8 +60,6 @@ map("n", "j", "(v:count > 5 ? (\"m'\" .v:count1) : \"\") . (v:count || mode(1)[0
 	{ expr = true })
 map("n", "<leader>k", ":m .-2<CR>==")
 map("n", "<leader>j", ":m .+1<CR>==")
---[[ map("v", "K", ":m '<-2<CR>gv=gv")
-map("v", "J", ":m '>+1<CR>gv=gv") ]]
 map("i", "<C-k>", "<Esc>:m .-2<CR>==")
 map("i", "<C-j>", "<Esc>:m .+1<CR>==")
 
@@ -78,15 +68,9 @@ map("i", "!", "!<C-g>u")
 map("i", "?", "?<C-g>u")
 
 -- tagbar
--- map("n", "<f4>", ":TagbarToggle<CR>")
 map("n", "<f4>", "<cmd>lua require('lsp-inlayhints').toggle()<CR>")
 
 map("n", "<F3>", "<cmd>TroubleToggle<CR>")
--- map("n", "<leader>xw", "<cmd>TroubleToggle lsp_workspace_diagnostics<CR>")
--- map("n", "<leader>xd", "<cmd>TroubleToggle lsp_document_diagnostics<CR>")
--- map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<CR>")
--- map("n", "<leader>xl", "<cmd>TroubleToggle loclist<CR>")
--- map("n", "<leader>xg", "<cmd>lua vimgrepprompt()<CR>")
 map("n", "gR", "<cmd>TroubleToggle lsp_references<CR>")
 map("n", "<C-A-j>", "<cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>")
 map("n", "<C-A-k>", "<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>")
@@ -113,5 +97,3 @@ map("n", "<leader>m", '<cmd>lua require"popui.marks-manager"()<CR>')
 -- gitsigns
 vim.api.nvim_create_user_command("Stage", function(t) gitsigns.stage_hunk({ t.line1, t.line2 }) end, { range = true })
 vim.api.nvim_create_user_command("Reset", function(t) gitsigns.reset_hunk({ t.line1, t.line2 }) end, { range = true })
-
--- End of File

@@ -8,15 +8,12 @@ function M.config()
 	require('bufferline').setup({
 		options = {
 			mode      = 'buffers',
-			-- numbers   = 'ordinal',
 			numbers = function(opts)
 				local tmpid = opts.ordinal > 9 and 10 or opts.ordinal
-				local icons = {"೧", "೨", "೩", "೪", "೫", "೬", "೭", "೮", "೯", ""}
-				-- local icons = {"1", "2", "3", "4", "5", "6", "7", "8", "9", ""}
+				local icons = {"1", "2", "3", "4", "5", "6", "7", "8", "9", ""}
 				return icons[tmpid]
 			end,
 			indicator = {
-				-- icon = '▌',
 				style   = 'underline'
 			},
 			separator_style = 'none',

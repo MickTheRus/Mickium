@@ -39,17 +39,6 @@ callback = function(_)
 end
 })
 
--- jump to last point of current buffer when opened
---[[ vim.api.nvim_create_autocmd('BufReadPost', {
-  callback = function()
-    local mark = vim.api.nvim_buf_get_mark(0, '"')
-    local lcount = vim.api.nvim_buf_line_count(0)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
-    end
-  end,
-}) ]]
-
 -- create directories when needed, when saving a file
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = vim.api.nvim_create_augroup("auto_create_dir", { clear = true }),
@@ -62,15 +51,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     vim.go.backupext = backup
   end,
 })
-
--- Disable search highlight on cursor move event
---[[ vim.on_key(function(char)
-	if vim.fn.mode() == "n" then
-		local new_hlsearch = vim.tbl_contains({ '<CR>', 'n', 'N', '*', '#', '?', '/' }, vim.fn.keytrans(char))
-		if vim.opt.hlsearch:get() ~= new_hlsearch then vim.opt.hlsearch = new_hlsearch end
-	end
-end,
-vim.api.nvim_create_namespace 'auto_hlsearch') ]]
 
 -- Fix conceallevel for json & help files
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -99,4 +79,3 @@ function _G.TroubleQuickFixPost(mode)
 	end, { mode = mode })
 end
 
--- End of File

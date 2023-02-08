@@ -13,7 +13,6 @@ local M = {
 }
 
 function M.config()
-	-- require'alpha'.setup(require'alpha.themes.startify'.config)
 	local alpha    = require('alpha')
 	local startify = require('alpha.themes.startify')
 	startify.section.header.val = {
@@ -33,24 +32,12 @@ function M.config()
 		startify.button( 'X', '  Quit NV!M' , '<cmd>qall<CR>'),
 	}
 	startify.section.footer = {
-		{ type = 'text', val = 'footer' },
+		{ type = 'text', val = "Retards@" .. os.getenv("HOME") },
 	}
 	startify.mru_opts.ignore = function(path, _)
 		return
 		(string.find(path, 'COMMIT_EDITMSG'))
 	end
-
-	--[[ startify.config.layout = {
-        { type = "padding", val = 1 },
-        startify.section.header,
-        { type = "padding", val = 2 },
-        startify.section.top_buttons,
-        startify.section.mru,
-        startify.section.mru_cwd,
-        { type = "padding", val = 1 },
-        startify.section.bottom_buttons,
-        startify.section.footer,
-	} ]]
 
 	alpha.setup(startify.config)
 end
