@@ -7,3 +7,36 @@ fetch https://api.github.com/repos/MickTheRus/Mickium | get owner
 which ls
 which ssh
 ssh -T git@github.com
+ls
+cd ~?
+cd ~/
+ls
+cd ~/.config/nushell/
+nvim .
+fetch 
+systemctl suspend
+cat /sys/class/power_supply/BAT0/capacity
+cat /sys/class/power_supply/BAT0/capacity_level
+cat /sys/class/power_supply/BAT0/capacity
+ls
+nvim .
+nmtui 
+tailscale status
+tailscale --json
+tailscale status --json
+ls
+clear
+l
+cd ~/Mickium/
+tailscale status 
+ssh 100.111.128.11
+git status
+git pull
+ls
+clear
+nvim ~/.config/nvim/lua/plugins/lsp/init.lua
+nvim ~/.config/nvim/lua/plugins/misc.lua
+nivm
+nvim
+nvim ~/.config/nvim/lua/plugins/misc.lua
+systemctl poweroff

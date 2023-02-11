@@ -1,5 +1,8 @@
 local M = {
 	"nvim-tree/nvim-tree.lua",
+	dependencies = {
+		"ahmedkhalf/project.nvim",
+	},
 	keys = {
 		{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle nvim tree" },
 		{ "<C-h>", "<cmd>NvimTreeFocus<cr>", desc = "Focus tree" },
@@ -7,17 +10,23 @@ local M = {
 }
 
 function M.config()
-	local ok, nvim_tree = pcall(require, "nvim-tree")
-	if not ok then
-		return
-	end
+	require("project_nvim").setup({
+		active = true,
+		patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "pom.xml" },
+	})
 
-	nvim_tree.setup({
+	require("nvim-tree").setup({
 		view = {
-			width = 28,
+			width = 20,
 			side = "left",
 			hide_root_folder = true,
 		},
+        sync_root_with_cwd = true,
+        respect_buf_cwd = true,
+        update_focused_file = {
+            enable = true,
+            update_root = false,
+        },
 		disable_netrw = true,
 		hijack_cursor = true,
 		update_cwd = true,

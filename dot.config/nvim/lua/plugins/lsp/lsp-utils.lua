@@ -45,15 +45,6 @@ M.on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations<cr>", { desc = "Implementations" }, bufopts)
 	vim.keymap.set("n", "<leader>gt", "<cmd>Telescope lsp_type_definitions<cr>", { desc = "Type definations" }, bufopts)
 	vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, bufopts)
-	vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, { desc = "Signature help" }, bufopts)
-	vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" }, bufopts)
-	vim.keymap.set(
-		"n",
-		"<leader>wr",
-		vim.lsp.buf.remove_workspace_folder,
-		{ desc = "Remove workspace folder" },
-		bufopts
-	)
 	vim.keymap.set("n", "<leader>wl", function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, { desc = "List workspaces" }, bufopts)

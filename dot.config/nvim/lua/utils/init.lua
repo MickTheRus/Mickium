@@ -39,7 +39,6 @@ M.cmp_kinds = {
 M.mason_packages = {
 	"astro-language-server",
 	"bash-language-server",
-	-- "cspell",
 	"css-lsp",
 	"eslint-lsp",
 	"html-lsp",
@@ -60,6 +59,10 @@ M.lsp_servers = {
 	"jsonls",
 	"cssls",
 	"html",
+}
+
+M.dap = {
+
 }
 
 M.diagnostics_active = true

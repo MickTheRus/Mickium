@@ -3,10 +3,13 @@ local utils = require("utils")
 -- Remap command key
 vim.keymap.set("n", "<leader><leader>", ":", { desc = "Command mode" })
 -- Essential
+
+
+
+
 vim.keymap.set({ "n", "v" }, "<leader>qq", "<cmd>quitall<cr>", { desc = "Quit" })
 vim.keymap.set({ "n", "i", "v" }, "<C-w>", "<cmd>bd<cr>", { desc = "Quit buffer" })
 vim.keymap.set({ "i", "v", "n" }, "<C-M-w>", "<cmd>bd!<cr><esc>", { desc = "Close buffer" })
-vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open lazy" })
 vim.keymap.set("n", "<leader>uu", "<cmd>Lazy sync<cr>", { desc = "Sync plugins" })
 
 -- Normal Map
@@ -52,10 +55,10 @@ vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
 -- Lsp formatting
-vim.keymap.set("n", "<C-M-f>", function()
+vim.keymap.set("n", "<leader>lf", function()
 	vim.lsp.buf.format({ async = false })
 	vim.api.nvim_command("write")
-end, { desc = "Lsp formatting" })
+end, { desc = "Format" })
 
 -- Open quickfix list
 vim.keymap.set("n", "<leader>d", function()
