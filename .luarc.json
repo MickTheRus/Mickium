@@ -1,0 +1,10 @@
+{
+    "diagnostics.globals": [
+        "terminal",
+        "editor",
+        "editor_cmd",
+        "modkey",
+        "awesome",
+        "client"
+    ]
+}

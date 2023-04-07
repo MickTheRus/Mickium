@@ -1,10 +1,11 @@
 window:
- 
+  opacity: 1
   padding:
     x: 5
     y: 0
 
     dynamic_padding: true
+
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.

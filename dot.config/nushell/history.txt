@@ -40,3 +40,28 @@ nivm
 nvim
 nvim ~/.config/nvim/lua/plugins/misc.lua
 systemctl poweroff
+ls
+clear
+ls
+ls -la
+clea
+clear
+pulll
+pull
+clear
+fetch
+fetch google.com
+fetch https://google.com
+clear
+systemctl poweroff
+ls
+git fetch --133;A/home/mick/Mickium/dot.config/nushell133;B| git fetch --                                                                                                                                               0/23/2023 08:04:54 AM                                                                                                                                               0/23/2023 08:04:54 AMexit
+ls
+clear
+sl
+ls -la
+clear
+docker --help
+systmectl suspend
+systemctl 
+systmectl suspend

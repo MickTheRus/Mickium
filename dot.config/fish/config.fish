@@ -103,12 +103,16 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export GOPATH="$XDG_DATA_HOME"/go
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
+export OMNISHARPHOME="$XDG_CONFIG_HOME"/omnisharp
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+export SPACEMACSDIR="$XDG_CONFIG_HOME"/spacemacs
+
 
 # Add things to path
 fish_add_path -a -g "$HOME/.local/bin"
 fish_add_path -a -g "$XDG_DATA_HOME/cargo/bin"
 fish_add_path -a -g "$XDG_DATA_HOME/gem/ruby/3.1.0/bin"
+fish_add_path -a -g "$XDG_CONFIG_HOME/emacs/bin"
 
 # Make su launch fish
 function su
@@ -120,4 +124,3 @@ fnm env --use-on-cd | source
 
 # Initialize Starship 
 starship init fish | source
-fish_add_path /home/mick/.spicetify

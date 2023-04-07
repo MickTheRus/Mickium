@@ -50,6 +50,9 @@ symbol = " "
 [python]
 symbol = " "
 
+[dotnet]
+symbol =
+
 [golang]
 symbol = " "
 

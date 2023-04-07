@@ -5,10 +5,10 @@ gpu_type=$(lspci)
 release_type=$(cat /usr/lib/os-releases)
 
 echo -ne "[Adding User Repos]"
-if grep -E "NVIDIA|GeForce" <<< ${gpu_type}; then
-    if grep -E "tumbleweed" <<<${release_type}; then
+if grep -E "NVIDIA|GeForce" <<<"${gpu_type}"; then
+    if grep -E "tumbleweed" <<<"${release_type}"; then
         zypper addrepo --refresh https://download.nvidia.com/opensuse/tumbleweed NVIDIA
-    elif grep -E "Leap" <<<${release_type}; then
+    elif grep -E "Leap" <<<"${release_type}"; then
         zypper addrepo --refresh "https://download.nvidia.com/opensuse/leap/$releasever" NVIDIA
     fi
     select opt in G04 G05 G06; do

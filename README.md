@@ -1,4 +1,4 @@
 ## Mick's Cool Config setup for like
 
-# Neovim
+# Emacs 
 ![Weiners](screenshots/neovim-1.png) 
