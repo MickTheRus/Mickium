@@ -267,16 +267,6 @@ local brightness_widget = wibox.widget({
 	widget = wibox.widget.textbox,
 })
 
-local update_brightness_widget = function(brightness)
-	brightness_widget.text = "  " .. brightness
-end
-
-local br, br_signal = awful.widget.watch("brightness-bar.sh", 60, function(self, stdout)
-	local brightness = stdout
-	update_brightness_widget(brightness)
-end)
-
-
 -- Volume widget
 local container_vol_widget = wibox.container
 
@@ -502,12 +492,8 @@ end)
 -- }}}
 
 -- {{{ Mouse bindings
-root.buttons(gears.table.join(
-	awful.button({}, 4, awful.tag.viewnext),
-	awful.button({}, 5, awful.tag.viewprev)
-))
+root.buttons(gears.table.join(awful.button({}, 4, awful.tag.viewnext), awful.button({}, 5, awful.tag.viewprev)))
 -- }}}
-
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
