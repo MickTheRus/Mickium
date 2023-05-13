@@ -1,6 +1,7 @@
 local M = {}
 
 M.servers = {
+  "csharp_ls",
   "taplo",
   "lua_ls",
   "cssls",
