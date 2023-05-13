@@ -10,6 +10,7 @@ xdg-user-dirs
 xdg-user-dirs-gtk
 xauth
 
+zsh
 awesome
 starship
 xrandr

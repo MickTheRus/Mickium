@@ -20,7 +20,8 @@ sudo usermod -a -G tty,polkitd,rpc,mail,lp,audio "$USER"
 mkdir -p "$HOME"/.local/{bin,share,mpd,cargo}
 ln -sf "$HOME"/Mickium/dot.config/* ~/.config/
 
-
+zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
+chsh -s /usr/bin/zsh
 
 
 sudo zypper rm -rf icewm xterm
