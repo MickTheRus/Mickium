@@ -1,4 +1,3 @@
-# Created by Zap installer
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
 
 plug "zap-zsh/zap-prompt"
@@ -13,3 +12,4 @@ plug "zsh-users/zsh-history-substring-search"
 plug "z-shell/F-Sy-H"
 plug "hlissner/zsh-autopair"
 plug "zap-zsh/sudo"
+
