@@ -1,4 +1,4 @@
-require "options"
-require "keymaps"
-require "Lazy"
-require "autocommands"
+require("options")
+require("keymaps")
+require("Lazy")
+require("autocommands")

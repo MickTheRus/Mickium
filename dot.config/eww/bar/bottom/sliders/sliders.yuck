@@ -1,0 +1,71 @@
+(defpoll volume
+  :interval "1s"
+  :initial "{ \"muted\": false, \"value\": 50.0 }"
+  "zsh ./bar/bottom/sliders/get_speaker_volume.sh"
+)
+
+(defpoll brightness
+  :interval "1s"
+  :initial 50.0
+  "zsh ./bar/bottom/sliders/get_brightness.sh"
+)
+
+
+(defwidget sliders []
+  (box :orientation "v"
+    :space-evenly false
+    
+    (box :orientation "h"
+      
+      (scale
+        :class "volume-slider ${volume.muted ? "muted" : ""}"
+        :hexpand "true"
+        :min 0
+        :max 101
+        :height 30
+        :orientation "v"
+        :flipped true
+        :value {volume.value}
+        :tooltip "Volume: ${volume.value}"
+        :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%"
+      )
+      
+      (scale
+        :class 'brightness-slider'
+        :hexpand "true"
+        :min 0
+        :max 101
+        :height 30
+        :orientation "v"
+        :flipped true
+        :value brightness
+        :tooltip "Brightness: ${brightness}"
+        :onchange "light -S {}"
+      )
+    )
+    
+    (box :orientation "h"
+      :hexpand false
+      
+      (eventbox
+        :onclick "pavucontrol &"
+        (label :text "${volume.muted ? "󰝟": ""}"
+          :class "volume-icon"
+          :angle 90
+          :height 10
+        )
+      )
+      
+      
+      
+      (label :text "󰃟"
+        :class "brightness-icon"
+        :angle 90
+        :height 10
+      )
+      
+    )
+  )
+)
+
+

@@ -15,15 +15,14 @@ export CARGO_HOME="$XDG_DATA_HOME"/cargo
 # GNU PG 
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 
-# GNU Realine
+# Dotnet
+export DOTNET_CLI_HOME="$XDG_CONFIG_HOME"/dotnet
+
+# GO
+export GOPATH="$XDG_DATA_HOME"/go
+
+# Java 
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+
+#GNU Realine
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
-
-# X11 Error File
-export ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
-
-# Xauthority
-export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
-
-# ZSH config File
-export ZDOTDIR="$XDG_CONFIG_HOME"/zsh
-

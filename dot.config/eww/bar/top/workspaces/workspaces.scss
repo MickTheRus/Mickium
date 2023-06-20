@@ -1,0 +1,43 @@
+.workspaces-widget {
+  font-family: FiraCode Mono;
+  font-weight: bold;
+
+  font-size: 12px;
+  color: $mauve;
+}
+
+.workspace-entry {
+  transition: background-color 1000ms linear;
+
+  border-radius: 10px;
+  padding: 5px 3px 5px 3px;
+  margin: 5px;
+  // background-color: $crust;
+}
+
+.workspace-entry.occupied {
+  border: solid 2px $mauve;
+}
+
+.workspace-entry.current {
+  color: $background;
+  background-color: $mauve;
+}
+
+.workspace-entry:not(.eDP-1):not(.null) {
+  color: $blue;
+}
+
+.workspace-entry.occupied:not(.eDP-1):not(.null) {
+  border: solid 2px $blue;
+}
+
+.workspace-entry.current:not(.eDP-1):not(.null) {
+  color: $background;
+  background-color: $blue;
+}
+
+.logo {
+  font-size: 17px;
+  padding: 5px 3px 5px 0px;
+}

@@ -1,0 +1,76 @@
+// Global
+* {
+  all: unset;
+  padding: 0;
+}
+
+@import "./mocha.scss";
+@import "./bottom/eww.scss";
+@import "./top/eww.scss";
+
+// EWW BAR
+.eww_bar {
+  background-color: $background;
+  padding: 5px;
+  margin: 0;
+  transition-property: all;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+}
+
+.eww_bar.tiled {
+  border-radius: 12px;
+  border-width: 2px;
+  border-color: $mauve;
+  border-style: solid;
+  margin: 5px;
+  padding: 0;
+  box-shadow: 0.5rem 0.5rem 3px -3px $crust, 0 0 #ccc;
+  background-color: rgba($background, 0.8);
+}
+
+// Launcher
+.launcher-icon {
+  color: $mauve;
+  font-family: "Fira Code Nerd Font Mono";
+}
+
+// Clock
+.time {
+  font-family: FiraCode Mono;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: $text;
+  border-radius: 5px;
+  padding: 0.7rem 0 0.5rem 0;
+  margin: 0.5rem 0 0.5rem 0;
+}
+
+// sliders
+scale trough {
+  all: unset;
+  background-color: $crust;
+  border-radius: 5px;
+  min-height: 80px;
+  min-width: 6px;
+  margin: 0.3rem 0.3rem 0.3rem 0.3rem;
+}
+
+// sliders
+progressbar > trough {
+  all: unset;
+  // background-color: $crust;
+  border-radius: 5px;
+  min-height: 4px;
+  min-width: 30px;
+  margin: 0.3rem 0.1rem 0.3rem 0.1rem;
+}
+
+tooltip {
+  padding: 4px;
+  border-radius: 14px;
+
+  background-color: rgba($background, 0.8);
+  color: $mauve;
+}

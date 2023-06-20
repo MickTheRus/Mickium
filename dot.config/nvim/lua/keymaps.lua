@@ -50,11 +50,8 @@ keymap("i", "jk", "<ESC>", opts)
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
-
 -- Better delete a word backwards with Ctrl-Backspace.
 keymap("i", "<C-BS>", "<C-W>", opts)
-
-
 
 -- Plugins --
 
