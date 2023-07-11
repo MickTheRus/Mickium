@@ -1,7 +1,7 @@
 { pkgs , ... }:
 {
   # All packages installed in system profile
-  enviroment = {
+  environment = {
     systemPackages = with pkgs; [
       cargo
       compsize
@@ -47,7 +47,8 @@
       enableCompletion = true;
       autosuggestions.enable = true;
       setOptions = ["PROMPT_SUBST" "appendhistory"];
-      nix-switch = "sudo nixos-rebuild switch --flake /home/justinlime/Mickium#desktop";
+      nix-switch-desktop = "sudo nixos-rebuild switch --flake /home/mick/Mickium#jesktop";
+      nix-switch-laptop = "sudo nixos-rebuild switch --flake /home/mick/Mickium#japtop";
     };
   };
 }

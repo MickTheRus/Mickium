@@ -1,7 +1,7 @@
 { pkgs , ... }:
 {
   # All packages installed in system profile
-  enviroment = {
+  environment = {
     systemPackages = with pkgs; [
       cargo
       compsize
