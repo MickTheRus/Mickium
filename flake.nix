@@ -26,11 +26,11 @@
       };
 
       nixosConfigurations = {
-        japtop = nixpkgs.lib.nixosSystem {
+        laptop = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [ ./nix/systems/laptop/configuration.nix ];
         };
-        jesktop = nixpkgs.lib.nixosSystem {
+        desktop = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [ ./nix/systems/desktop/configuration.nix ];
         };

@@ -47,8 +47,8 @@
       enableCompletion = true;
       autosuggestions.enable = true;
       setOptions = ["PROMPT_SUBST" "appendhistory"];
-      nix-switch-desktop = "sudo nixos-rebuild switch --flake /home/mick/Mickium#jesktop";
-      nix-switch-laptop = "sudo nixos-rebuild switch --flake /home/mick/Mickium/japtop";
+      nix-switch-desktop = "sudo nixos-rebuild switch --flake /home/mick/Mickium#desktop";
+      nix-switch-laptop = "sudo nixos-rebuild switch --flake /home/mick/Mickium#laptop";
     };
   };
 }
