@@ -34,7 +34,8 @@ in
     (discord.override {withOpenASAR = true; })
     gimp
     go
-    grim globc
+    grim 
+    glibc
     neofetch
     neovim
     pavucontrol

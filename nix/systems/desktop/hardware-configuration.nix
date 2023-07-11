@@ -13,25 +13,25 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/9c3f89cf-f24b-45a1-b256-618896c1d1d0";
+    device = "/dev/nvme0n1p2";
     fsType = "btrfs";
     options = [ "compress=zstd:1" "noatime" "subvol=root" ];
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/9c3f89cf-f24b-45a1-b256-618896c1d1d0";
+    device = "/dev/nvme0n1p2";
     fsType = "btrfs";
     options = [ "compress=zstd:1" "noatime" "subvol=home" ];
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/9c3f89cf-f24b-45a1-b256-618896c1d1d0";
+    device = "/dev/nvme0n1p2";
     fsType = "btrfs";
     options = [ "compress=zstd:1" "noatime" "subvol=nix" ];
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/FC74-CDE4";
+    device = "/dev/nvme0n1p1";
     fsType = "vfat";
   };
 

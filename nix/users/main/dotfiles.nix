@@ -21,12 +21,12 @@ in
       name = "Catppuccin-Mocha-Standard-Lavander-dark";
       package = pkgs.catppuccin-gtk.override { variant="mocha"; };
     };
-    gtk3.extraconfig = {
+    gtk3.extraConfig = {
       Settings = ''
       gtk-application-prefer-dark-theme=1
       '';
     };
-    gtk4.extraconfig = {
+    gtk4.extraConfig = {
       Settings = ''
       gtk-application-prefer-dark-theme=1
       '';
@@ -42,13 +42,7 @@ in
         enable = true;
         userName = "MickTheRus";
         userEmail = "nikolai.romanchenko@outlook.com";
+    
     };
   };
-  
-   home.file.".config" = {
-    source = "$HOME/Mickium/dot.config/.";
-    target = "$HOME/.config/";
-    symlink = true;
-  };
-
 }
