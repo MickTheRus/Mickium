@@ -6,6 +6,9 @@ export XDG_CONFIG_HOME="$HOME"/.config
 export XDG_STATE_HOME="$HOME"/.local/state 
 export XDG_CACHE_HOME="$HOME"/.cache
 
+# XDG Desktop
+export XDG_CURRENT_DESKTOP="awesome"
+
 # Bash History File
 export HISTFILE=/dev/null
 
