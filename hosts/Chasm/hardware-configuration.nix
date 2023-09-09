@@ -9,23 +9,18 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/e2ab7bf8-aefb-4979-aaf3-c55b2a2b4ec5";
+    { device = "/dev/disk/by-uuid/7f1cb9ee-b5d1-4333-8907-83951b0279c5";
       fsType = "xfs";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/DBA6-BE33";
+  fileSystems."/boot/efi" =
+    { device = "/dev/disk/by-uuid/AB3E-975E";
       fsType = "vfat";
-    };
-
-  fileSystems."/mnt/hdd0" =
-    { device = "/dev/disk/by-uuid/27eb09ef-26d8-4327-b3f3-56c2b509a43f";
-      fsType = "xfs";
     };
 
   swapDevices = [ ];
@@ -38,6 +33,5 @@
   # networking.interfaces.enp3s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
