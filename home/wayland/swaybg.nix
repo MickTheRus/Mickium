@@ -4,16 +4,16 @@
   default,
   ...
 }: {
-
   systemd.user.services.swaybg = {
     Unit = {
       Description = "Wayland wallpaper daemon";
-      PartOf = ["graphical-session.target"];
+      PartOf = ["default.target"];
     };
     Service = {
-      ExecStart = "${lib.getExe pkgs.swaybg} -i ${default.wallpaper} -m fill";
+      ExecStart = "${lib.getExe pkgs.swaybg} -i /home/mick/Mickium/extra/wallpaper.jpg -m fill";
+
       Restart = "on-failure";
     };
-    Install.WantedBy = ["graphical-session.target"];
+    Install.WantedBy = ["default.target"];
   };
 }

@@ -5,11 +5,10 @@
   inputs,
   ...
 }: {
-
   boot = {
     # Uses bleeding edge latest kernel.
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = [ "tcp_bbr" "acpi_call" ];
+    kernelModules = ["tcp_bbr" "acpi_call"];
 
     kernel.sysctl = {
       # The Magic SysRq key is a key combo that allows users connected to the
@@ -53,14 +52,12 @@
     };
 
     loader = {
-      # FIXME change first line if you want to use Grub
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
       timeout = 1;
     };
 
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = ["ntfs"];
     tmp.cleanOnBoot = true;
-    # binfmt.emulatedSystems = ["aarch64-linux"];
   };
 }

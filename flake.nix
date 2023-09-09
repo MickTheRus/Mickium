@@ -21,7 +21,7 @@
     ...
   }: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    pkgs = nixpkgs.x86_64-linux;
     username = "mick";
   in {
     devShells.x86_64-linux.default = pkgs.mkShell {

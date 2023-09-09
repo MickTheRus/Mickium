@@ -25,9 +25,7 @@
     "x-scheme-handler/magnet" = ["d-stuff.desktop"];
     "application/x.bittorrent" = ["d-stuff.desktop"];
   };
-
 in {
-
   xdg = {
     enable = true;
     cacheHome = config.home.homeDirectory + "/.local/cache";
@@ -40,7 +38,7 @@ in {
     userDirs = {
       enable = true;
       createDirectories = true;
-      documents =  "${config.home.homeDirectory}/Documents";
+      documents = "${config.home.homeDirectory}/Documents";
       download = "${config.home.homeDirectory}/Downloads";
       videos = "${config.home.homeDirectory}/Videos";
       music = "${config.home.homeDirectory}/Music";
@@ -49,7 +47,5 @@ in {
         XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Pictures/screenshots";
       };
     };
-
   };
-
 }

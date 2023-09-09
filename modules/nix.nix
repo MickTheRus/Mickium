@@ -5,29 +5,20 @@
   inputs,
   ...
 }: {
-
   environment = {
     # set channels (backwards compatibility)
     etc = {
       "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
       "nix/flake-channels/home-manager".source = inputs.home-manager;
-
     };
   };
 
   nixpkgs = {
     config = {
-      # keep a check and remove it asap
-      # permittedInsecurePackages = [
-      #   "openssl-1.1.1u"
-      # ];
       allowUnfree = true;
       allowBroken = false;
     };
   };
-
-  # TODOTHIS: Got some error on docbook,
-  # see-> https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/misc/documentation.nix
 
   # faster rebuilding
   documentation = {
@@ -38,13 +29,11 @@
     dev.enable = false;
   };
 
-  # Collect garbage and delete generation every 6 day. Will help to get some storage space.
-  # Better to atleast keep it for few days, as you do major update (unstable), if something breaks you can roll back.
   nix = {
     gc = {
       automatic = true;
       dates = "daily";
-      options = "--delete-older-than 15d";
+      options = "--delete-older-than 6d";
     };
     package = pkgs.nixUnstable;
 
@@ -53,7 +42,7 @@
     daemonIOSchedClass = "idle";
 
     # pin the registry to avoid downloading and evaling a new nixpkgs version every time
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
@@ -75,9 +64,8 @@
       # continue building derivations if one fails
       keep-going = true;
       log-lines = 20;
-      extra-experimental-features = ["flakes" "nix-command" ];
+      extra-experimental-features = ["flakes" "nix-command"];
 
-      # use binary cache, its not gentoo
       substituters = [
         "https://nix-community.cachix.org"
       ];
@@ -87,5 +75,5 @@
       ];
     };
   };
-  system.autoUpgrade.enable = false;
+  system.autoUpgrade.enable = true;
 }

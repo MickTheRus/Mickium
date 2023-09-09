@@ -5,7 +5,6 @@
 }:
 # media - control and enjoy audio/video
 {
-
   services = {
     mpd = {
       enable = true;
@@ -16,16 +15,15 @@
         startWhenNeeded = true;
       };
       extraConfig = ''
-      audio_output {
-        type            "pipewire"
-        name            "PipeWire Sound Server"
-      }
-      auto_update "yes"
-    '';
+        audio_output {
+          type            "pipewire"
+          name            "PipeWire Sound Server"
+        }
+        auto_update "yes"
+      '';
     };
 
     playerctld.enable = true;
-
   };
 
   home.packages = with pkgs; [
@@ -36,12 +34,14 @@
     pamixer
 
     mpc_cli
-    ytfzf ani-cli youtube-tui
+    ytfzf
+    ani-cli
+    youtube-tui
     mangal
   ];
 
-
-  programs= {
+  programs = {
+    noisetorch.enable = true;
     ncmpcpp = {
       enable = true;
 
@@ -76,36 +76,112 @@
         statusbar_time_color = "cyan:b";
       };
 
-      bindings =
-        [
-          { key = "K"; command = [ "select_item" "scroll_up" ]; }
-          { key = "+"; command = "show_clock"; }
-          { key = "="; command = "volume_up"; }
-          { key = "j"; command = "scroll_down"; }
-          { key = "k"; command = "scroll_up"; }
-          { key = "ctrl-u"; command = "page_up"; }
-          { key = "ctrl-d"; command = "page_down"; }
-          { key = "u"; command = "page_up"; }
-          { key = "d"; command = "page_down"; }
-          { key = "h"; command = [ "previous_column" "jump_to_parent_directory" ]; }
-          { key = "l"; command = [ "next_column" "enter_directory" "run_action" "play_item" ]; }
-          { key = "."; command = "show_lyrics"; }
-          { key = "n"; command = "next_found_item"; }
-          { key = "N"; command = "previous_found_item"; }
-          { key = "J"; command = "move_sort_order_down"; }
-          { key = "K"; command = "move_sort_order_up"; }
-          { key = "m"; command = [ "show_media_library" "toggle_media_library_columns_mode" ]; }
-          { key = "t"; command = "show_tag_editor"; }
-          { key = "v"; command = "show_visualizer"; }
-          { key = "G"; command = "move_end"; }
-          { key = "g"; command = "move_home"; }
-          { key = "U"; command = "update_database"; }
-          { key = "s"; command = [ "reset_search_engine" "show_search_engine" ]; }
-          { key = "f"; command = [ "show_browser" "change_browse_mode" ]; }
-          { key = "x"; command = "delete_playlist_items"; }
-          { key = "P"; command = "show_playlist"; }
-        ];
-
+      bindings = [
+        {
+          key = "K";
+          command = ["select_item" "scroll_up"];
+        }
+        {
+          key = "+";
+          command = "show_clock";
+        }
+        {
+          key = "=";
+          command = "volume_up";
+        }
+        {
+          key = "j";
+          command = "scroll_down";
+        }
+        {
+          key = "k";
+          command = "scroll_up";
+        }
+        {
+          key = "ctrl-u";
+          command = "page_up";
+        }
+        {
+          key = "ctrl-d";
+          command = "page_down";
+        }
+        {
+          key = "u";
+          command = "page_up";
+        }
+        {
+          key = "d";
+          command = "page_down";
+        }
+        {
+          key = "h";
+          command = ["previous_column" "jump_to_parent_directory"];
+        }
+        {
+          key = "l";
+          command = ["next_column" "enter_directory" "run_action" "play_item"];
+        }
+        {
+          key = ".";
+          command = "show_lyrics";
+        }
+        {
+          key = "n";
+          command = "next_found_item";
+        }
+        {
+          key = "N";
+          command = "previous_found_item";
+        }
+        {
+          key = "J";
+          command = "move_sort_order_down";
+        }
+        {
+          key = "K";
+          command = "move_sort_order_up";
+        }
+        {
+          key = "m";
+          command = ["show_media_library" "toggle_media_library_columns_mode"];
+        }
+        {
+          key = "t";
+          command = "show_tag_editor";
+        }
+        {
+          key = "v";
+          command = "show_visualizer";
+        }
+        {
+          key = "G";
+          command = "move_end";
+        }
+        {
+          key = "g";
+          command = "move_home";
+        }
+        {
+          key = "U";
+          command = "update_database";
+        }
+        {
+          key = "s";
+          command = ["reset_search_engine" "show_search_engine"];
+        }
+        {
+          key = "f";
+          command = ["show_browser" "change_browse_mode"];
+        }
+        {
+          key = "x";
+          command = "delete_playlist_items";
+        }
+        {
+          key = "P";
+          command = "show_playlist";
+        }
+      ];
     };
 
     mpv = {
@@ -142,7 +218,8 @@
 
     imv = {
       enable = true;
-      settings = { # check man imv(5))
+      settings = {
+        # check man imv(5))
         options.background = "050505";
         aliases.x = "close";
         binds = {
@@ -165,22 +242,5 @@
     };
   };
 
-  xdg.configFile."ytfzf/conf.sh".text = ''
-      #video_pref="248+bestaudio/best"
-      video_pref="[height<=1080]"
-      sub_link_count=1
-      show_thumbnails=0
-
-      external_menu () {
-           bemenu -W 0.98 -l 24 -p '  Play '
-      }
-
-      thumbnail_quality=high
-      scrape=youtube
-      #is_sort=1
-      #search_sort_by=upload_date
-
-    '';
- home.sessionVariables.MPD_HOST = config.services.mpd.network.listenAddress;
-
+  home.sessionVariables.MPD_HOST = config.services.mpd.network.listenAddress;
 }

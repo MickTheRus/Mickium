@@ -3,7 +3,6 @@
   config,
   ...
 }: {
-
   # cursor theme
   home.pointerCursor = {
     name = "Numix-Cursor";
@@ -17,7 +16,10 @@
 
     theme = {
       name = "Catppuccin-Mocha-Standard-Lavender-dark";
-      package = pkgs.catppuccin-gtk.override { variant="mocha"; accents=["lavender"]; };
+      package = pkgs.catppuccin-gtk.override {
+        variant = "mocha";
+        accents = ["lavender"];
+      };
     };
 
     iconTheme = {
@@ -40,11 +42,10 @@
     };
 
     gtk2.extraConfig = ''
-    gtk-xft-antialias=1
-    gtk-xft-hinting=1
-    gtk-xft-hintstyle="hintslight"
-    gtk-xft-rgba="rgb"
+      gtk-xft-antialias=1
+      gtk-xft-hinting=1
+      gtk-xft-hintstyle="hintslight"
+      gtk-xft-rgba="rgb"
     '';
-
   };
 }

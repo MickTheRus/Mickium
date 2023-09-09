@@ -1,10 +1,6 @@
-{
-  inputs,
-  ...
-}:
+{inputs, ...}:
 # glue all configs together
 {
-
   # NEVER EVER TOUCH IT ⚠️
   config.home.stateVersion = "23.05"; # OR CRY WITH BROKE SYS
 
@@ -15,4 +11,3 @@
     ./wayland
   ];
 }
-

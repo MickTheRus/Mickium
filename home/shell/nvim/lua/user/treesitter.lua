@@ -7,6 +7,11 @@ local M = {
 			"JoosepAlviste/nvim-ts-context-commentstring",
 			event = "VeryLazy",
 		},
+    {
+      "Fymyte/tree-sitter-rasi",
+      lazy = false,
+      ft = "rasi",
+    },
 	},
 }
 function M.config()

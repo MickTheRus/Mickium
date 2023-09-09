@@ -4,7 +4,6 @@
   lib,
   ...
 }: {
-
   programs = {
     dconf.enable = true;
     hyprland.enable = true;
@@ -15,7 +14,7 @@
       packages = with pkgs; [dconf gcr udisks2];
       enable = true;
     };
-    udev.packages = with pkgs; [ android-udev-rules ];
+    udev.packages = with pkgs; [android-udev-rules];
 
     journald.extraConfig = ''
       SystemMaxUse=50M
@@ -70,24 +69,13 @@
     };
   };
 
-
-  hardware = {
-    opengl = {
-      enable = true;
-      extraPackages = with pkgs; [
-        vaapiVdpau
-        libvdpau-va-gl
-        intel-media-driver
-        vaapiIntel
-      ];
-    };
-  };
-
   fonts = {
     packages = with pkgs; [
-      noto-fonts unifont
-      noto-fonts-emoji maple-mono
-      (nerdfonts.override {fonts = [ "Iosevka"  ];})
+      noto-fonts
+      unifont
+      noto-fonts-emoji
+      maple-mono
+      (nerdfonts.override {fonts = ["Iosevka"];})
     ];
 
     enableDefaultPackages = true;
@@ -96,18 +84,18 @@
     fontconfig = {
       defaultFonts = {
         monospace = [
-	        "Iosevka Nerd Font"
-	        "Noto Color Emoji"
+          "Iosevka Nerd Font"
+          "Noto Color Emoji"
         ];
-        sansSerif = [ "Noto Sans" "Noto Serif" ];
-        serif = [ "Noto Sans" "Noto Serif"];
-        emoji = [ "Noto Color Emoji" "Symbola" "Noto Sans" ];
+        sansSerif = ["Noto Sans" "Noto Serif"];
+        serif = ["Noto Sans" "Noto Serif"];
+        emoji = ["Noto Color Emoji" "Symbola" "Noto Sans"];
       };
     };
   };
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-hyprland ];
+    extraPortals = with pkgs; [xdg-desktop-portal-gtk xdg-desktop-portal-hyprland];
   };
 }

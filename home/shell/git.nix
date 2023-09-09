@@ -11,8 +11,6 @@
 
     delta = {
       enable = true;
-      # TODOTHIS
-      # options.map-styles = "bold purple => syntax ${default.xcolors.mauve}, bold cyan => syntax ${default.xcolors.blue}";
     };
 
     extraConfig = {
@@ -43,11 +41,6 @@
     };
 
     ignores = ["*~" "*.swp" "*result*" ".direnv" "node_modules"];
-
-    # signing = {
-    #   key = "";
-    #   signByDefault = true;
-    # };
 
     userEmail = "nikolai.romanchenko@outlook.com";
     userName = "MickTheRus";

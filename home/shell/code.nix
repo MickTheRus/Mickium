@@ -1,7 +1,5 @@
 {pkgs, ...}: {
-
   home.packages = with pkgs; [
-
     # shell
     nodePackages.bash-language-server
 
@@ -11,36 +9,23 @@
     ### python
     # python311Packages.python-lsp-server
     # nodePackages.pyright
-    (python311.withPackages(ps: with ps; [
-      python-lsp-server
-      biopython
-      pylint
-      black
-      rope
-      flake8
-    ]))
+    (python311.withPackages (ps:
+      with ps; [
+        python-lsp-server
+        biopython
+        luajitPackages.lua-lsp
+        pylint
+        black
+        rope
+        flake8
+      ]))
 
     # core comp
-    gcc gnumake tree-sitter
+    gcc
+    gnumake
+    tree-sitter
 
     # R
-    (rWrapper.override {
-      packages = with rPackages; [
-        ggplot2
-        dplyr
-        languageserver
-        lintr
-        dplyr
-        tidyr
-        stringr
-        httr
-        ggvis
-        ggplot2
-        shiny
-        rio
-        rmarkdown
-      ]; })
-
     # nix
     nil # or nil
 
@@ -49,7 +34,6 @@
   ];
 
   programs = {
-
     gpg.enable = true;
     man.enable = true;
 
@@ -63,15 +47,13 @@
       enable = true;
       settings = {
         display = {
-	        compact = false;
-	        use_pager = true;
+          compact = false;
+          use_pager = true;
         };
         updates = {
-	        auto_update = true;
+          auto_update = true;
         };
       };
     };
-
   };
-
 }

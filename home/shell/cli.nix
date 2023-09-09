@@ -6,15 +6,22 @@
 
     fzf
     # wonderful spells
-    aspell aspellDicts.en-science aspellDicts.en hunspell hunspellDicts.en-us
+    aspell
+    aspellDicts.en-science
+    aspellDicts.en
+    hunspell
+    hunspellDicts.en-us
+    
+    nvtop-amd
 
-    ffmpeg sdcv nq
+    ffmpeg
+    sdcv
+    nq
     # utils
     file
     du-dust
     fd
     wget
-
   ];
 
   programs = {
@@ -40,7 +47,7 @@
         theme_background = false;
         vim_keys = true;
         shown_boxes = "proc cpu";
-        rounded_corners = true ;
+        rounded_corners = true;
         graph_symbol = "block";
         proc_sorting = "memory";
         proc_reversed = false;
@@ -50,7 +57,7 @@
 
     bat = {
       enable = true;
-      extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch ];
+      extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch];
       config = {
         pager = "less -FR";
         theme = "TwoDark";

@@ -5,11 +5,11 @@
 in {
   imports = [
     ./cli.nix
-    ./git.nix
-    ./starship.nix
-    ./nix.nix
     ./code.nix
+    ./git.nix
     ./neovim.nix
+    ./nix.nix
+    ./starship.nix
     ./zsh.nix
   ];
 

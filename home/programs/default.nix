@@ -3,12 +3,10 @@
   config,
   ...
 }: {
-
   imports = [
     ./xdg.nix
     ./qt.nix
     ./gtk.nix
-    ./aria2.nix
     ./dunst.nix
     ./packages.nix
     ./media.nix
@@ -41,6 +39,5 @@
       enableZshIntegration = true;
       pinentryFlavor = "gnome3";
     };
-
   };
 }

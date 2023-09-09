@@ -9,10 +9,10 @@
       add_newline = true;
       scan_timeout = 5;
       character = {
-	      error_symbol = " [](bold red)";
-	      success_symbol = "[](bold green)";
-	      vicmd_symbol = "[](bold yellow)";
-	      # format = "$directory$all$character](bold)[  ](bold blue)";
+        error_symbol = " [](bold red)";
+        success_symbol = "[](bold green)";
+        vicmd_symbol = "[](bold yellow)";
+        # format = "$directory$all$character](bold)[  ](bold blue)";
       };
 
       git_status = {
@@ -34,9 +34,9 @@
       };
 
       hostname = {
-	      ssh_only = true;
-	      format = "[$hostname](bold blue) ";
-	      disabled = false;
+        ssh_only = true;
+        format = "[$hostname](bold blue) ";
+        disabled = false;
       };
     };
   };

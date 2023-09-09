@@ -4,10 +4,8 @@
   lib,
   ...
 }:
-
 # this makes our system more secure
 # note that it might break some stuff, eg webcam
-
 {
   services = {
     dnscrypt-proxy2 = {
@@ -43,13 +41,9 @@
         executable = "${getExe pkgs.keepassxc}/bin/keepassxc";
         profile = "${profiles}/keepassxc.profile";
       };
-      sioyek = {
-        executable = "${getExe pkgs.sioyek}/bin/sioyek";
-        profile = "${profiles}/sioyek.profile";
-      };
-      aria2c = {
-        executable = "${getExe pkgs.aria2}/bin/aria2c";
-        profile = "${profiles}/aria2c.profile";
+      discord = {
+        executable = "${getExe pkgs.discord}/bin/discord";
+        profile = "${profiles}/discord.profile";
       };
     };
   };
@@ -62,14 +56,15 @@
 
     doas = {
       enable = true;
-      extraRules = [{
-        users = [ "mick" ];
-        keepEnv = true;
-        persist = true;
-      }];
+      extraRules = [
+        {
+          users = ["mick"];
+          keepEnv = true;
+          persist = true;
+        }
+      ];
     };
 
     sudo.enable = false;
   };
-
 }

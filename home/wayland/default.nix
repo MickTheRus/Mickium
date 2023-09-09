@@ -15,10 +15,12 @@ let
       ${_ libnotify} "$(${wl-clipboard}/bin/wl-paste)"
     '';
 in {
-
   imports = [
     ./waybar.nix
     ./hyprland.nix
+    ./swaybg.nix
+    ./gnome_polkit.nix
+    ./rofi.nix
   ];
 
   home.packages = with pkgs; [
@@ -26,20 +28,16 @@ in {
     grim
     slurp
     jq
-
-    libnotify libsixel bemenu
+    libnotify
+    libsixel
     brightnessctl
-    wtype swaybg swayidle gammastep
+    wtype
+    swaylock
+    gammastep
 
     # utils
-    ocrScript
     wf-recorder
     wl-clipboard
-
-    # Desktop
-    rofi-wayland 
-    kitty
-
   ];
 
   # make stuff work on wayland
