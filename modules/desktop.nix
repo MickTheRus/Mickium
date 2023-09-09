@@ -7,6 +7,7 @@
   programs = {
     dconf.enable = true;
     hyprland.enable = true;
+    noisetorch.enable = true;
   };
 
   services = {

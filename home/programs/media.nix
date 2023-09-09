@@ -41,7 +41,6 @@
   ];
 
   programs = {
-    noisetorch.enable = true;
     ncmpcpp = {
       enable = true;
 
