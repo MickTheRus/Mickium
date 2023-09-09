@@ -10,6 +10,7 @@
     ./dunst.nix
     ./packages.nix
     ./media.nix
+    ./kitty.nix
   ];
 
   programs = {

@@ -1,6 +1,6 @@
 {
   pkgs,
-  self',
+  self,
   ...
 }:
 # nix tooling

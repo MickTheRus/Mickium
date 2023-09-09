@@ -3,11 +3,9 @@
   config,
   ...
 }: {
-
   home.packages = with pkgs; [
     rofi-wayland
   ];
-
 
   # We will tangle config files from git repo to home dir (Let nix manage the magics)
 

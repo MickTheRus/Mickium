@@ -71,11 +71,11 @@
   };
 
   # compresses half the ram for use as swap
-  zramSwap = {
-    enable = true;
-    memoryPercent = 50;
-    algorithm = "zstd";
-  };
+  #zramSwap = {
+  #  enable = true;
+  #  memoryPercent = 50;
+  #  algorithm = "zstd";
+  #};
 
   # NEVER EVER TOUCH THIS ⚠️
   system.stateVersion = lib.mkDefault "23.05"; # OR CRY WITH BROKE SYS

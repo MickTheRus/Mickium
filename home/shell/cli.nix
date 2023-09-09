@@ -11,7 +11,7 @@
     aspellDicts.en
     hunspell
     hunspellDicts.en-us
-    
+
     nvtop-amd
 
     ffmpeg
