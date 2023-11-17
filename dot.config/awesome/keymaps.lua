@@ -1,11 +1,10 @@
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
+local naughty = require("naughty")
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
---	awful.key({ modkey, }, "s", hotkeys_popup.show_help,
---		{ description = "show help", group = "awesome" }),
   awful.key({ modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
   awful.key({ modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
   awful.key({ modkey }, "Escape", awful.tag.history.restore, { description = "go back", group = "tag" }),
@@ -44,27 +43,6 @@ globalkeys = gears.table.join(
   awful.key({ modkey }, "b", function()
     awful.spawn("qutebrowser")
   end, { description = "open qutebrowser", group = "launcher" }),
-  awful.key({ modkey }, "s", function()
-    awful.spawn("scrot -q 100 -d 1" .. os.getenv("HOME") .. "/Pictures/screenshots/%Y-%m-%d_$wx$h.png")
-    naughty.notify({
-      title = " ",
-      fg = "#8293ce",
-      text = "      Screenshot taken",
-      font = "Iosevka Mono Nerd Font 12",
-      margin = 15,
-      opacity = 0.7,
-      border_width = 1,
-      -- border_color = "#9888c6",
-      --replaces_id = 1,
-      --border_width = 3,
-      --border_color = "#89b4fa",
-      width = 300,
-      height = 100,
-      shape = function(cr, width, heigt)
-        gears.shape.rounded_rect(cr, width, heigt, 15)
-      end,
-    })
-  end, { description = "Take screenshot fullscreen", group = "screen" }),
   awful.key({ modkey, "Shift" }, "s", function()
     awful.spawn("scrot -s -q 100" .. os.getenv("HOME") .. "/Pictures/screenshots/%Y-%m-%d_$wx$h.png")
   end, { description = "Take screenshot selection", group = "screen" }),
