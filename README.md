@@ -1,2 +1,1 @@
-## Mick's Cool Config setup for like
-
+## Mick's Cool BSPWM config
