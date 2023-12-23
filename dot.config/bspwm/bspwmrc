@@ -1,0 +1,59 @@
+#! /bin/sh
+
+# Java app compatability
+export _JAVA_AWT_WM_NONREPARENTING=1
+export QT_QPA_PLATFORMTHEME=qt5ct
+
+
+# Enable Apps if not running
+pgrep -x sxhkd > /dev/null || sxhkd &
+pgrep -x picom > /dev/null || picom &
+pgrep -x dunst > /dev/null || sxhkd &
+
+# Display config 
+xrandr --output DP-1 --auto --left-of DP-2 &
+xrandr --output DP-2 --mode 1920x1080 --rate 120 --primary &
+xrandr --output DP-3 --auto --right-of DP-3 &
+
+# Per Monitor Workspaces
+bspc monitor DP-1 -d I II III IV V VI VII VIII IX X
+bspc monitor DP-2 -d I II III IV V VI VII VIII IX X
+bspc monitor DP-3 -d I II III IV V VI VII VIII IX X
+
+# Set static wollpaper across all monitors
+feh --bg-fill ~/Mickium/dot.config/bspwm/wallpaper.jpg
+
+# Boarder
+bspc config border_width         2 
+bspc config window_gap           8
+bspc config focused_border_color "#56949f"
+bspc config normal_border_color "#908caa"
+
+# Size of each window per workspace
+bspc config split_ratio          0.5
+
+# Monocole takes whole screen 
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc config bottom_padding 0
+bspc config top_padding 0
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Telegram-desktop state=floating
+bspc rule -a BoltLauncher desktop='^2' state=floating
+bspc rule -a PavuControl state=floating
+bspc rule -a Zathura state=tiling
+
+bspc config focus_follows_pointer true
+
+# Window Switcher 
+alttab -w 1 &
+
+# Remove x cursor
+xsetroot -cursor_name left_ptr &
+
+#Polybar Launching
+polybar &
+
+nm-applet --indicator &
