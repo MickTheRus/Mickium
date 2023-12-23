@@ -1,36 +1,33 @@
 local M = {
-  "williamboman/mason.nvim",
-  commit = "4546dec8b56bc56bc1d81e717e4a935bc7cd6477",
-  cmd = "Mason",
-  event = "BufReadPre",
-  dependencies = {
-    {
-      "williamboman/mason-lspconfig.nvim",
-      commit = "93e58e100f37ef4fb0f897deeed20599dae9d128",
-      lazy = true,
-    },
-  },
+	"williamboman/mason-lspconfig.nvim",
+	dependencies = {
+		"williamboman/mason.nvim",
+		"nvim-lua/plenary.nvim",
+	},
 }
 
-local settings = {
-  ui = {
-    border = "none",
-    icons = {
-      package_installed = "◍",
-      package_pending = "◍",
-      package_uninstalled = "◍",
-    },
-  },
-  log_level = vim.log.levels.INFO,
-  max_concurrent_installers = 4,
+M.servers = {
+	"lua_ls",
+	"csharp_ls",
+	"cssls",
+	"nil_ls",
+	"html",
+	"tsserver",
+	"pyright",
+	"bashls",
+	"jsonls",
+	"yamlls",
 }
 
 function M.config()
-  require("mason").setup(settings)
-  require("mason-lspconfig").setup {
-    ensure_installed = require("utils").servers,
-    automatic_installation = true,
-  }
+	require("mason").setup({
+		ui = {
+			border = "rounded",
+		},
+	})
+	require("mason-lspconfig").setup({
+		-- ensure_installed = M.servers,
+	})
 end
 
 return M

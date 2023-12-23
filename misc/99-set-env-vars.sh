@@ -26,7 +26,3 @@ export ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
 
 # Xauthority
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
-
-# ZSH config File
-export ZDOTDIR="$XDG_CONFIG_HOME"/zsh
-
