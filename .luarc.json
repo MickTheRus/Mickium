@@ -5,6 +5,7 @@
         "editor_cmd",
         "modkey",
         "awesome",
-        "client"
+        "client",
+        "spec"
     ]
 }

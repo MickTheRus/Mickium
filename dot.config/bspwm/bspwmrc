@@ -41,9 +41,10 @@ bspc config top_padding 0
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Telegram-desktop state=floating
-bspc rule -a BoltLauncher desktop='^2' state=floating
+bspc rule -a BoltLauncher state=floating
 bspc rule -a PavuControl state=floating
 bspc rule -a Zathura state=tiling
+bspc rule -a "steam*" state=floating
 
 bspc config focus_follows_pointer true
 

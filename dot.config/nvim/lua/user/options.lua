@@ -8,8 +8,9 @@ vim.opt.hlsearch = true -- highlight all matches on previous search pattern
 vim.opt.ignorecase = true -- ignore case in search patterns
 vim.opt.mouse = "a" -- allow the mouse to be used in neovim
 vim.opt.pumheight = 10 -- pop up menu height
+vim.opt.pumblend = 10
 vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
-vim.opt.showtabline = 0 -- always show tabs
+vim.opt.showtabline = 1 -- always show tabs
 vim.opt.smartcase = true -- smart case
 vim.opt.smartindent = true -- make indenting smarter again
 vim.opt.splitbelow = true -- force all horizontal splits to go below current window
@@ -39,14 +40,14 @@ vim.opt.title = false
 -- colorcolumn = "80",
 -- colorcolumn = "120",
 vim.opt.fillchars = vim.opt.fillchars + "eob: "
-vim.opt.fillchars:append({
-	stl = " ",
-})
+vim.opt.fillchars:append {
+  stl = " ",
+}
 
-vim.opt.shortmess:append("c")
+vim.opt.shortmess:append "c"
 
-vim.cmd("set whichwrap+=<,>,[,],h,l")
-vim.cmd([[set iskeyword+=-]])
+vim.cmd "set whichwrap+=<,>,[,],h,l"
+vim.cmd [[set iskeyword+=-]]
 
 vim.g.netrw_banner = 0
 vim.g.netrw_mouse = 2
