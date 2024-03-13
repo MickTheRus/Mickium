@@ -34,7 +34,7 @@
       enable = true;
       enableSshSupport = true;
       enableZshIntegration = true;
-      pinentryFlavor = "gnome3";
+      pinentryFlavor = "curses";
     };
 
   };
