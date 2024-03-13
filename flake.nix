@@ -4,7 +4,7 @@
   inputs = {
 
     # Change it to stable, if you want stable channel (23.05)
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # For Adblocking and making internet usable
     hosts.url = "github:StevenBlack/hosts";
