@@ -16,7 +16,6 @@
     # nodePackages.pyright
     (python311.withPackages(ps: with ps; [
       python-lsp-server
-      biopython
       python-lsp-black
       python-lsp-ruff
     ]))
