@@ -3,8 +3,8 @@
 
   inputs = {
 
-    # Change it to stable, if you want stable channel (23.05)
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Change it to stable, if you want stable channel (23.11)
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
 
     # For Adblocking and making internet usable
     hosts.url = "github:StevenBlack/hosts";
@@ -29,7 +29,7 @@
     self, nixpkgs, ...
   }: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    pkgs = nixpkgs.x86_64-linux;
     username = "mick";
   in {
 
