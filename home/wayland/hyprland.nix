@@ -15,7 +15,7 @@
   };
 
   # naming it main.conf becuase HM writes hyprland.conf, so just as an import
-  xdg.configFile."hypr".source = config.lib.file.mkOutOfStoreSymlink "/home/mick/Mickium/home/wayland/hyprland";
+  xdg.configFile."hypr/hyprland.conf".source = config.lib.file.mkOutOfStoreSymlink "/home/mick/Mickium/home/wayland/hypr/hyprland.conf";
 
 
 

@@ -29,7 +29,7 @@ in {
     modules =
       [
         {networking.hostName = "Chasm";}
-        ./gdk/hardware-configuration.nix
+        ./Chasm/hardware-configuration.nix
         bootloader
         hmModule
         {inherit home-manager;}

@@ -42,7 +42,7 @@
       settings = {
         battery = {
           governor = "powersave";
-          turbo = "never";opengl
+          turbo = "never";
         };
         charger = {
           governor = "performance";
@@ -113,7 +113,7 @@
     };
   };
 
-  sound.enable = true;
+  # sound.enable = true;
 
   systemd.services = {
     seatd = {

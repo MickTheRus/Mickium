@@ -34,7 +34,7 @@
       enable = true;
       enableSshSupport = true;
       enableZshIntegration = true;
-      pinentryFlavor = "curses";
+      # pinentryPackage = "curses";
     };
 
   };

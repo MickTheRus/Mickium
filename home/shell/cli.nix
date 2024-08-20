@@ -4,7 +4,6 @@
     zip
     unzip
     rar 
-    unrar
     fzf
     # wonderful spells
     aspell aspellDicts.en-science aspellDicts.en hunspell hunspellDicts.en-us
@@ -52,7 +51,7 @@
 
     bat = {
       enable = true;
-      extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch ];
+      extraPackages = with pkgs.bat-extras; [ batman batgrep batwatch ];
       config = {
         pager = "less -FR";
         theme = "TwoDark";
