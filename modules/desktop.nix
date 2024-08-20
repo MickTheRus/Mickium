@@ -27,7 +27,7 @@
       RuntimeMaxUse=10M
     '';
 
-    # To mount drives with udiskctl command
+    # To mount drives with udiskctl commandopengl
     udisks2.enable = true;
     printing.enable = true;
 
@@ -42,7 +42,7 @@
       settings = {
         battery = {
           governor = "powersave";
-          turbo = "never";
+          turbo = "never";opengl
         };
         charger = {
           governor = "performance";
@@ -135,9 +135,7 @@
     opengl = {
       enable = true;
       extraPackages = with pkgs; [
-        libva intel-media-driver
-        vaapiVdpau vaapiIntel
-        libvdpau-va-gl
+        mesa
       ];
     };
   };
@@ -148,7 +146,7 @@
       # symbola # this font is unfree
       noto-fonts-emoji maple-mono julia-mono
 
-      (nerdfonts.override {fonts = [ "Iosevka"  ];})
+      (nerdfonts.override {fonts = [ "Iosevka" ];})
     ];
 
     enableDefaultPackages = true;
