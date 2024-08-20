@@ -23,21 +23,21 @@
 
 in {
 
-  # acer laptop
-  # gdk = nixpkgs.lib.nixosSystem {
-  #   system = "x86_64-linux";
-  #   modules =
-  #     [
-  #       {networking.hostName = "gdk";}
-  #       ./gdk/hardware-configuration.nix
-  #       bootloader
-  #       hmModule
-  #       {inherit home-manager;}
-  #       blockhost
-  #     ]
-  #     ++ shared;
-  #   specialArgs = {inherit inputs;};
-  # };
+  # desktop
+  chasm = nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    modules =
+      [
+        {networking.hostName = "Chasm";}
+        ./gdk/hardware-configuration.nix
+        bootloader
+        hmModule
+        {inherit home-manager;}
+        blockhost
+      ]
+      ++ shared;
+    specialArgs = {inherit inputs;};
+  };
 
   # lenovo laptop
   void = nixpkgs.lib.nixosSystem {

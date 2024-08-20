@@ -2,12 +2,9 @@
   home.packages = with pkgs; [
     # misc
     libnotify
-    # xdg-utils
-
-    pcmanfm
-    libreoffice
+    xdg-utils
     # pandoc
-    groff mupdf
+    mupdf
     keepassxc
 
   ];

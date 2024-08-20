@@ -30,15 +30,12 @@
 
   home.packages = with pkgs; [
     # audio control
+    bluetuith
     pavucontrol
     playerctl
     pulsemixer
     pamixer
-    transmission_4-gtk
-
     mpc_cli
-    ytfzf ani-cli ytmdl freetube
-    mangal
   ];
 
 

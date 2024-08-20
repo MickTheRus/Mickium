@@ -6,15 +6,14 @@
 
   # cursor theme
   home.pointerCursor = {
-    name = "Bibata-Modern-Classic";
-    package = pkgs.bibata-cursors;
+    name = "Numix-Cursor-Light";
+    package = pkgs.numix-cursor-theme;
     size = 12;
     gtk.enable = true;
   };
 
   gtk = {
     enable = true;
-
     theme = {
      name = "Catppuccin-Mocha-Compact-Lavender-Dark";
       package = pkgs.catppuccin-gtk;

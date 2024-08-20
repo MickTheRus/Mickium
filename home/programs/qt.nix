@@ -4,8 +4,8 @@
 
   qt = {
     enable = true;
-    platformTheme = "gtk3";
-    style.name = "adwaita-dark";
+    platformTheme = "gtk2";
+    style.name = "gtk2";
   };
 
   services.kdeconnect.enable = true;

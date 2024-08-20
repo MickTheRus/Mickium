@@ -49,7 +49,7 @@
     #   signByDefault = true;
     # };
 
-    userEmail = "nikolai.romanchenko@outlook.com";
+    userEmail = "nikolai.romanchenko@proton.me";
     userName = "MickTheRus";
     # editor = "";
   };

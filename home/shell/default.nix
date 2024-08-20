@@ -12,7 +12,6 @@ in {
     ./neovim.nix
     ./terminal.nix
     ./zsh.nix
-    ./helix.nix
   ];
 
   # add environment variables
@@ -26,7 +25,7 @@ in {
     # enable scrolling in git diff
     DELTA_PAGER = "less -R";
 
-    EDITOR = "emacsclient -nw -a 'nvim'";
+    EDITOR = "nvim";
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     DIRENV_LOG_FORMAT = "";
   };
