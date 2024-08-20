@@ -36,6 +36,7 @@
     pulsemixer
     pamixer
     mpc_cli
+    vesktop
   ];
 
 

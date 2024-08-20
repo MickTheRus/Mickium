@@ -5,10 +5,6 @@
 }:
 {
 
-  # home.packages = with pkgs; [
-  #   nyxt
-  # ];
-
   programs = {
     chromium = {
       enable = true;
