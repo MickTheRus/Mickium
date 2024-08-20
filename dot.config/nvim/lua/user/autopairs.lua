@@ -3,10 +3,10 @@ local M = {
 }
 
 M.config = function()
-  require("nvim-autopairs").setup({
+  require("nvim-autopairs").setup {
     check_ts = true,
     disable_filetype = { "TelescopePrompt", "spectre_panel" },
-  })
+  }
 end
 
 return M

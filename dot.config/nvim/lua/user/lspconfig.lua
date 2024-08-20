@@ -22,7 +22,7 @@ end
 M.on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
 
-  if client.supports_method("textDocument/inlayHint") then
+  if client.supports_method "textDocument/inlayHint" then
     vim.lsp.inlay_hint.enable(bufnr, true)
   end
 end
@@ -39,8 +39,8 @@ M.toggle_inlay_hints = function()
 end
 
 function M.config()
-  local wk = require("which-key")
-  wk.register({
+  local wk = require "which-key"
+  wk.register {
     ["<leader>la"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
     ["<leader>lf"] = {
       "<cmd>lua vim.lsp.buf.format({async = true, filter = function(client) return client.name ~= 'typescript-tools' end})<cr>",
@@ -53,17 +53,17 @@ function M.config()
     ["<leader>ll"] = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
     ["<leader>lq"] = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
     ["<leader>lr"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-  })
+  }
 
-  wk.register({
+  wk.register {
     ["<leader>la"] = {
       name = "LSP",
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action", mode = "v" },
     },
-  })
+  }
 
-  local lspconfig = require("lspconfig")
-  local icons = require("user.icons")
+  local lspconfig = require "lspconfig"
+  local icons = require "user.icons"
 
   local servers = {
     "lua_ls",
@@ -124,7 +124,7 @@ function M.config()
     end
 
     if server == "lua_ls" then
-      require("neodev").setup({})
+      require("neodev").setup {}
     end
 
     lspconfig[server].setup(opts)

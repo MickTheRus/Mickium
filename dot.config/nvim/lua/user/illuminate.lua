@@ -4,7 +4,7 @@ local M = {
 }
 
 function M.config()
-  require("illuminate").configure({
+  require("illuminate").configure {
     filetypes_denylist = {
       "mason",
       "harpoon",
@@ -30,7 +30,7 @@ function M.config()
       "DressingSelect",
       "TelescopePrompt",
     },
-  })
+  }
 end
 
 return M

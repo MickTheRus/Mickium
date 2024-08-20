@@ -5,9 +5,9 @@ local M = {
 }
 
 function M.config()
-  local icons = require("user.icons")
+  local icons = require "user.icons"
 
-  require("indent_blankline").setup({
+  require("indent_blankline").setup {
     buftype_exclude = { "terminal", "nofile" },
     filetype_exclude = {
       "help",
@@ -27,7 +27,7 @@ function M.config()
     show_first_indent_level = true,
     use_treesitter = true,
     show_current_context = true,
-  })
+  }
 
   -- indent = { char = icons.ui.LineMiddle },
   -- whitespace = {
