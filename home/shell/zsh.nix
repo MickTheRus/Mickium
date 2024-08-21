@@ -12,7 +12,7 @@
     dotDir = ".config/shell";
     autocd = true;
     enableCompletion = true;
-    enableAutosuggestions = true;
+   # autosuggestions.enable = true;
     history.extended = true;
 
     dirHashes = {

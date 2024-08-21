@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     # misc
+    kitty
     xfce.thunar
     xfce.thunar-volman
     libnotify

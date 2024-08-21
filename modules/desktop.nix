@@ -1,9 +1,9 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }: {
-
   programs = {
     dconf.enable = true;
     noisetorch.enable = true; # virtual noise suppressor
@@ -15,19 +15,18 @@
   };
 
   services = {
-
     dbus = {
       packages = with pkgs; [dconf gcr udisks2];
       enable = true;
     };
-    udev.packages = with pkgs; [ android-udev-rules ];
+    udev.packages = with pkgs; [android-udev-rules];
 
     journald.extraConfig = ''
       SystemMaxUse=50M
       RuntimeMaxUse=10M
     '';
 
-    # To mount drives with udiskctl commandopengl
+    # To mount drives with udiskctl command
     udisks2.enable = true;
     printing.enable = true;
 
@@ -37,7 +36,7 @@
     };
 
     # power management
-    auto-cpufreq= {
+    auto-cpufreq = {
       enable = true;
       settings = {
         battery = {
@@ -77,7 +76,6 @@
       };
     };
 
-
     # For Laptop, make lid close and power buttom click to suspend
     logind = {
       lidSwitch = "suspend-then-hibernate";
@@ -86,7 +84,6 @@
         HandlePowerKey=suspend-then-hibernate
         HibernateDelaySec=3600
       '';
-
     };
 
     # This makes the user 'mick' to autologin in all tty
@@ -113,8 +110,6 @@
     };
   };
 
-  # sound.enable = true;
-
   systemd.services = {
     seatd = {
       enable = true;
@@ -129,24 +124,26 @@
     };
   };
 
-
   hardware = {
     pulseaudio.enable = lib.mkForce false;
-    opengl = {
-      enable = true;
-      extraPackages = with pkgs; [
-        mesa
-      ];
+    graphics = {
+    	enable = true;
+	enable32Bit = true;
+	extraPackages = [ pkgs.amdvlk pkgs.libGL pkgs.mesa pkgs.freeglut pkgs.libGLU pkgs.libglibutil];
+	extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
     };
-  };
-
+};
+    
   fonts = {
     packages = with pkgs; [
-      noto-fonts unifont
+      noto-fonts
+      unifont
       # symbola # this font is unfree
-      noto-fonts-emoji maple-mono julia-mono
+      noto-fonts-emoji
+      maple-mono
+      julia-mono
 
-      (nerdfonts.override {fonts = [ "Iosevka" ];})
+      (nerdfonts.override {fonts = ["Iosevka"];})
     ];
 
     enableDefaultPackages = true;
@@ -155,20 +152,19 @@
     fontconfig = {
       defaultFonts = {
         monospace = [
-	        "JetBrainsMono Nerd Font"
-	        "Noto Color Emoji"
+          "Iosevka Nerd Font Mono"
+          "JetBrainsMono Nerd Font"
+          "Noto Color Emoji"
         ];
-        sansSerif = [ "Noto Sans" "Noto Serif" ];
-        serif = [ "Noto Sans" "Noto Serif"];
-        emoji = [ "Noto Color Emoji" "Symbola" "Noto Sans" ];
+        sansSerif = ["Noto Sans" "Noto Serif"];
+        serif = ["Noto Sans" "Noto Serif"];
+        emoji = ["Noto Color Emoji" "Symbola" "Noto Sans"];
       };
     };
   };
-
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-hyprland ];
-    configPackages = [ pkgs.xdg-desktop-portal-hyprland ];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-hyprland];
+    configPackages = [pkgs.xdg-desktop-portal-hyprland];
   };
-
 }

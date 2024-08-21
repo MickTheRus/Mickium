@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }:
 # configuration shared by all hosts
@@ -20,7 +21,7 @@
     ];
   };
 
-
+	
   i18n = {
     defaultLocale = "en_US.UTF-8";
     # saves space
@@ -37,9 +38,6 @@
     keyMap = "us";
   };
 
-  # graphics drivers / HW accel
-  hardware.opengl.enable = true;
-
   # enable programs
   programs = {
     less.enable = true;
@@ -53,7 +51,6 @@
     adb.enable = true;
 
     bash.promptInit = ''eval "$(${pkgs.starship}/bin/starship init bash)"'';
-
     zsh = {
       enable = true;
       autosuggestions.enable = true;
