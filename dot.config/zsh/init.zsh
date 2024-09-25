@@ -1,4 +1,4 @@
-source $ZDOTDIR/alias.zsh
-source $ZDOTDIR/plugins.zsh
-source $ZDOTDIR/path.zsh
-source $ZDOTDIR/eval.zsh
+source ~/.config/zsh/alias.zsh
+source ~/.config/zsh/plugins.zsh
+source ~/.config/zsh/path.zsh
+source ~/.config/zsh/eval.zsh

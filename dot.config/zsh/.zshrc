@@ -1,1 +1,1 @@
-source $ZDOTDIR/init.zsh
+source ~/Mickium/dot.config/zsh/init.zsh
