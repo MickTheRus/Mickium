@@ -3,8 +3,14 @@
   "reload_style_on_change": true,
   "width": 1920, // Waybar width
   "spacing": 7, // Gaps between modules (4px)
-  "modules-left": ["group/quicklinks-left", "wlr/taskbar", "hyprland/window"],
-  "modules-center": ["hyprland/workspaces"],
+  "modules-left": [
+    "group/quicklinks-left",
+    "wlr/taskbar",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
   "modules-right": [
     "mpd",
     "network",
@@ -13,7 +19,6 @@
     "clock",
     "group/quicklinks-right",
   ],
-
   //Taskbar
   "wlr/taskbar": {
     "format": "{icon}",
@@ -21,9 +26,11 @@
     "on-click": "activate",
     "on-click-right": "close",
     "tooltip-format": "Go to {title}",
-    "ignore-list": ["kitty", "kitty-scratchpad"],
+    "ignore-list": [
+      "kitty",
+      "kitty-scratchpad"
+    ],
   },
-
   // Hyprland
   "hyprland/workspaces": {
     "disable-scroll": true,
@@ -47,13 +54,11 @@
       "(.*) - Brave": "$1",
     },
   },
-
   // Tray
   "tray": {
     "icon-size": 21,
     "spacing": 10,
   },
-
   // Quicklinks
   "group/quicklinks-left": {
     "orientation": "horizontal",
@@ -105,7 +110,6 @@
   //  "tooltip-format": " Open Dolphin!",
   //  "on-click": "dolphin",
   //},
-
   "group/quicklinks-right": {
     "orientation": "horizontal",
     "modules": [
@@ -185,21 +189,22 @@
     "on-click-right": "swaync-client -d -sw",
     "escape": true,
   },
-
   // Settings
   "group/settings": {
     "orientation": "horizontal",
     "modules": [],
   },
-
   // Temperature
   "temperature": {
     "critical-threshold": 80,
     "format": "{temperatureC}°C {icon}",
     "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0/nvme/nvme0/hwmon1/temp1_input",
-    "format-icons": ["", "", ""],
+    "format-icons": [
+      "",
+      "",
+      ""
+    ],
   },
-
   // Audio setup
   "pulseaudio": {
     "format": "{volume}% {icon}",
@@ -209,12 +214,15 @@
     "format-source": "{volume}%",
     "format-source-muted": "",
     "format-icons": {
-      "default": ["", " ", " "],
+      "default": [
+        "",
+        " ",
+        " "
+      ],
     },
     "max-volume": 150,
     "on-click": "pavucontrol",
   },
-
   // Network setup
   "network": {
     "format": "{ifname}",
@@ -227,11 +235,14 @@
     "max-length": 50,
     "interval": 2,
   },
-
   // Hardware info
   "group/hardware": {
     "orientation": "horizontal",
-    "modules": ["disk", "cpu", "memory"],
+    "modules": [
+      "disk",
+      "cpu",
+      "memory"
+    ],
   },
   "disk": {
     "format": "{percentage_used}%  ",
@@ -244,7 +255,6 @@
   "memory": {
     "format": " {}%  ",
   },
-
   // Clock
   "clock": {
     "format": "󱑂 {:%R %a}", // 19:28 Mon

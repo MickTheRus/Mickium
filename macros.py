@@ -28,6 +28,8 @@ try:
             if key.keystate == key.key_down:  # Check if the key is pressed down
                 if key.keycode == 'KEY_ESC':  # Check if the key pressed is 'ESC'
                     subprocess.run(['echo', 'Hello World'])
+                if key.keycode == 'KEY_J': 
+                    subprocess.run(['ffplay', '/home/mick/Mickium/kys.mp3'])
 
 except Exception as e:
     print(e)
