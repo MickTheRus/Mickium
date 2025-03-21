@@ -18,3 +18,4 @@ export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 # GNU Realine
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 
+export PATH=$PATH:/home/mick/.local/share/cargo/bin

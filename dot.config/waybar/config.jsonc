@@ -3,21 +3,16 @@
   "reload_style_on_change": true,
   "width": 1920, // Waybar width
   "spacing": 7, // Gaps between modules (4px)
-  "modules-left": [
-    "group/quicklinks-left",
-    "wlr/taskbar",
-    "hyprland/window"
-  ],
-  "modules-center": [
-    "hyprland/workspaces"
-  ],
+  "modules-left": ["group/quicklinks-left", "wlr/taskbar", "hyprland/window"],
+  "modules-center": ["hyprland/workspaces" ],
   "modules-right": [
     "mpd",
     "network",
     "pulseaudio",
     "group/hardware",
+    "tray",
     "clock",
-    "group/quicklinks-right",
+    "group/quicklinks-right"
   ],
   //Taskbar
   "wlr/taskbar": {
@@ -26,10 +21,7 @@
     "on-click": "activate",
     "on-click-right": "close",
     "tooltip-format": "Go to {title}",
-    "ignore-list": [
-      "kitty",
-      "kitty-scratchpad"
-    ],
+    "ignore-list": ["kitty", "kitty-scratchpad"],
   },
   // Hyprland
   "hyprland/workspaces": {
@@ -199,11 +191,7 @@
     "critical-threshold": 80,
     "format": "{temperatureC}°C {icon}",
     "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0/nvme/nvme0/hwmon1/temp1_input",
-    "format-icons": [
-      "",
-      "",
-      ""
-    ],
+    "format-icons": ["", "", ""],
   },
   // Audio setup
   "pulseaudio": {
@@ -214,11 +202,7 @@
     "format-source": "{volume}%",
     "format-source-muted": "",
     "format-icons": {
-      "default": [
-        "",
-        " ",
-        " "
-      ],
+      "default": ["", " ", " "],
     },
     "max-volume": 150,
     "on-click": "pavucontrol",
@@ -238,11 +222,7 @@
   // Hardware info
   "group/hardware": {
     "orientation": "horizontal",
-    "modules": [
-      "disk",
-      "cpu",
-      "memory"
-    ],
+    "modules": ["disk", "cpu", "memory"],
   },
   "disk": {
     "format": "{percentage_used}%  ",

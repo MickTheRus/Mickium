@@ -4,7 +4,7 @@ local M = {
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true },
     "nvim-lua/plenary.nvim",
   },
-  -- lazy = true,
+  lazy = false,
   cmd = "Telescope",
 }
 

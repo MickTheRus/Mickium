@@ -7,7 +7,6 @@ local M = {
     },
   },
 }
-
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
   local keymap = vim.api.nvim_buf_set_keymap
@@ -74,6 +73,7 @@ function M.config()
     "pyright",
     "bashls",
     "jsonls",
+    "helm_ls",
     "yamlls",
   }
 
@@ -87,7 +87,7 @@ function M.config()
         { name = "DiagnosticSignInfo", text = icons.diagnostics.Information },
       },
     },
-    virtual_text = false,
+    virtual_text = true,
     update_in_insert = false,
     underline = true,
     severity_sort = true,

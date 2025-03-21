@@ -112,12 +112,12 @@ function M.config()
       format = function(entry, vim_item)
         vim_item.kind = icons.kind[vim_item.kind]
         vim_item.menu = ({
-          nvim_lsp = "",
-          nvim_lua = "",
-          luasnip = "",
-          buffer = "",
-          path = "",
-          emoji = "",
+          nvim_lsp = "[LSP]",
+          nvim_lua = "[LUA]",
+          luasnip = "[SNIP]",
+          buffer = "[BUFFER]",
+          path = "[PATH]",
+          emoji = "[EMOJI]",
         })[entry.source.name]
 
         if entry.source.name == "emoji" then
@@ -158,7 +158,7 @@ function M.config()
       },
     },
     experimental = {
-      ghost_text = false,
+      ghost_text = true,
     },
   }
 end

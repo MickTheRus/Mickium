@@ -89,6 +89,9 @@ tooltip {
 	transition: all 0.2s ease-in-out;
 }
 
+#tray {
+}
+
 /* quicklinks  */
 #quicklinks-right,
 #quicklinks-left {
