@@ -74,6 +74,7 @@ function M.config()
     "bashls",
     "jsonls",
     "helm_ls",
+    "dprint",
     "yamlls",
   }
 
