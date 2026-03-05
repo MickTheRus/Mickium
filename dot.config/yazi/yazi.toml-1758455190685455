@@ -1,4 +1,4 @@
-[mgr]
+[manager]
 prepend_keymap = [
 	{ on = "b", run = "ripdrag",desc = "Drag and Drop Support" }
 ]
