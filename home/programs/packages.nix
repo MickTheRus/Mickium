@@ -72,8 +72,5 @@ in {
     yazi
     libnotify
     xdg-utils
-    # pandoc
-    mupdf
-    keepassxc
   ];
 }
