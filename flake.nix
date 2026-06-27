@@ -24,6 +24,10 @@
       url = "github:doomemacs/doomemacs";
       flake = false;
     };
+    claude-desktop = {
+      url = "github:aaddrick/claude-desktop-debian";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     meshcore-cli = {
       url = "github:meshcore-dev/meshcore-cli";
       inputs.nixpkgs.follows = "nixpkgs";

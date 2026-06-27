@@ -120,7 +120,7 @@ apps, media tools, game tools, and device utilities.
 
 Notable packages and services include:
 
-- Browsers/apps: Brave, Equibop for Discord, OpenAI Codex CLI package.
+- Browsers/apps: Brave, Equibop for Discord, Claude Desktop, OpenAI Codex CLI package.
 - Creative tools: Inkscape, Krita, Blender.
 - Files and launchers: Thunar, Yazi, Rofi, Kitty.
 - Gaming/tools: Steam, Bolt Launcher.

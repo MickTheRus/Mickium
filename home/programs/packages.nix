@@ -57,6 +57,7 @@ in {
     # misc
     blender
     bolt-launcher
+    inputs.claude-desktop.packages.${pkgs.system}.claude-desktop
     codex
     inkscape
     kdePackages.kdeconnect-kde
