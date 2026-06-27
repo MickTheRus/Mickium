@@ -19,14 +19,14 @@
     "rofi/menus/clipboard.sh" = {
       executable = true;
       text = ''
-        #!/bin/zsh
+        #!/usr/bin/env bash
 
         clipboard=$(cliphist list)
 
-        selected=$(echo $clipboard | rofi -dmenu -theme "$HOME/.config/rofi/styles/clipboard.rasi" -p "󱘢" -display-columns 2)
+        selected=$(printf '%s\n' "$clipboard" | rofi -dmenu -theme "$HOME/.config/rofi/styles/clipboard.rasi" -p "󱘢" -display-columns 2)
 
         if [[ $selected != "" ]]; then
-            echo $selected | cliphist decode | wl-copy
+            printf '%s\n' "$selected" | cliphist decode | wl-copy
         fi
       '';
     };
@@ -34,7 +34,7 @@
     "rofi/menus/drun.sh" = {
       executable = true;
       text = ''
-        #!/bin/zsh
+        #!/usr/bin/env bash
 
         rofi -show drun -theme "$HOME/.config/rofi/styles/drun.rasi"
       '';
@@ -43,7 +43,7 @@
     "rofi/menus/emoji.sh" = {
       executable = true;
       text = ''
-        #!/bin/zsh
+        #!/usr/bin/env bash
 
         rofi -modi emoji -show emoji -theme "$HOME/.config/rofi/styles/emoji.rasi" -emoji-format '<span size="large">{emoji}</span> <span weight="bold">{name}</span> [<span size="small">({keywords})</span>]'
       '';
@@ -52,7 +52,7 @@
     "rofi/menus/swww.sh" = {
       executable = true;
       text = ''
-        #!/bin/zsh
+        #!/usr/bin/env bash
 
         # all wallpapers array
         wallpapers=(~/Pictures/Wallpapers/*)
@@ -61,29 +61,30 @@
         current_wallpaper_path=$(swww query | sed "s/.*image: \(.*\)/\1/")
 
         # if the daemon is not running
-        if [[ $current_wallpaper_path == "" ]] then;
-            swww-daemon &!
+        if [[ $current_wallpaper_path == "" ]]; then
+            swww-daemon &
         fi
 
-        current_wallpaper_name=''${current_wallpaper_path:t}
+        current_wallpaper_name=$(basename "$current_wallpaper_path")
 
         # show menu (with icon)
         selected_wallpaper=$(for a in $wallpapers; do
-            if [[ ''${a:t} == $current_wallpaper_name ]] then;
-                echo -en "''${a:t} (current)\0icon\x1f$a\n"
+            wallpaper_name=$(basename "$a")
+            if [[ $wallpaper_name == "$current_wallpaper_name" ]]; then
+                printf '%s (current)\0icon\x1f%s\n' "$wallpaper_name" "$a"
             else
-                echo -en "''${a:t}\0icon\x1f$a\n"
+                printf '%s\0icon\x1f%s\n' "$wallpaper_name" "$a"
             fi
         done | rofi -dmenu -p " " -theme "$HOME/.config/rofi/styles/swww.rasi")
 
         # removing the added " (current)" from the selected wallpaper (no matter the item selected)
-        final_wallpaper=$(echo $selected_wallpaper | sed "s/ (current)//")
-        wallpaper_ext=$(echo $final_wallpaper | sed "s/.*\.\(.*\)/\1/")
+        final_wallpaper=$(printf '%s\n' "$selected_wallpaper" | sed "s/ (current)//")
+        wallpaper_ext=$(printf '%s\n' "$final_wallpaper" | sed "s/.*\.\(.*\)/\1/")
 
         # changing the wallpaper and the colorscheme if selected wallpaper is not empty
         if [[ $selected_wallpaper != "" ]]; then
-            swww img ~/Pictures/Wallpapers/$final_wallpaper --transition-type center --transition-fps 60 --transition-step 100 &&
-            ln -f ~/Pictures/Wallpapers/$final_wallpaper ~/.cache/current-wallpaper && # creates a symlink to the current wallpaper
+            swww img ~/Pictures/Wallpapers/"$final_wallpaper" --transition-type center --transition-fps 60 --transition-step 100 &&
+            ln -f ~/Pictures/Wallpapers/"$final_wallpaper" ~/.cache/current-wallpaper && # creates a symlink to the current wallpaper
             ~/.config/hypr/scripts/generate-wallpaper-variants.sh # generates all the variants at a single time
         fi
       '';
