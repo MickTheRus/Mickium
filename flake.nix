@@ -20,32 +20,39 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
+    meshcore-cli = {
+      url = "github:meshcore-dev/meshcore-cli";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    ...
-  }: let
+  outputs = inputs @ {nixpkgs, ...}: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.x86_64-linux;
-    username = "mick";
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
-    devShells.x86_64-linux.default = pkgs.mkShell {
+    devShells.${system}.default = pkgs.mkShell {
       packages = with pkgs; [
         alejandra
+        deadnix
         git
+        nil
+        statix
       ];
       name = "Mickium";
       DIRENV_LOG_FORMAT = "";
     };
 
-    formatter = pkgs.alejandra;
+    formatter.${system} = pkgs.writeShellApplication {
+      name = "format-nix";
+      runtimeInputs = [pkgs.alejandra];
+      text = ''
+        if [ "$#" -eq 0 ]; then
+          alejandra .
+        else
+          alejandra "$@"
+        fi
+      '';
+    };
 
     nixosConfigurations = import ./hosts inputs;
   };

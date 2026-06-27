@@ -3,18 +3,23 @@
     # archives
     zip
     unzip
-    rar 
+    rar
     fzf
     # wonderful spells
-    aspell aspellDicts.en-science aspellDicts.en hunspell hunspellDicts.en-us
+    aspell
+    aspellDicts.en-science
+    aspellDicts.en
+    hunspell
+    hunspellDicts.en-us
 
-    ffmpeg-full sdcv nq
+    ffmpeg-full
+    sdcv
+    nq
     # utils
     file
-    du-dust
+    dust
     fd
     wget
-
   ];
 
   programs = {
@@ -22,7 +27,7 @@
     eza = {
       enable = true;
       extraOptions = ["--group-directories-first" "--header"];
-      icons = true;
+      icons = "auto";
     };
 
     ripgrep = {
@@ -41,7 +46,7 @@
         theme_background = false;
         vim_keys = true;
         shown_boxes = "proc cpu";
-        rounded_corners = true ;
+        rounded_corners = true;
         graph_symbol = "block";
         proc_sorting = "memory";
         proc_reversed = false;
@@ -51,14 +56,17 @@
 
     bat = {
       enable = true;
-      extraPackages = with pkgs.bat-extras; [ batman batgrep batwatch ];
+      extraPackages = with pkgs.bat-extras; [batman batgrep batwatch];
       config = {
         pager = "less -FR";
         theme = "TwoDark";
       };
     };
 
-    ssh.enable = true;
+    ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+    };
 
     skim = {
       enable = true;

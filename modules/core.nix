@@ -1,12 +1,10 @@
 {
   pkgs,
   lib,
-  inputs,
   ...
 }:
 # configuration shared by all hosts
 {
-
   # enable zsh autocompletion for system packages (systemd, etc)
   environment = {
     pathsToLink = ["/share/zsh"];
@@ -16,12 +14,12 @@
       NIXOS_OZONE_WL = "1";
     };
     systemPackages = with pkgs; [
+      android-tools
       gitFull
       (writeScriptBin "sudo" ''exec doas "$@"'')
     ];
   };
 
-	
   i18n = {
     defaultLocale = "en_US.UTF-8";
     # saves space
@@ -41,14 +39,11 @@
   # enable programs
   programs = {
     less.enable = true;
-    # type "fuck" to fix the last command that made you go "fuck"
-    thefuck.enable = true;
+    pay-respects.enable = true;
+    fish.enable = true;
 
     # allow users to mount fuse filesystems with allow_other
     fuse.userAllowOther = true;
-
-    # help manage android devices via command line
-    adb.enable = true;
 
     bash.promptInit = ''eval "$(${pkgs.starship}/bin/starship init bash)"'';
     zsh = {
@@ -70,7 +65,7 @@
 
   users.users.mick = {
     isNormalUser = true;
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
     extraGroups = ["adbusers" "input" "libvirtd" "networkmanager" "plugdev" "transmission" "video" "wheel"];
   };
 
@@ -79,12 +74,11 @@
     enable = false;
   };
 
-  systemd.sleep.extraConfig = ''
-   AllowSuspendThenHibernate=yes
-   HibernateDelaySec=3600
-   '';
+  systemd.sleep.settings.Sleep = {
+    AllowSuspendThenHibernate = "yes";
+    HibernateDelaySec = "3600";
+  };
 
   # NEVER EVER TOUCH THIS ⚠️
   system.stateVersion = lib.mkDefault "23.05"; # OR CRY WITH BROKE SYS
-
 }

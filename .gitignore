@@ -1,2 +1,7 @@
-./flake.lock
-
+result
+result-*
+.direnv/
+.devenv/
+*.swp
+*.swo
+*~

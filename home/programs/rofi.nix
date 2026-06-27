@@ -1,10 +1,6 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
-    rofi-wayland
+    rofi
   ];
-  xdg.configFile."rofi".source = config.lib.file.mkOutOfStoreSymlink "/home/mick/Mickium/home/programs/the-rofi";
+  xdg.configFile."rofi".source = ./rofi-config;
 }

@@ -1,27 +1,29 @@
 {pkgs, ...}: {
-
   home.packages = with pkgs; [
-
     # better to manage it via development shell
 
     # shell
-    nodePackages.bash-language-server
+    bash-language-server
 
     # basic stack
-    # nodePackages.vscode-langservers-extracted
-    hugo monolith
+    # vscode-langservers-extracted
+    hugo
+    monolith
 
     ### python
-    # python311Packages.python-lsp-server
-    # nodePackages.pyright
-    (python311.withPackages(ps: with ps; [
-      python-lsp-server
-      python-lsp-black
-      python-lsp-ruff
-    ]))
+    # python3Packages.python-lsp-server
+    # pyright
+    (python3.withPackages (ps:
+      with ps; [
+        python-lsp-server
+        python-lsp-black
+        python-lsp-ruff
+      ]))
 
     # core comp
-    gcc gnumake tree-sitter
+    gcc
+    gnumake
+    tree-sitter
     parallel
 
     # science
@@ -43,7 +45,8 @@
         # shiny
         # rio
         # rmarkdown
-      ]; })
+      ];
+    })
 
     # nix
     # nixd # or nil
@@ -54,7 +57,6 @@
   ];
 
   programs = {
-
     gpg.enable = true;
     man.enable = true;
 
@@ -68,15 +70,13 @@
       enable = true;
       settings = {
         display = {
-	        compact = false;
-	        use_pager = true;
+          compact = false;
+          use_pager = true;
         };
         updates = {
-	        auto_update = true;
+          auto_update = true;
         };
       };
     };
-
   };
-
 }

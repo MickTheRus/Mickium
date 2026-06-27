@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-
   programs.neovim = {
     enable = true;
 
@@ -7,9 +6,8 @@
     viAlias = true;
     vimdiffAlias = true;
     withPython3 = true;
+    withRuby = false;
 
-    extraPackages = with pkgs; [ kitty gcc ripgrep fd];
-
+    extraPackages = with pkgs; [kitty gcc ripgrep fd];
   };
-
 }

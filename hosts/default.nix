@@ -9,7 +9,7 @@
   hmModule = inputs.home-manager.nixosModules.home-manager;
   blockhost = inputs.hosts.nixosModule;
 
-  shared = [ core ];
+  shared = [core];
 
   home-manager = {
     useUserPackages = true;
@@ -20,16 +20,14 @@
     };
     users.mick = ../home;
   };
-
 in {
-
   # desktop
-  chasm = nixpkgs.lib.nixosSystem {
+  maxwell = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "Chasm";}
-        ./Chasm/hardware-configuration.nix
+        {networking.hostName = "Maxwell";}
+        ./Maxwell/hardware-configuration.nix
         bootloader
         hmModule
         {inherit home-manager;}
@@ -40,12 +38,12 @@ in {
   };
 
   # lenovo laptop
-  void = nixpkgs.lib.nixosSystem {
+  altar = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "Void";}
-        ./Void/hardware-configuration.nix
+        {networking.hostName = "Altar";}
+        ./Altar/hardware-configuration.nix
         bootloader
         hmModule
         {inherit home-manager;}
@@ -54,5 +52,4 @@ in {
       ++ shared;
     specialArgs = {inherit inputs;};
   };
-
 }

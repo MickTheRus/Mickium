@@ -1,10 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}:
-{
-
+{pkgs, ...}: {
   programs = {
     chromium = {
       enable = true;
@@ -23,7 +17,5 @@
         {id = "bnomihfieiccainjcjblhegjgglakjdd";} # Improve Youtube
       ];
     };
-
-
   };
 }

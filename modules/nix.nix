@@ -4,7 +4,6 @@
   inputs,
   ...
 }: {
-
   environment = {
     # set channels (backwards compatibility)
     etc = {
@@ -15,10 +14,9 @@
 
   nixpkgs = {
     config = {
-      # keep a check and remove it asap
-      # permittedInsecurePackages = [
-      #   "openssl-1.1.1u"
-      # ];
+      permittedInsecurePackages = [
+        "ventoy-1.1.12"
+      ];
       allowUnfree = true;
       allowBroken = false;
     };
@@ -35,7 +33,7 @@
     info.enable = true;
     man = {
       enable = true;
-      generateCaches = true; # will take little time
+      cache.enable = true; # will take little time
     };
     dev.enable = true;
   };
@@ -55,7 +53,7 @@
     daemonIOSchedClass = "idle";
 
     # pin the registry to avoid downloading and evaling a new nixpkgs version every time
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
@@ -77,7 +75,7 @@
       # continue building derivations if one fails
       keep-going = true;
       log-lines = 20;
-      extra-experimental-features = ["flakes" "nix-command" ];
+      experimental-features = ["flakes" "nix-command"];
 
       # use binary cache, its not gentoo
       # substituters = [

@@ -12,9 +12,9 @@
       line_break.disabled = false;
 
       hostname = {
-	      ssh_only = true;
-	      format = "[$hostname](bold blue) ";
-	      disabled = false;
+        ssh_only = true;
+        format = "[$hostname](bold blue) ";
+        disabled = false;
       };
     };
   };

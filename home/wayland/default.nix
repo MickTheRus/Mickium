@@ -1,25 +1,9 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
+{pkgs, ...}:
 # Wayland config
-let
-  # use OCR and copy to clipboard
-  ocrScript = let
-    inherit (pkgs) grim libnotify slurp tesseract5 wl-clipboard;
-    _ = lib.getExe;
-  in
-    pkgs.writeShellScriptBin "wl-ocr" ''
-      ${_ grim} -g "$(${_ slurp})" -t ppm - | ${_ tesseract5} - - | ${wl-clipboard}/bin/wl-copy
-      ${_ libnotify} "$(${wl-clipboard}/bin/wl-paste)"
-    '';
-in {
-
+{
   imports = [
     ./waybar.nix
     ./hyprland.nix
-    #./swayidle.nix
   ];
 
   home.packages = with pkgs; [
@@ -27,12 +11,15 @@ in {
     grim
     slurp
 
-    libnotify libsixel bemenu
+    libnotify
+    libsixel
+    bemenu
     brightnessctl
-    wtype swaybg swayidle gtklock
-    vesktop
-    # utils
-    # ocrScript
+    wtype
+    swaybg
+    swayidle
+    gtklock
+    equibop
     wl-screenrec
     wl-clipboard
   ];
@@ -52,5 +39,4 @@ in {
       Requires = ["graphical-session-pre.target"];
     };
   };
-
 }

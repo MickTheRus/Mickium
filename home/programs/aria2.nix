@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
-
+_: {
   programs.aria2 = {
     enable = true;
     settings = {
@@ -36,5 +32,4 @@
       rpc-save-upload-metadata = "false";
     };
   };
-
 }

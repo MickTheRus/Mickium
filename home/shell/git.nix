@@ -5,52 +5,57 @@
 }: {
   home.packages = [pkgs.gh];
 
-  programs.git = {
-    enable = true;
-    package = pkgs.gitFull;
-
+  programs = {
     delta = {
       enable = true;
+      enableGitIntegration = true;
       # TODOTHIS
       # options.map-styles = "bold purple => syntax ${default.xcolors.mauve}, bold cyan => syntax ${default.xcolors.blue}";
     };
 
-    extraConfig = {
-      diff.colorMoved = "default";
-      merge.conflictstyle = "diff3";
+    git = {
+      enable = true;
+      package = pkgs.gitFull;
+
+      settings = {
+        diff.colorMoved = "default";
+        merge.conflictstyle = "diff3";
+
+        alias = {
+          a = "add";
+          b = "branch";
+          c = "commit";
+          ca = "commit --amend";
+          cm = "commit -m";
+          cho = "checkout";
+          d = "diff";
+          ds = "diff --staged";
+          p = "push";
+          pf = "push --force-with-lease";
+          pl = "pull";
+          l = "log";
+          r = "rebase";
+          s = "status --short";
+          ss = "status";
+          forgor = "commit --amend --no-edit";
+          graph = "log --all --decorate --graph --oneline";
+          logrep = "log --decorate --oneline --grep=";
+          oops = "checkout --";
+        };
+
+        user = {
+          email = "nikolai.romanchenko@proton.me";
+          name = "MickTheRus";
+        };
+      };
+
+      ignores = ["*~" "*.swp" "*result*" ".direnv" "node_modules"];
+
+      # signing = {
+      #   key = "";
+      #   signByDefault = true;
+      # };
+      # editor = "";
     };
-
-    aliases = {
-      a = "add";
-      b = "branch";
-      c = "commit";
-      ca = "commit --amend";
-      cm = "commit -m";
-      cho = "checkout";
-      d = "diff";
-      ds = "diff --staged";
-      p = "push";
-      pf = "push --force-with-lease";
-      pl = "pull";
-      l = "log";
-      r = "rebase";
-      s = "status --short";
-      ss = "status";
-      forgor = "commit --amend --no-edit";
-      graph = "log --all --decorate --graph --oneline";
-      logrep = "log --decorate --oneline --grep=";
-      oops = "checkout --";
-    };
-
-    ignores = ["*~" "*.swp" "*result*" ".direnv" "node_modules"];
-
-    # signing = {
-    #   key = "";
-    #   signByDefault = true;
-    # };
-
-    userEmail = "nikolai.romanchenko@proton.me";
-    userName = "MickTheRus";
-    # editor = "";
   };
 }

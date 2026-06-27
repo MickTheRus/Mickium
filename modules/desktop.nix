@@ -1,12 +1,14 @@
 {
+  config,
   pkgs,
   lib,
-  inputs,
   ...
 }: {
   programs = {
     dconf.enable = true;
+    kdeconnect.enable = true;
     noisetorch.enable = true; # virtual noise suppressor
+    steam.enable = true;
   };
 
   powerManagement = {
@@ -78,17 +80,13 @@
 
     # For Laptop, make lid close and power buttom click to suspend
     logind = {
-      lidSwitch = "suspend-then-hibernate";
-      lidSwitchExternalPower = "lock";
-      extraConfig = ''
-        HandlePowerKey=suspend-then-hibernate
-        HibernateDelaySec=3600
-      '';
+      settings.Login = {
+        HandleLidSwitch = "suspend-then-hibernate";
+        HandleLidSwitchExternalPower = "lock";
+        HandlePowerKey = "suspend-then-hibernate";
+        HibernateDelaySec = "3600";
+      };
     };
-
-    # This makes the user 'mick' to autologin in all tty
-    # Depends on you if you want login manager or prefer entering password manually
-    getty.autologinUser = "mick";
 
     atd.enable = true;
     fstrim.enable = true;
@@ -96,6 +94,16 @@
 
     # For android file transfer via usb, or better check on KDE connect
     gvfs.enable = true;
+
+    tailscale = {
+      enable = true;
+      openFirewall = true;
+      useRoutingFeatures = "client";
+      extraUpFlags = [
+        "--accept-dns"
+        "--accept-routes"
+      ];
+    };
 
     # Pipewire setup, just these lines enough to make sane default for it
     pipewire = {
@@ -108,9 +116,45 @@
       pulse.enable = true;
       jack.enable = true;
     };
+    pulseaudio.enable = lib.mkForce false;
   };
 
+  services.displayManager.ly.enable = true;
+
   systemd.services = {
+    tailscaled-login = {
+      description = "Start Tailscale login flow when unauthenticated";
+      after = [
+        "network-online.target"
+        "tailscaled.service"
+      ];
+      wants = [
+        "network-online.target"
+        "tailscaled.service"
+      ];
+      wantedBy = ["multi-user.target"];
+      path = [
+        config.services.tailscale.package
+        pkgs.jq
+      ];
+      serviceConfig = {
+        Type = "simple";
+        Restart = "on-failure";
+        RestartSec = "30s";
+      };
+      script = ''
+        state="$(tailscale status --json --peers=false | jq -r '.BackendState // empty' 2>/dev/null || true)"
+
+        if [ "$state" = "Running" ]; then
+          echo "Tailscale is already running"
+          exit 0
+        fi
+
+        echo "Starting Tailscale. Complete the sign-in URL shown below if this device is not authenticated yet."
+        exec tailscale up --accept-dns --accept-routes --operator=mick --timeout=0s
+      '';
+    };
+
     seatd = {
       enable = true;
       description = "Seat management daemon";
@@ -125,25 +169,22 @@
   };
 
   hardware = {
-    pulseaudio.enable = lib.mkForce false;
     graphics = {
-    	enable = true;
-	enable32Bit = true;
-	extraPackages = [ pkgs.amdvlk pkgs.libGL pkgs.mesa pkgs.freeglut pkgs.libGLU pkgs.libglibutil];
-	extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
+      enable = true;
+      enable32Bit = true;
+      extraPackages = [pkgs.libGL pkgs.mesa pkgs.freeglut pkgs.libGLU pkgs.libglibutil];
     };
-};
-    
+  };
+
   fonts = {
     packages = with pkgs; [
       noto-fonts
       unifont
       # symbola # this font is unfree
-      noto-fonts-emoji
-      maple-mono
+      noto-fonts-color-emoji
       julia-mono
 
-      (nerdfonts.override {fonts = ["Iosevka"];})
+      nerd-fonts.iosevka
     ];
 
     enableDefaultPackages = true;
@@ -153,11 +194,10 @@
       defaultFonts = {
         monospace = [
           "Iosevka Nerd Font Mono"
-          "JetBrainsMono Nerd Font"
           "Noto Color Emoji"
         ];
-        sansSerif = ["Noto Sans" "Noto Serif"];
-        serif = ["Noto Sans" "Noto Serif"];
+        sansSerif = ["Iosevka Nerd Font" "Noto Sans" "Noto Serif"];
+        serif = ["Iosevka Nerd Font" "Noto Serif" "Noto Sans"];
         emoji = ["Noto Color Emoji" "Symbola" "Noto Sans"];
       };
     };

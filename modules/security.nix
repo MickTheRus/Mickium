@@ -1,13 +1,16 @@
-{
-...
-}:
-
+{pkgs, ...}:
 # this makes our system more secure
 # note that it might break some stuff, eg webcam
-
 {
+  environment.systemPackages = with pkgs; [
+    pam_u2f
+    yubico-pam
+    yubikey-manager
+    yubioath-flutter
+  ];
+
   services = {
-    dnscrypt-proxy2 = {
+    dnscrypt-proxy = {
       enable = true;
       settings = {
         ipv6_servers = true;
@@ -23,6 +26,8 @@
         };
       };
     };
+
+    pcscd.enable = true;
   };
 
   programs.ssh.startAgent = true;
@@ -35,6 +40,15 @@
 
     # required for lockscreens
     pam = {
+      u2f = {
+        enable = true;
+        control = "sufficient";
+        settings = {
+          authfile = "/home/mick/.config/Yubico/u2f_keys";
+          cue = true;
+        };
+      };
+
       services.gtklock = {
         text = "auth include login";
       };
@@ -42,14 +56,15 @@
 
     doas = {
       enable = true;
-      extraRules = [{
-        users = [ "mick" ];
-        keepEnv = true;
-        persist = true;
-      }];
+      extraRules = [
+        {
+          users = ["mick"];
+          keepEnv = true;
+          persist = true;
+        }
+      ];
     };
 
     sudo.enable = false;
   };
-
 }

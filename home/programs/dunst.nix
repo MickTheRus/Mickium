@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
-
+{pkgs, ...}: {
   services.dunst = {
     enable = true;
     iconTheme = {
@@ -68,7 +64,7 @@
         background = "#33333390";
         foreground = "#ffffff";
         timeout = 0;
-        script="d-notif";
+        script = "d-notif";
       };
 
       urgency_low = {
@@ -89,5 +85,4 @@
       };
     };
   };
-
 }

@@ -27,9 +27,7 @@
     "application/zip" = ["sioyek.desktop"];
     "application/x.bittorrent" = ["d-stuff.desktop"];
   };
-
 in {
-
   xdg = {
     enable = true;
     cacheHome = config.home.homeDirectory + "/.local/cache";
@@ -45,23 +43,22 @@ in {
     userDirs = {
       enable = true;
       createDirectories = true;
-      documents =  "${config.home.homeDirectory}/Documents";
+      setSessionVariables = true;
+      documents = "${config.home.homeDirectory}/Documents";
       download = "${config.home.homeDirectory}/Downloads";
       videos = "${config.home.homeDirectory}/Videos";
       music = "${config.home.homeDirectory}/Music";
       pictures = "${config.home.homeDirectory}/Pictures";
       extraConfig = {
-        XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
+        SCREENSHOTS = "${config.xdg.userDirs.pictures}/Screenshots";
       };
     };
-
   };
 
   xdg.dataFile."applications/d-stuff.desktop".text = ''
-  [Desktop Entry]
-  Type=Application
-  Name=Stuff Handler
-  Exec=d-stuff %U
+    [Desktop Entry]
+    Type=Application
+    Name=Stuff Handler
+    Exec=d-stuff %U
   '';
-
 }

@@ -3,30 +3,31 @@
   config,
   ...
 }: {
-
   # cursor theme
   home.pointerCursor = {
-    name = "Numix-Cursor-Light";
-    package = pkgs.numix-cursor-theme;
-    size = 12;
+    name = "Adwaita";
+    package = pkgs.adwaita-icon-theme;
+    size = 24;
     gtk.enable = true;
   };
 
   gtk = {
     enable = true;
     theme = {
-     name = "Catppuccin-Mocha-Compact-Lavender-Dark";
+      name = "catppuccin-mocha-maroon-standard+default";
       package = pkgs.catppuccin-gtk;
     };
 
+    gtk4.theme = config.gtk.theme;
+
     iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
+      name = "candy-icons";
+      package = pkgs.candy-icons;
     };
 
     font = {
       name = "Iosevka Nerd Font";
-      size = 12;
+      size = 11;
     };
 
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
@@ -39,11 +40,10 @@
     };
 
     gtk2.extraConfig = ''
-    gtk-xft-antialias=1
-    gtk-xft-hinting=1
-    gtk-xft-hintstyle="hintslight"
-    gtk-xft-rgba="rgb"
+      gtk-xft-antialias=1
+      gtk-xft-hinting=1
+      gtk-xft-hintstyle="hintslight"
+      gtk-xft-rgba="rgb"
     '';
-
   };
 }

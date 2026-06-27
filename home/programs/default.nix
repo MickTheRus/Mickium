@@ -1,9 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
-
+{config, ...}: {
   imports = [
     ./xdg.nix
     ./qt.nix
@@ -36,6 +31,5 @@
       enableZshIntegration = true;
       # pinentryPackage = "curses";
     };
-
   };
 }

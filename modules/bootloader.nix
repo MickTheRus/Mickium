@@ -1,11 +1,12 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   boot = {
-    # Uses bleeding edge latest kernel.
-    kernelPackages = pkgs.linuxPackages_latest;
-    # kernelModules = [ "tcp_bbr" "acpi_call" ];
+    kernelPackages = pkgs.linuxPackages_zen;
+    extraModulePackages = with pkgs.linuxPackages_zen; [
+      xpadneo
+    ];
+    kernelModules = [
+      "hid-xpadneo"
+    ];
 
     kernel.sysctl = {
       # The Magic SysRq key is a key combo that allows users connected to the
@@ -55,7 +56,7 @@
       timeout = 1;
     };
 
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = ["ntfs"];
     tmp.cleanOnBoot = true;
     binfmt.emulatedSystems = ["aarch64-linux"];
   };

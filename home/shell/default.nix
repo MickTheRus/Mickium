@@ -5,6 +5,7 @@
 in {
   imports = [
     ./cli.nix
+    ./fish.nix
     ./git.nix
     ./starship.nix
     ./nix.nix
