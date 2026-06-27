@@ -106,8 +106,7 @@ home/wayland/hypr-config/       Native Hyprland, Hyprlock, Hypridle config.
 home/wayland/waybar.nix         Complete Waybar settings and style.
 home/programs/rofi.nix          Home Manager wrapper for Rofi.
 home/programs/rofi-config/      Native Rofi Rasi config and menu scripts.
-home/programs/qt.nix            Qt environment and qt5ct/qt6ct install config.
-home/programs/qt-config/        Native Qt theme config.
+home/programs/qt.nix            Qt environment, qt5ct/qt6ct, and Electron flags.
 home/programs/gtk.nix           GTK theme, icon, cursor, and font config.
 home/shell/terminal.nix         Kitty and Foot terminal config.
 ```
