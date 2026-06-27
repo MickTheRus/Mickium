@@ -9,7 +9,7 @@
     ./browser.nix
     ./gtk.nix
     ./aria2.nix
-    ./dunst.nix
+    ./swaync.nix
     ./games.nix
     ./packages.nix
     ./media.nix

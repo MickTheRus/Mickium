@@ -77,6 +77,8 @@ Important system choices:
 - Login shell: fish for user `mick`.
 - Display manager: Ly.
 - Audio: PipeWire with ALSA, PulseAudio compatibility, and JACK.
+- Notifications: SwayNC through Home Manager, integrated with Waybar and
+  Hyprland keybinds.
 - Networking: Tailscale starts automatically and accepts routes and DNS.
 - Containers: Podman is the container engine, with Docker-compatible aliases.
 - Security keys: PAM U2F is enabled through `~/.config/Yubico/u2f_keys`.
