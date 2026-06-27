@@ -28,7 +28,8 @@
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      enableZshIntegration = true;
+      enableFishIntegration = true;
+      enableZshIntegration = false;
       # pinentryPackage = "curses";
     };
   };
