@@ -1,8 +1,8 @@
-# Replace this file with hardware config generated on the Unique target drive:
+# Replace this file with hardware config generated on the Wortox target drive:
 #
 #   sudo nixos-generate-config --root /mnt
 #   cp /mnt/etc/nixos/hardware-configuration.nix \
-#     /mnt/home/mick/Mickium/hosts/Unique/hardware-configuration.nix
+#     /mnt/home/mick/Mickium/hosts/Wortox/hardware-configuration.nix
 #
 # The placeholder keeps the flake evaluable before the machine-specific disk
 # UUIDs, filesystems, and kernel modules are generated.

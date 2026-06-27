@@ -55,12 +55,12 @@ in {
   };
 
   # Ventoy-adjacent portable system drive
-  unique = nixpkgs.lib.nixosSystem {
+  wortox = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "Unique";}
-        ./Unique/hardware-configuration.nix
+        {networking.hostName = "Wortox";}
+        ./Wortox/hardware-configuration.nix
         bootloader
         {
           boot.loader = {

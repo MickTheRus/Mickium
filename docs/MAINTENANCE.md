@@ -55,7 +55,7 @@ The following old paths were intentionally removed:
 ## Known Intentional Choices
 
 - `flake.lock` is tracked on purpose for reproducible rebuilds.
-- `hosts/Unique` is the Ventoy-adjacent portable system profile. Its bootloader
+- `hosts/Wortox` is the Ventoy-adjacent portable system profile. Its bootloader
   override keeps `boot.loader.efi.canTouchEfiVariables = false` so installing
   it does not overwrite or claim firmware boot entries used by Ventoy. The
   current systemd-boot module has no `installAsRemovable` option; keep
