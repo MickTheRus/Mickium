@@ -20,7 +20,6 @@ describe paths on the target system rather than files from another repo.
 Some applications are easier to maintain in their native config languages:
 
 - `home/wayland/hypr-config`: Hyprland, Hyprlock, Hypridle, Pyprland, scripts.
-- `home/programs/rofi-config`: Rofi Rasi files and launcher scripts.
 
 These directories are still Nix-managed because Home Manager installs them with
 `xdg.configFile`. They are not external state.
@@ -31,6 +30,7 @@ Use Home Manager modules directly where they are compact and clear:
 
 - Kitty: `home/shell/terminal.nix`.
 - Waybar: `home/wayland/waybar.nix`.
+- Rofi package, Rasi themes, and menu scripts: `home/programs/rofi.nix`.
 - MPD, mpv, imv, yt-dlp: `home/programs/media.nix`.
 - GTK theming: `home/programs/gtk.nix`.
 - Qt, qt5ct, qt6ct, Electron flags: `home/programs/qt.nix`.
@@ -44,7 +44,8 @@ attrsets unless there is a practical benefit.
 
 The following old paths were intentionally removed:
 
-- `home/programs/the-rofi`: replaced by `home/programs/rofi-config`.
+- `home/programs/the-rofi`: replaced by `home/programs/rofi.nix`.
+- `home/programs/rofi-config`: folded into `home/programs/rofi.nix`.
 - `home/wayland/hypr`: replaced by `home/wayland/hypr-config`.
 - `home/wayland/waybar/`: old native Waybar JSONC/CSS directory. Waybar is now
   fully declared in `home/wayland/waybar.nix`.
