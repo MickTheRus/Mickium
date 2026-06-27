@@ -62,11 +62,18 @@ tooltip {
 #workspaces button {
     background: @color3;
     min-width: 25px;
+    min-height: 25px;
     margin: 2px 4px;
     border-radius: 12px; /* circle */
 	transition: all 0.2s ease-in-out;
-    padding: 1px;
+    padding: 0px;
     opacity: 0.6;
+}
+#workspaces button label {
+    min-width: 25px;
+    padding: 0px;
+    margin: 0px;
+    font-size: 13px;
 }
 #workspaces button:first-child {
     margin-left: 3px;
@@ -83,6 +90,9 @@ tooltip {
     min-width: 50px;
     border-radius: 12px;
     opacity: 0.9;
+}
+#workspaces button.active label {
+    min-width: 50px;
 }
 #workspaces button.urgent {
 	color: @foreground;

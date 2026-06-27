@@ -55,16 +55,23 @@ __mix() { # will take 2 hex values and return the mixture in hex
     echo $hex
 }
 
-wallust_red1=$(cat ~/.config/kitty/colors.conf | grep "color1 " | sed "s/.*\(#.*\)/\1/g")
-wallust_red2=$(cat ~/.config/kitty/colors.conf | grep "color9 " | sed "s/.*\(#.*\)/\1/g")
+colors_file="${XDG_CONFIG_HOME:-$HOME/.config}/kitty/colors.conf"
+
+if [[ ! -f "$colors_file" ]]; then
+    echo "Kitty colors file not found: $colors_file"
+    exit 0
+fi
+
+wallust_red1=$(grep "color1 " "$colors_file" | sed "s/.*\(#.*\)/\1/g")
+wallust_red2=$(grep "color9 " "$colors_file" | sed "s/.*\(#.*\)/\1/g")
 
 my_red=#f7768e # TokyoNight red color
 
 custom_red1=$(__mix $wallust_red1 $(__mix $wallust_red1 $my_red))
 custom_red2=$(__mix $wallust_red2 $(__mix $wallust_red2 $my_red))
 
-sed -i "s/$wallust_red1/$custom_red1/g" ~/.config/kitty/colors.conf
-sed -i "s/$wallust_red2/$custom_red2/g" ~/.config/kitty/colors.conf
+sed -i "s/$wallust_red1/$custom_red1/g" "$colors_file"
+sed -i "s/$wallust_red2/$custom_red2/g" "$colors_file"
 
 kill -SIGUSR1 $(pgrep kitty)
 

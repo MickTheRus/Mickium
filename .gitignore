@@ -1,5 +1,11 @@
 /dot.config/zsh/.zcompdump
 /dot.config/zsh/.zsh_history
 /dot.config/zsh/.zcompcache
+/dot.config/fish/fish_variables*
+/dot.config/fish/fish_history
+/dot.config/fish/generated_completions/
+/dot.local/share/fish/fish_history
+/dot.local/share/fish/generated_completions/
+/dot.config/kitty/colors.conf
 /dot.config/nvim/lazy-lock.json
 /dot.config/lazygit/state.yml
