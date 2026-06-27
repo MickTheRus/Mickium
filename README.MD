@@ -19,12 +19,12 @@ The flake exposes two NixOS hosts:
 Switch a machine with:
 
 ```sh
-sudo nixos-rebuild switch --flake /home/mick/Documents/Mickium#maxwell
-sudo nixos-rebuild switch --flake /home/mick/Documents/Mickium#altar
+sudo nixos-rebuild switch --flake /home/mick/Mickium#maxwell
+sudo nixos-rebuild switch --flake /home/mick/Mickium#altar
 ```
 
-When cloning somewhere else, replace `/home/mick/Documents/Mickium` with the
-path to the checkout.
+The intended checkout path is `/home/mick/Mickium`. If you clone it somewhere
+else, replace that path with the checkout location.
 
 ## Top-Level Map
 
@@ -138,7 +138,7 @@ compatibility and shared shell behavior.
 ```text
 home/shell/fish.nix      Fish shell, aliases, and plugins.
 home/shell/emacs.nix     Emacs, Doom Emacs, daemon service, Doom sync hook.
-home/shell/doom/         Vendored Doom config: init.el, config.el, packages.el.
+home/shell/doom/         Vendored Doom config imported from ~/Mickium/dot.config/doom.
 home/shell/zsh.nix       Zsh compatibility config.
 home/shell/git.nix       Git config and ignored per-device state.
 home/shell/cli.nix       General CLI packages.
@@ -151,9 +151,9 @@ secrets should stay out of Git.
 
 Emacs is the primary editor. Doom Emacs is pinned by `flake.lock`, installed to
 `~/.config/emacs`, and configured from the repo-owned `home/shell/doom`
-directory. The Emacs daemon starts with the graphical user session, and Home
-Manager runs `doom sync` during activation so Doom packages and autoloads are
-ready before the service is used.
+directory imported from `~/Mickium/dot.config/doom`. The Emacs daemon starts
+with the graphical user session, and Home Manager runs `doom sync` during
+activation so Doom packages and autoloads are ready before the service is used.
 
 ## Media And Music
 

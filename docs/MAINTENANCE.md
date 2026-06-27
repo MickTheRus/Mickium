@@ -58,8 +58,9 @@ The following old paths were intentionally removed:
   way. The exception is scoped to the exact package version.
 - `codex` from nixpkgs is the terminal package. Codex Desktop may still be
   installed outside Nix until a reliable Nix package exists.
-- Emacs/Doom is the primary editor. Doom itself is pinned as a flake input and
-  the user's Doom config is vendored under `home/shell/doom`.
+- Emacs/Doom is the primary editor. Doom itself is pinned as a flake input, and
+  the user's Doom config is imported from `~/Mickium/dot.config/doom` into
+  `home/shell/doom`.
 - `rmpc` is the intended MPD TUI client. `ncmpcpp` is intentionally absent.
 
 ## Pre-Push Checklist
