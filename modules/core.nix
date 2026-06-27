@@ -9,7 +9,8 @@
   environment = {
     pathsToLink = ["/share/zsh"];
     variables = {
-      EDITOR = "nvim";
+      EDITOR = "emacsclient -nw -a emacs";
+      VISUAL = "emacsclient -c -a emacs";
       BROWSER = "brave";
       NIXOS_OZONE_WL = "1";
     };

@@ -20,6 +20,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    doom-emacs = {
+      url = "github:doomemacs/doomemacs";
+      flake = false;
+    };
     meshcore-cli = {
       url = "github:meshcore-dev/meshcore-cli";
       inputs.nixpkgs.follows = "nixpkgs";

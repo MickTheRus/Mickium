@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "doom-emacs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782536376,
+        "narHash": "sha256-bpbYB0iAWGLB3pp9gwTq08h20RqC4w2xZA7lN6SR9FI=",
+        "owner": "doomemacs",
+        "repo": "doomemacs",
+        "rev": "e5ea7a1b3f63dbb7b80245115e217b3e4a05cb65",
+        "type": "github"
+      },
+      "original": {
+        "owner": "doomemacs",
+        "repo": "doomemacs",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -129,6 +145,7 @@
     },
     "root": {
       "inputs": {
+        "doom-emacs": "doom-emacs",
         "home-manager": "home-manager",
         "hosts": "hosts",
         "meshcore-cli": "meshcore-cli",

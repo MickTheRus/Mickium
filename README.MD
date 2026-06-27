@@ -88,7 +88,7 @@ User-level config lives in `home/`.
 ```text
 home/default.nix      Main Home Manager entrypoint.
 home/programs/        Desktop apps, media tools, browsers, theming, launchers.
-home/shell/           Fish, zsh, git, CLI packages, terminal, prompt, editor.
+home/shell/           Fish, zsh, git, CLI packages, terminal, prompt, Emacs.
 home/wayland/         Hyprland, Waybar, Hyprlock, Hypridle, scripts.
 ```
 
@@ -137,6 +137,8 @@ compatibility and shared shell behavior.
 
 ```text
 home/shell/fish.nix      Fish shell, aliases, and plugins.
+home/shell/emacs.nix     Emacs, Doom Emacs, daemon service, Doom sync hook.
+home/shell/doom/         Vendored Doom config: init.el, config.el, packages.el.
 home/shell/zsh.nix       Zsh compatibility config.
 home/shell/git.nix       Git config and ignored per-device state.
 home/shell/cli.nix       General CLI packages.
@@ -146,6 +148,12 @@ home/shell/starship.nix  Prompt config.
 
 Per-device state such as shell history, cache folders, build outputs, and
 secrets should stay out of Git.
+
+Emacs is the primary editor. Doom Emacs is pinned by `flake.lock`, installed to
+`~/.config/emacs`, and configured from the repo-owned `home/shell/doom`
+directory. The Emacs daemon starts with the graphical user session, and Home
+Manager runs `doom sync` during activation so Doom packages and autoloads are
+ready before the service is used.
 
 ## Media And Music
 

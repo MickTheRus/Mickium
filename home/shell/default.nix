@@ -10,7 +10,7 @@ in {
     ./starship.nix
     ./nix.nix
     ./code.nix
-    ./neovim.nix
+    ./emacs.nix
     ./terminal.nix
     ./zsh.nix
   ];
@@ -25,8 +25,8 @@ in {
 
     # enable scrolling in git diff
     DELTA_PAGER = "less -R";
+    DOOMPAGER = "";
 
-    EDITOR = "nvim";
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     DIRENV_LOG_FORMAT = "";
   };

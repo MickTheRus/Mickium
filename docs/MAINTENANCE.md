@@ -58,8 +58,8 @@ The following old paths were intentionally removed:
   way. The exception is scoped to the exact package version.
 - `codex` from nixpkgs is the terminal package. Codex Desktop may still be
   installed outside Nix until a reliable Nix package exists.
-- `neovim.nix` is retained because the shell still uses `nvim` as a fallback
-  editor/manpager and Kitty editor.
+- Emacs/Doom is the primary editor. Doom itself is pinned as a flake input and
+  the user's Doom config is vendored under `home/shell/doom`.
 - `rmpc` is the intended MPD TUI client. `ncmpcpp` is intentionally absent.
 
 ## Pre-Push Checklist

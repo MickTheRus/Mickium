@@ -10,7 +10,7 @@ _: {
       settings = {
         enabled_layouts = "tall:bias=50;full_size=1;mirrored=false";
         window_padding_width = 10;
-        editor = "nvim";
+        editor = "emacsclient -nw -a emacs";
         font_size = 12;
         font_family = "Iosevka Nerd Font";
         open_url_with = "default";

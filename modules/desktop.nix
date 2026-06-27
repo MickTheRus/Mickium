@@ -185,6 +185,7 @@
       julia-mono
 
       nerd-fonts.iosevka
+      nerd-fonts.symbols-only
     ];
 
     enableDefaultPackages = true;

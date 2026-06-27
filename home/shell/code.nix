@@ -6,7 +6,7 @@
     bash-language-server
 
     # basic stack
-    # vscode-langservers-extracted
+    vscode-langservers-extracted
     hugo
     monolith
 
@@ -49,7 +49,13 @@
     })
 
     # nix
-    # nixd # or nil
+    nil
+    nixd
+
+    # json/lua/yaml/markdown
+    lua-language-server
+    marksman
+    yaml-language-server
 
     # alltex
     # texlive.combined.scheme-full

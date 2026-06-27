@@ -69,8 +69,9 @@ alias ".1"="cd .."
 alias ".2"="cd ../.."
 alias ".3"="cd ../../.."
 alias c="clear"
-alias v="nvim"
-alias emd="pkill emacs; emacs --daemon"
+alias v="emacsclient -nw -a emacs"
+alias ec="emacsclient -c -a emacs"
+alias emd="systemctl --user restart emacs.service"
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -vI"
@@ -83,9 +84,7 @@ alias sioyek="sioyek --new-window"
 
 # export BEMENU_OPTS="-i -l 10 -p ' ' -c -B 2 -W 0.5 --hp 15 --fn 'ComicCodeLigatures Nerd Font 20' --nb '#121212' --ab '#121212' --bdr '#c6daff' --nf '#ffffff' --af '#ffffff' --hb '#9aff9a' --hf '#121212' --fb '#121212' --ff '#a6e3a1' --tb '#121212' --tf '#f9e2af' ";
 
-# neovim as manpager, if not using emacs
-# export MANPAGER='nvim +Man! +"set nocul" +"set noshowcmd" +"set noruler" +"set noshowmode" +"set laststatus=0" +"set showtabline=0" +"set nonumber"'
-export MANPAGER='nvim +Man!'
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 export STARDICT_DATA_DIR="$HOME/d-git/d-bin/treasure/dict/"
 
@@ -132,10 +131,9 @@ whichpath () {
 
 # TODOTHIS
 d-test () {
-    local editor="nvim"
     local tmpf="$(mktemp)"
     printf '%s\n' "$READLINE_LINE" >| "$tmpf"
-    "$editor" "$tmpf"
+    emacsclient -nw -a emacs "$tmpf"
     READLINE_LINE="$(<"$tmpf")"
     READLINE_POINT="${#READLINE_LINE}"
     rm -f "$tmpf" >/dev/null 2>&1
