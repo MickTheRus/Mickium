@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ./xdg.nix
     ./qt.nix
@@ -30,7 +34,7 @@
       enableSshSupport = true;
       enableFishIntegration = true;
       enableZshIntegration = false;
-      # pinentryPackage = "curses";
+      pinentry.package = pkgs.pinentry-qt;
     };
   };
 }
