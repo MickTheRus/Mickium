@@ -101,8 +101,7 @@ defaults.
 ```text
 home/wayland/hyprland.nix       Home Manager wrapper for Hyprland.
 home/wayland/hypr-config/       Native Hyprland, Hyprlock, Hypridle config.
-home/wayland/waybar.nix         Home Manager wrapper for Waybar.
-home/wayland/waybar/            Native Waybar JSONC/CSS config.
+home/wayland/waybar.nix         Complete Waybar settings and style.
 home/programs/rofi.nix          Home Manager wrapper for Rofi.
 home/programs/rofi-config/      Native Rofi Rasi config and menu scripts.
 home/programs/qt.nix            Qt environment and qt5ct/qt6ct install config.
