@@ -2,7 +2,7 @@
   description = "Dumbass' lil config";
 
   inputs = {
-    # Change it to stable, if you want stable channel (23.05)
+    # Change it to stable, if you want stable channel (26.05)
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # For Adblocking and making internet usable
