@@ -1,5 +1,6 @@
 {config, ...}: let
-  browser = ["d-stuff.desktop"];
+  browser = ["brave-browser.desktop"];
+  torrent = ["org.qbittorrent.qBittorrent.desktop"];
 
   # XDG MIME types
   associations = {
@@ -11,21 +12,19 @@
     "application/xhtml+xml" = browser;
     "text/html" = browser;
     "x-scheme-handler/about" = browser;
-    "x-scheme-handler/chrome" = ["chromium-browser.desktop"];
+    "x-scheme-handler/chrome" = browser;
     "x-scheme-handler/ftp" = browser;
     "x-scheme-handler/http" = browser;
     "x-scheme-handler/https" = browser;
     "x-scheme-handler/unknown" = browser;
 
     "audio/*" = ["mpv.desktop"];
-    "video/*" = ["mpv.dekstop"];
+    "video/*" = ["mpv.desktop"];
     "image/*" = ["imv.desktop"];
     "application/json" = browser;
-    "application/pdf" = ["sioyek.desktop"];
-    "x-scheme-handler/magnet" = ["d-stuff.desktop"];
-    "application/epub+zip" = ["sioyek.desktop"];
-    "application/zip" = ["sioyek.desktop"];
-    "application/x.bittorrent" = ["d-stuff.desktop"];
+    "application/pdf" = browser;
+    "x-scheme-handler/magnet" = torrent;
+    "application/x-bittorrent" = torrent;
   };
 in {
   xdg = {
@@ -36,7 +35,7 @@ in {
       enable = true;
       defaultApplications = associations;
       associations.added = {
-        "x-scheme-handler/magnet" = ["d-stuff.desktop"];
+        "x-scheme-handler/magnet" = torrent;
       };
     };
 
@@ -54,11 +53,4 @@ in {
       };
     };
   };
-
-  xdg.dataFile."applications/d-stuff.desktop".text = ''
-    [Desktop Entry]
-    Type=Application
-    Name=Stuff Handler
-    Exec=d-stuff %U
-  '';
 }

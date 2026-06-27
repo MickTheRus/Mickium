@@ -65,6 +65,7 @@ in {
     krita
     meshcore-cli
     meshtastic
+    qbittorrent
     thunar
     thunar-volman
     ventoy
