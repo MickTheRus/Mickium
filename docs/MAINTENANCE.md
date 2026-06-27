@@ -55,6 +55,11 @@ The following old paths were intentionally removed:
 ## Known Intentional Choices
 
 - `flake.lock` is tracked on purpose for reproducible rebuilds.
+- `hosts/Unique` is the Ventoy-adjacent portable system profile. Its bootloader
+  override keeps `boot.loader.efi.canTouchEfiVariables = false` so installing
+  it does not overwrite or claim firmware boot entries used by Ventoy. The
+  current systemd-boot module has no `installAsRemovable` option; keep
+  removable-install behavior out of this profile unless switching bootloaders.
 - `ventoy` is permitted as an insecure package because nixpkgs marks it that
   way. The exception is scoped to the exact package version.
 - `codex` from nixpkgs is the terminal package. Codex Desktop may still be

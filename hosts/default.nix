@@ -3,6 +3,7 @@
   nixpkgs,
   ...
 }: let
+  lib = nixpkgs.lib;
   inherit (self) inputs;
   bootloader = ../modules/bootloader.nix;
   core = ../modules;
@@ -45,6 +46,31 @@ in {
         {networking.hostName = "Altar";}
         ./Altar/hardware-configuration.nix
         bootloader
+        hmModule
+        {inherit home-manager;}
+        blockhost
+      ]
+      ++ shared;
+    specialArgs = {inherit inputs;};
+  };
+
+  # Ventoy-adjacent portable system drive
+  unique = nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    modules =
+      [
+        {networking.hostName = "Unique";}
+        ./Unique/hardware-configuration.nix
+        bootloader
+        {
+          boot.loader = {
+            systemd-boot.enable = true;
+            efi = {
+              canTouchEfiVariables = lib.mkForce false;
+              efiSysMountPoint = "/boot";
+            };
+          };
+        }
         hmModule
         {inherit home-manager;}
         blockhost

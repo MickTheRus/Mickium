@@ -11,16 +11,18 @@ live in this repository rather than in an external dotfiles checkout.
 
 ## What This Repo Builds
 
-The flake exposes two NixOS hosts:
+The flake exposes three NixOS hosts:
 
 - `maxwell`: desktop system, formerly named `Chasm`.
 - `altar`: laptop system, formerly named `Void`.
+- `unique`: portable/Ventoy-adjacent system drive profile.
 
 Switch a machine with:
 
 ```sh
 sudo nixos-rebuild switch --flake /home/mick/Mickium#maxwell
 sudo nixos-rebuild switch --flake /home/mick/Mickium#altar
+sudo nixos-rebuild switch --flake /home/mick/Mickium#unique
 ```
 
 The intended checkout path is `/home/mick/Mickium`. If you clone it somewhere
@@ -46,6 +48,7 @@ machine.
 ```text
 hosts/Maxwell/  Desktop hardware config.
 hosts/Altar/    Laptop hardware config.
+hosts/Unique/   Portable system-drive hardware config placeholder.
 ```
 
 The public flake names are lowercase:
@@ -53,6 +56,7 @@ The public flake names are lowercase:
 ```text
 nixosConfigurations.maxwell
 nixosConfigurations.altar
+nixosConfigurations.unique
 ```
 
 ## System Modules
@@ -82,6 +86,8 @@ Important system choices:
 - Networking: Tailscale starts automatically and accepts routes and DNS.
 - Containers: Podman is the container engine, with Docker-compatible aliases.
 - Security keys: PAM U2F is enabled through `~/.config/Yubico/u2f_keys`.
+- Unique profile: systemd-boot is kept away from EFI variable writes so it can
+  live beside Ventoy without taking over the drive firmware entry.
 
 ## Home Manager
 
@@ -199,7 +205,7 @@ More notes live in `docs/MAINTENANCE.md`.
 
 1. Clone this repo.
 2. Confirm the target host hardware config is correct.
-3. Run `nixos-rebuild switch --flake <repo>#maxwell` or `#altar`.
+3. Run `nixos-rebuild switch --flake <repo>#maxwell`, `#altar`, or `#unique`.
 4. Complete the Tailscale sign-in URL from:
 
 ```sh
@@ -208,6 +214,10 @@ journalctl -u tailscaled-login -b
 
 5. Pair security keys and write `~/.config/Yubico/u2f_keys` before relying on
    full security-key login.
+
+For `#unique`, replace `hosts/Unique/hardware-configuration.nix` with the
+hardware config generated on the target drive before installing. The committed
+file only keeps the flake evaluable before real filesystem UUIDs exist.
 
 ## Repo Rules
 
