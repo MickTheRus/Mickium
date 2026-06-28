@@ -14,6 +14,8 @@
       hash = "sha256-5kw/yl+kZvCK9JwhBMpgTBTWwcnWgXcUCN0Hx9tQB+Y=";
     };
 
+    dontUnpack = true;
+
     nativeBuildInputs = with pkgs; [
       makeWrapper
       unzip
