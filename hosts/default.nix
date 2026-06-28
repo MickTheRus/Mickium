@@ -67,7 +67,7 @@ in {
             systemd-boot = {
               enable = true;
               # Kernels/entries go to XBOOTLDR (/boot = sda4),
-              # only the EFI binary goes to the ESP (/boot/efi = sda2/Ventoy EFI)
+              # only the EFI binary goes to the ESP (/efi = sda2/Ventoy EFI)
               xbootldrMountPoint = "/boot";
             };
             efi = {
@@ -75,6 +75,8 @@ in {
               efiSysMountPoint = "/efi";
             };
           };
+          # nixpkgs-unstable renamed kernel output from bzImage to vmlinuz
+          system.boot.loader.kernelFile = "vmlinuz";
         }
         hmModule
         {inherit home-manager;}
