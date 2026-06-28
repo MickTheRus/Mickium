@@ -3,7 +3,10 @@
   # default,
   ...
 }: {
-  home.packages = [pkgs.gh];
+  home.packages = with pkgs; [
+    gh
+    lazygit
+  ];
 
   programs = {
     delta = {

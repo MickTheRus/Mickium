@@ -6,6 +6,7 @@
 
   imports = [
     inputs.nix-index-db.homeModules.nix-index
+    ./security
     ./shell
     ./programs
     ./wayland

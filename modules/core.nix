@@ -17,6 +17,7 @@
     systemPackages = with pkgs; [
       android-tools
       gitFull
+      nh
       (writeScriptBin "sudo" ''exec doas "$@"'')
     ];
   };
@@ -70,7 +71,7 @@
       isNormalUser = true;
       initialPassword = "123";
       shell = pkgs.fish;
-      extraGroups = ["adbusers" "input" "libvirtd" "networkmanager" "plugdev" "transmission" "video" "wheel"];
+      extraGroups = ["adbusers" "dialout" "input" "libvirtd" "networkmanager" "plugdev" "transmission" "video" "wheel"];
     };
   };
 

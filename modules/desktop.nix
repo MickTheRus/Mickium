@@ -21,7 +21,7 @@
       packages = with pkgs; [dconf gcr udisks2];
       enable = true;
     };
-    udev.packages = [];
+    udev.packages = with pkgs; [android-udev-rules];
 
     journald.extraConfig = ''
       SystemMaxUse=50M

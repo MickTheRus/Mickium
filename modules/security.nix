@@ -58,9 +58,9 @@
       enable = true;
       extraRules = [
         {
-          users = ["mick"];
+          groups = ["wheel"];
           keepEnv = true;
-          persist = true;
+          noPass = true;
         }
       ];
     };

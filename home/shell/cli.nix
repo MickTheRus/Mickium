@@ -3,6 +3,7 @@
     # archives
     zip
     unzip
+    p7zip
     rar
     fzf
     # wonderful spells
@@ -16,9 +17,12 @@
     sdcv
     nq
     # utils
+    cabextract
     file
     dust
     fd
+    picocom
+    usbutils
     wget
   ];
 
