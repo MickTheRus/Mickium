@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{lib, pkgs, ...}: {
   home.packages = with pkgs; [
     # archives
     zip
@@ -70,6 +70,15 @@
     ssh = {
       enable = true;
       enableDefaultConfig = false;
+      settings = {
+        "github.com" = lib.hm.dag.entryBefore ["*"] {
+          HostName = "github.com";
+          Port = 22;
+        };
+        "*" = {
+          Port = 2764;
+        };
+      };
     };
 
     skim = {
