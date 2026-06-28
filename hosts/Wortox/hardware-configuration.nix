@@ -12,38 +12,38 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/97ef2f08-df9c-46f9-8cb6-7ef6f0b19bfb";
+    { device = "/dev/disk/by-uuid/7486e120-73f5-4bc3-88ac-ca591786ee2a";
       fsType = "btrfs";
       options = [ "subvol=@" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/97ef2f08-df9c-46f9-8cb6-7ef6f0b19bfb";
+    { device = "/dev/disk/by-uuid/7486e120-73f5-4bc3-88ac-ca591786ee2a";
       fsType = "btrfs";
       options = [ "subvol=@home" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/97ef2f08-df9c-46f9-8cb6-7ef6f0b19bfb";
+    { device = "/dev/disk/by-uuid/7486e120-73f5-4bc3-88ac-ca591786ee2a";
       fsType = "btrfs";
       options = [ "subvol=@nix" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/.snapshots" =
-    { device = "/dev/disk/by-uuid/97ef2f08-df9c-46f9-8cb6-7ef6f0b19bfb";
+    { device = "/dev/disk/by-uuid/7486e120-73f5-4bc3-88ac-ca591786ee2a";
       fsType = "btrfs";
       options = [ "subvol=@snapshots" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/97ef2f08-df9c-46f9-8cb6-7ef6f0b19bfb";
+    { device = "/dev/disk/by-uuid/7486e120-73f5-4bc3-88ac-ca591786ee2a";
       fsType = "btrfs";
       options = [ "subvol=@log" "compress=zstd" "noatime" ];
     };
 
-  # XBOOTLDR partition: kernels and boot entries go here (1GB FAT32, sda4)
+  # XBOOTLDR partition: kernels and boot entries go here (~1GB FAT32, sda4)
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/2175-A796";
+    { device = "/dev/disk/by-uuid/7D47-6056";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
