@@ -39,7 +39,6 @@
         languageserver
         lintr
         # stringr
-        BiocManager
         # httr
         # ggvis
         # shiny

@@ -64,10 +64,15 @@ in {
         bootloader
         {
           boot.loader = {
-            systemd-boot.enable = true;
+            systemd-boot = {
+              enable = true;
+              # Kernels/entries go to XBOOTLDR (/boot = sda4),
+              # only the EFI binary goes to the ESP (/boot/efi = sda2/Ventoy EFI)
+              xbootldrMountPoint = "/boot";
+            };
             efi = {
               canTouchEfiVariables = lib.mkForce false;
-              efiSysMountPoint = "/boot";
+              efiSysMountPoint = "/efi";
             };
           };
         }
