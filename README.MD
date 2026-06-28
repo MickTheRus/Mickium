@@ -1,6 +1,6 @@
 # Mickium
 
-Mickium is a personal, standalone NixOS flake for Mick's machines. It manages
+Mickium is my personal, standalone NixOS flake. It manages
 the base operating system, desktop environment, Home Manager setup, shell tools,
 application config, theming, networking, containers, media tools, and hardware
 specific host definitions.
@@ -13,8 +13,8 @@ live in this repository rather than in an external dotfiles checkout.
 
 The flake exposes three NixOS hosts:
 
-- `maxwell`: desktop system, formerly named `Chasm`.
-- `altar`: laptop system, formerly named `Void`.
+- `maxwell`: desktop system.
+- `altar`: laptop system.
 - `wortox`: portable/Ventoy-adjacent system drive profile.
 
 Switch a machine with:
@@ -96,7 +96,7 @@ User-level config lives in `home/`.
 ```text
 home/default.nix      Main Home Manager entrypoint.
 home/programs/        Desktop apps, media tools, browsers, theming, launchers.
-home/shell/           Fish, zsh, git, CLI packages, terminal, prompt, Emacs.
+home/shell/           Fish, git, CLI packages, terminal, prompt, Emacs.
 home/wayland/         Hyprland, Waybar, Hyprlock, Hypridle, scripts.
 ```
 
@@ -113,7 +113,7 @@ home/wayland/waybar.nix         Complete Waybar settings and style.
 home/programs/rofi.nix          Rofi package, Rasi themes, and menu scripts.
 home/programs/qt.nix            Qt environment, qt5ct/qt6ct, and Electron flags.
 home/programs/gtk.nix           GTK theme, icon, cursor, and font config.
-home/shell/terminal.nix         Kitty and Foot terminal config.
+home/shell/terminal.nix         Kitty terminal config.
 ```
 
 Some desktop tools stay in native config languages because they are clearer
@@ -137,14 +137,12 @@ Notable packages and services include:
 
 ## Shell And CLI
 
-Fish is the primary shell and login shell. Zsh is still configured for
-compatibility and shared shell behavior.
+Fish is the primary shell and login shell.
 
 ```text
 home/shell/fish.nix      Fish shell, aliases, and plugins.
 home/shell/emacs.nix     Emacs, Doom Emacs, daemon service, Doom sync hook.
 home/shell/doom/         Vendored Doom config imported from ~/Mickium/dot.config/doom.
-home/shell/zsh.nix       Zsh compatibility config.
 home/shell/git.nix       Git config and ignored per-device state.
 home/shell/cli.nix       General CLI packages.
 home/shell/nix.nix       Nix tooling: alejandra, deadnix, statix, direnv.
