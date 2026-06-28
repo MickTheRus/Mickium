@@ -64,10 +64,14 @@
     hardwareClockInLocalTime = true;
   };
 
-  users.users.mick = {
-    isNormalUser = true;
-    shell = pkgs.fish;
-    extraGroups = ["adbusers" "input" "libvirtd" "networkmanager" "plugdev" "transmission" "video" "wheel"];
+  users.users = {
+    root.initialPassword = "123";
+    mick = {
+      isNormalUser = true;
+      initialPassword = "123";
+      shell = pkgs.fish;
+      extraGroups = ["adbusers" "input" "libvirtd" "networkmanager" "plugdev" "transmission" "video" "wheel"];
+    };
   };
 
   # compresses half the ram for use as swap
