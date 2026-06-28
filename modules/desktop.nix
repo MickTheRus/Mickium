@@ -121,6 +121,8 @@
 
   services.displayManager.ly.enable = true;
 
+  programs.hyprland.enable = true;
+
   systemd.services = {
     tailscaled-login = {
       description = "Start Tailscale login flow when unauthenticated";
