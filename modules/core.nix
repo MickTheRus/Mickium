@@ -72,6 +72,9 @@
       initialPassword = "123";
       shell = pkgs.fish;
       extraGroups = ["adbusers" "dialout" "input" "libvirtd" "networkmanager" "plugdev" "transmission" "video" "wheel"];
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILFV9Ci8nsG9Cv2SLq8ypLQCgs3fIoz06WLMAxCBYOaT mick@Maxwell"
+      ];
     };
   };
 
