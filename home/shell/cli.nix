@@ -71,6 +71,13 @@
       enable = true;
       enableDefaultConfig = false;
       settings = {
+        "Altar" = lib.hm.dag.entryBefore ["*"] {
+          HostName = "100.119.129.119";
+          PreferredAuthentications = "publickey";
+          IdentityFile = "~/.ssh/Personal/Computers";
+          User = "mick";
+          Port = 2764;
+        };
         "github.com" = lib.hm.dag.entryBefore ["*"] {
           HostName = "github.com";
           Port = 22;
