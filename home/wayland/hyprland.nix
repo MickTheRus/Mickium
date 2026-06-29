@@ -29,6 +29,9 @@
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "hyprlang";
+    plugins = [
+      pkgs.hyprlandPlugins.hyprsplit
+    ];
     xwayland.enable = true;
     systemd.enable = true;
     extraConfig = ''
