@@ -55,6 +55,9 @@
       efi.canTouchEfiVariables = true;
       timeout = 1;
     };
+    # nixpkgs-unstable renamed the Zen kernel image from bzImage to vmlinuz.
+    # Keep systemd-boot pointed at the actual kernel file for every host.
+    system.boot.loader.kernelFile = "vmlinuz";
 
     supportedFilesystems = ["ntfs"];
     tmp.cleanOnBoot = true;

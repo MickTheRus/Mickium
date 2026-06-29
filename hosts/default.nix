@@ -75,8 +75,6 @@ in {
               efiSysMountPoint = "/efi";
             };
           };
-          # nixpkgs-unstable renamed kernel output from bzImage to vmlinuz
-          system.boot.loader.kernelFile = "vmlinuz";
         }
         hmModule
         {inherit home-manager;}
