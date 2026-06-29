@@ -166,6 +166,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-hyprland": {
+      "locked": {
+        "lastModified": 1775736473,
+        "narHash": "sha256-tO4xF5Yi2dIFINbapJKqHxGx8ltqQfKG4565+ogrPY4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "16aacb40e80d4a84d11a31a16c9093c8817159a2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "16aacb40e80d4a84d11a31a16c9093c8817159a2",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1777168982,
@@ -205,7 +221,8 @@
         "hosts": "hosts",
         "meshcore-cli": "meshcore-cli",
         "nix-index-db": "nix-index-db",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "nixpkgs-hyprland": "nixpkgs-hyprland"
       }
     },
     "systems": {

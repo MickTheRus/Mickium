@@ -24,6 +24,23 @@
       allowUnfree = true;
       allowBroken = false;
     };
+    overlays = [
+      (_final: prev: let
+        hyprlandPkgs = import inputs.nixpkgs-hyprland {
+          system = prev.stdenv.hostPlatform.system;
+          config = {
+            allowUnfree = true;
+            allowBroken = false;
+          };
+        };
+      in {
+        hyprland = hyprlandPkgs.hyprland;
+        hyprlandPlugins = hyprlandPkgs.hyprlandPlugins;
+        hyprland-protocols = hyprlandPkgs.hyprland-protocols;
+        hyprwayland-scanner = hyprlandPkgs.hyprwayland-scanner;
+        xdg-desktop-portal-hyprland = hyprlandPkgs.xdg-desktop-portal-hyprland;
+      })
+    ];
   };
 
   # TODOTHIS: Got some error on docbook,
