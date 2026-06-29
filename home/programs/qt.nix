@@ -60,23 +60,23 @@
       ignored_applications=@Invalid()
     '';
 
-    "qt6ct/style-colors.conf".text = ''
+    "qt6ct/colors/catppuccin-mocha-maroon.conf".text = ''
       [ColorScheme]
-      active_colors=#ff000000, #ffefefef, #ffffffff, #ffcacaca, #ff9f9f9f, #ffb8b8b8, #ff000000, #ffffffff, #ff000000, #ffffffff, #ffefefef, #ff767676, #ff308cc6, #ffffffff, #ff0000ff, #ffff00ff, #fff7f7f7, #ff000000, #ffffffdc, #ff000000, #80000000, #ff308cc6
-      disabled_colors=#ffbebebe, #ffefefef, #ffffffff, #ffcacaca, #ffbebebe, #ffb8b8b8, #ffbebebe, #ffffffff, #ffbebebe, #ffefefef, #ffefefef, #ffb1b1b1, #ff919191, #ffffffff, #ff0000ff, #ffff00ff, #fff7f7f7, #ff000000, #ffffffdc, #ff000000, #80000000, #ff919191
-      inactive_colors=#ff000000, #ffefefef, #ffffffff, #ffcacaca, #ff9f9f9f, #ffb8b8b8, #ff000000, #ffffffff, #ff000000, #ffffffff, #ffefefef, #ff767676, #ff308cc6, #ffffffff, #ff0000ff, #ffff00ff, #fff7f7f7, #ff000000, #ffffffdc, #ff000000, #80000000, #ff308cc6
+      active_colors=  #ffcdd6f4,     #ff45475a, #ff585b70, #ff313244, #ff11111b, #ff181825, #ffcdd6f4,     #ffcdd6f4,  #ffcdd6f4,     #ff1e1e2e, #ff181825, #ff11111b, #ffeba0ac, #ff11111b,    #ff89b4fa,     #ffb4befe,   #ff181825, #ffffffff, #ff1e1e2e, #ffcdd6f4, #806c7086
+      inactive_colors=#ff7f849c, #ff1e1e2e,     #ff45475a, #ff313244, #ff11111b, #ff181825, #ff7f849c, #ffcdd6f4,  #ff7f849c, #ff1e1e2e, #ff181825, #ff11111b, #ff313244,              #ff7f849c, #ff7f849c, #ff7f849c,   #ff181825, #ffffffff, #ff1e1e2e, #ffcdd6f4, #806c7086
+      disabled_colors=#ff6c7086, #ff313244, #ff45475a, #ff313244, #ff11111b, #ff181825, #ff6c7086, #ffcdd6f4,  #ff6c7086, #ff1e1e2e, #ff181825, #ff11111b, #ff181825,                #ff6c7086, #ffa9bcdb,   #ffc7cceb, #ff181825, #ffffffff, #ff1e1e2e, #ffcdd6f4, #806c7086
     '';
 
     "qt6ct/qt6ct.conf".text = ''
       [Appearance]
-      color_scheme_path=/home/mick/.config/qt6ct/style-colors.conf
+      color_scheme_path=/home/mick/.config/qt6ct/colors/catppuccin-mocha-maroon.conf
       custom_palette=true
       standard_dialogs=default
       style=Fusion
 
       [Fonts]
-      fixed="Noto Sans,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1"
-      general="Noto Sans,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1"
+      fixed="Iosevka Nerd Font Mono,12,-1,5,50,0,0,0,0,0,Regular"
+      general="Iosevka Nerd Font,12,-1,5,50,0,0,0,0,0,Regular"
 
       [Interface]
       activate_item_on_single_click=1
