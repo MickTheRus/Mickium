@@ -67,27 +67,6 @@
       };
     };
 
-    ssh = {
-      enable = true;
-      enableDefaultConfig = false;
-      settings = {
-        "Altar" = lib.hm.dag.entryBefore ["*"] {
-          HostName = "100.119.129.119";
-          PreferredAuthentications = "publickey";
-          IdentityFile = "~/.ssh/Personal/Computers";
-          User = "mick";
-          Port = 2764;
-        };
-        "github.com" = lib.hm.dag.entryBefore ["*"] {
-          HostName = "github.com";
-          Port = 22;
-        };
-        "*" = {
-          Port = 2764;
-        };
-      };
-    };
-
     skim = {
       enable = true;
       enableZshIntegration = true;
@@ -98,4 +77,39 @@
       ];
     };
   };
+
+  home.file.".ssh/config".text = ''
+    Host github.com
+      HostName github.com
+      Port 22
+
+    Host montanamesh
+      HostName 100.68.161.20
+      IdentityFile ~/.ssh/montanamesh
+      PreferredAuthentications publickey
+      User mick
+      Port 2764
+      WarnWeakCrypto no-pq-kex
+
+    Host Wormhole
+      HostName 192.168.1.60
+      PreferredAuthentications publickey
+      IdentityFile ~/.ssh/Wormhole
+      User mick
+      Port 2764
+
+    Host Maxwell
+      HostName 100.87.24.100
+      PreferredAuthentications publickey
+      IdentityFile ~/.ssh/Personal_Computers
+      User mick
+      Port 2764
+
+    Host Altar
+      HostName 100.119.129.119
+      PreferredAuthentications publickey
+      IdentityFile ~/.ssh/Personal/Computers
+      User mick
+      Port 2764
+  '';
 }
