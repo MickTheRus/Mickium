@@ -18,7 +18,7 @@ in {
     "hypr/colors.conf".source = ./hypr-config/colors.conf;
     "hypr/conf/autostart.conf".source = ./hypr-config/conf/autostart.conf;
     "hypr/conf/env.conf".source = ./hypr-config/conf/env.conf;
-    "hypr/conf/keybinds.conf".source = ./hypr-config/conf/keybinds.conf;
+    "hypr/conf/keybinds.conf" = { source = ./hypr-config/conf/keybinds.conf; force = true; };
     "hypr/conf/monitors.conf".source = monitorConfig;
     "hypr/conf/rules.conf".source = ./hypr-config/conf/rules.conf;
     "hypr/hypridle.conf".source = ./hypr-config/hypridle.conf;
