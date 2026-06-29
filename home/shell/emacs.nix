@@ -36,7 +36,7 @@
       pkgs.gnutar
       pkgs.gzip
       pkgs.ripgrep
-    ]}:$PATH" "$doom_bin" sync
+    ]}:$PATH" "$doom_bin" sync || echo "warning: doom sync failed; continuing Home Manager activation" >&2
     fi
   '';
 
