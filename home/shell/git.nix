@@ -23,6 +23,7 @@
       settings = {
         diff.colorMoved = "default";
         merge.conflictstyle = "diff3";
+        safe.directory = "/home/mick/Mickium";
 
         alias = {
           a = "add";

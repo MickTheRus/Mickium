@@ -7,6 +7,10 @@
   environment = {
     # set channels (backwards compatibility)
     etc = {
+      "gitconfig".text = ''
+        [safe]
+          directory = /home/mick/Mickium
+      '';
       "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
       "nix/flake-channels/home-manager".source = inputs.home-manager;
     };
