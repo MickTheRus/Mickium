@@ -27,7 +27,8 @@
     doom_bin="${config.xdg.configHome}/emacs/bin/doom"
 
     if [ -x "$doom_bin" ]; then
-      PATH="${lib.makeBinPath [
+      export DOOMDIR="${config.xdg.configHome}/doom"
+      export PATH="${lib.makeBinPath [
       config.programs.emacs.finalPackage
       pkgs.coreutils
       pkgs.fd
@@ -36,7 +37,10 @@
       pkgs.gnutar
       pkgs.gzip
       pkgs.ripgrep
-    ]}:$PATH" "$doom_bin" sync || echo "warning: doom sync failed; continuing Home Manager activation" >&2
+    ]}:$PATH"
+
+      "$doom_bin" profile sync --all || echo "warning: doom profile sync failed; continuing Home Manager activation" >&2
+      "$doom_bin" sync || echo "warning: doom sync failed; continuing Home Manager activation" >&2
     fi
   '';
 
