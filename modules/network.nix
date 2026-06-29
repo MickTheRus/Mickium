@@ -68,6 +68,7 @@ _: {
 
     openssh = {
       enable = true;
+      ports = [2764];
       settings.UseDns = true;
     };
 
