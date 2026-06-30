@@ -59,13 +59,13 @@
         wallpaper_path="$HOME/.config/hypr/Wallpaper.jpeg"
         mkdir -p "$HOME/.cache"
 
-        if ! swww query >/dev/null 2>&1; then
-            swww-daemon &
+        if ! awww query >/dev/null 2>&1; then
+            awww-daemon &
             sleep 0.2
         fi
 
         if [[ -f "$wallpaper_path" ]]; then
-            swww img "$wallpaper_path" --transition-type center --transition-fps 60 --transition-step 100 &&
+            awww img "$wallpaper_path" --transition-type center --transition-fps 60 --transition-step 100 &&
             ln -sf "$wallpaper_path" ~/.cache/current-wallpaper &&
             ~/.config/hypr/scripts/generate-wallpaper-variants.sh
         fi

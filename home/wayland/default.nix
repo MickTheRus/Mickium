@@ -8,6 +8,7 @@
 
   home.packages = with pkgs; [
     # screenshot
+    awww
     grim
     slurp
 
