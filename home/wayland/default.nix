@@ -19,6 +19,8 @@
     wtype
     swaybg
     swayidle
+    hypridle
+    hyprlock
     gtklock
     equibop
     wl-screenrec

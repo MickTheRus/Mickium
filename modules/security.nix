@@ -52,6 +52,9 @@
       services.gtklock = {
         text = "auth include login";
       };
+      services.hyprlock = {
+        text = "auth include login";
+      };
     };
 
     doas = {

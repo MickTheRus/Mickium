@@ -78,11 +78,12 @@
       };
     };
 
-    # For Laptop, make lid close and power buttom click to suspend
+    # Lock before sleeping; hypridle handles loginctl lock-session before suspend.
     logind = {
       settings.Login = {
         HandleLidSwitch = "suspend-then-hibernate";
-        HandleLidSwitchExternalPower = "lock";
+        HandleLidSwitchExternalPower = "suspend-then-hibernate";
+        HandleLidSwitchDocked = "suspend-then-hibernate";
         HandlePowerKey = "suspend-then-hibernate";
         HibernateDelaySec = "3600";
       };
