@@ -23,6 +23,7 @@
 in {
   xdg.configFile = {
     "hypr/main.conf".source = ./hypr-config/hyprland.conf;
+    "hypr/Wallpaper.jpeg".source = ./hypr-config/Wallpaper.jpeg;
     "hypr/colors.conf".source = ./hypr-config/colors.conf;
     "hypr/conf".source = confDir;
     "hypr/hypridle.conf".source = ./hypr-config/hypridle.conf;

@@ -56,14 +56,8 @@
 
         set -u
 
-        wallpaper_dir="$HOME/Pictures/Wallpapers"
-        wallpaper_path="$wallpaper_dir/Wallpaper.jpeg"
-        old_wallpaper_path="$wallpaper_dir/Lofi_Japan.jpeg"
-        mkdir -p "$wallpaper_dir" "$HOME/.cache"
-
-        if [[ ! -e "$wallpaper_path" && -e "$old_wallpaper_path" ]]; then
-            cp "$old_wallpaper_path" "$wallpaper_path"
-        fi
+        wallpaper_path="$HOME/.config/hypr/Wallpaper.jpeg"
+        mkdir -p "$HOME/.cache"
 
         if ! swww query >/dev/null 2>&1; then
             swww-daemon &
