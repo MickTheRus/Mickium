@@ -12,15 +12,19 @@
     else if hostName == "Maxwell"
     then ./hypr-config/monitors/Maxwell.conf
     else ./hypr-config/monitors/default.conf;
+  confDir = pkgs.runCommand "hypr-conf-${hostName}" {} ''
+    mkdir -p "$out"
+    ln -s ${./hypr-config/conf/autostart.conf} "$out/autostart.conf"
+    ln -s ${./hypr-config/conf/env.conf} "$out/env.conf"
+    ln -s ${./hypr-config/conf/keybinds.conf} "$out/keybinds.conf"
+    ln -s ${monitorConfig} "$out/monitors.conf"
+    ln -s ${./hypr-config/conf/rules.conf} "$out/rules.conf"
+  '';
 in {
   xdg.configFile = {
     "hypr/main.conf".source = ./hypr-config/hyprland.conf;
     "hypr/colors.conf".source = ./hypr-config/colors.conf;
-    "hypr/conf/autostart.conf".source = ./hypr-config/conf/autostart.conf;
-    "hypr/conf/env.conf".source = ./hypr-config/conf/env.conf;
-    "hypr/conf/keybinds.conf" = { source = ./hypr-config/conf/keybinds.conf; force = true; };
-    "hypr/conf/monitors.conf".source = monitorConfig;
-    "hypr/conf/rules.conf".source = ./hypr-config/conf/rules.conf;
+    "hypr/conf".source = confDir;
     "hypr/hypridle.conf".source = ./hypr-config/hypridle.conf;
     "hypr/hyprlock.conf".source = ./hypr-config/hyprlock.conf;
     "hypr/pyprland.json".source = ./hypr-config/pyprland.json;
