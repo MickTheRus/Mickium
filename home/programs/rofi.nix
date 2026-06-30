@@ -57,40 +57,23 @@
         set -u
 
         wallpaper_dir="$HOME/Pictures/Wallpapers"
+        wallpaper_path="$wallpaper_dir/Wallpaper.jpeg"
+        old_wallpaper_path="$wallpaper_dir/Lofi_Japan.jpeg"
         mkdir -p "$wallpaper_dir" "$HOME/.cache"
 
-        # getting the current wallpaper with `swww query`
-        current_wallpaper_path=$(swww query 2>/dev/null | sed "s/.*image: \(.*\)/\1/")
+        if [[ ! -e "$wallpaper_path" && -e "$old_wallpaper_path" ]]; then
+            cp "$old_wallpaper_path" "$wallpaper_path"
+        fi
 
-        # if the daemon is not running
-        if [[ -z "$current_wallpaper_path" ]]; then
+        if ! swww query >/dev/null 2>&1; then
             swww-daemon &
             sleep 0.2
         fi
 
-        current_wallpaper_name=$(basename "$current_wallpaper_path")
-
-        # show menu (with icon)
-        selected_wallpaper=$(find "$wallpaper_dir" -maxdepth 1 -type f \
-            \( -iname '*.avif' -o -iname '*.bmp' -o -iname '*.gif' -o -iname '*.jpeg' -o -iname '*.jpg' -o -iname '*.jxl' -o -iname '*.png' -o -iname '*.webp' \) \
-            -print0 | sort -z | while IFS= read -r -d "" a; do
-            wallpaper_name=$(basename "$a")
-            if [[ $wallpaper_name == "$current_wallpaper_name" ]]; then
-                printf '%s (current)\0icon\x1f%s\n' "$wallpaper_name" "$a"
-            else
-                printf '%s\0icon\x1f%s\n' "$wallpaper_name" "$a"
-            fi
-        done | rofi -dmenu -p " " -theme "$HOME/.config/rofi/styles/swww.rasi")
-
-        # removing the added " (current)" from the selected wallpaper (no matter the item selected)
-        final_wallpaper=$(printf '%s\n' "$selected_wallpaper" | sed "s/ (current)//")
-
-        # changing the wallpaper and the colorscheme if selected wallpaper is not empty
-        if [[ -n "$selected_wallpaper" ]]; then
-            wallpaper_path="$wallpaper_dir/$final_wallpaper"
+        if [[ -f "$wallpaper_path" ]]; then
             swww img "$wallpaper_path" --transition-type center --transition-fps 60 --transition-step 100 &&
             ln -sf "$wallpaper_path" ~/.cache/current-wallpaper &&
-            ~/.config/hypr/scripts/generate-wallpaper-variants.sh # generates all the variants at a single time
+            ~/.config/hypr/scripts/generate-wallpaper-variants.sh
         fi
       '';
     };
