@@ -36,6 +36,9 @@ _: {
       "hyprland/workspaces" = {
         sort-by = "number";
         all-outputs = false;
+        persistent-workspaces = {
+          "*" = 10;
+        };
         warp-on-scroll = false;
         format = "{icon}";
         format-icons = {
