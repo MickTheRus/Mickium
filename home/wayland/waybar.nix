@@ -1,4 +1,6 @@
-_: {
+{osConfig, ...}: let
+  isLaptop = (osConfig.networking.hostName or "") == "Altar";
+in {
   programs.waybar = {
     enable = true;
 
@@ -14,15 +16,19 @@ _: {
         "hyprland/window"
       ];
       modules-center = ["hyprland/workspaces"];
-      modules-right = [
-        "mpd"
-        "network"
-        "pulseaudio"
-        "group/hardware"
-        "tray"
-        "clock"
-        "group/quicklinks-right"
-      ];
+      modules-right =
+        [
+          "mpd"
+          "network"
+          "pulseaudio"
+        ]
+        ++ (if isLaptop then ["battery"] else [])
+        ++ [
+          "group/hardware"
+          "tray"
+          "clock"
+          "group/quicklinks-right"
+        ];
 
       "wlr/taskbar" = {
         format = "{icon}";
@@ -191,6 +197,18 @@ _: {
         format-icons.default = ["" " " " "];
         max-volume = 150;
         on-click = "pavucontrol";
+      };
+
+      battery = {
+        states = {
+          warning = 30;
+          critical = 15;
+        };
+        format = "{capacity}% {icon}";
+        format-charging = "{capacity}% 󰂄";
+        format-plugged = "{capacity}% 󰂄";
+        format-icons = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+        tooltip-format = "{timeTo} remaining";
       };
 
       network = {
