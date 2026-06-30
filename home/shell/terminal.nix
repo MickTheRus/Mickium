@@ -64,10 +64,5 @@ _: {
       };
     };
 
-    zellij = {
-      enable = true;
-      settings = {
-      };
-    };
   };
 }
