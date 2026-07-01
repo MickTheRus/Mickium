@@ -432,6 +432,18 @@ Rebuild directly:
 sudo nixos-rebuild switch --flake .#altar
 ```
 
+Update Altar remotely over Tailscale:
+
+```sh
+ssh Altar
+cd ~/Mickium
+git pull --rebase
+sudo nixos-rebuild switch --flake .#altar
+```
+
+If `git pull --rebase` reports local hardware/config changes, inspect them
+first. Host hardware config changes are often legitimate machine-local updates.
+
 Check Git state:
 
 ```sh
@@ -456,6 +468,8 @@ sudo ss -tlnp | grep sshd
 
 - Check `git status --short` before editing. There may be user changes.
 - Do not revert unrelated dirty files.
+- If Mick asks to commit everything, include both assistant-made changes and
+  existing user-made dirty changes after reviewing the diff.
 - Prefer editing repo sources over generated Home Manager targets.
 - For docs-only changes, commit only the docs file and avoid pulling in dirty
   config files.

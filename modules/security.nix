@@ -27,6 +27,17 @@
       };
     };
 
+    fail2ban = {
+      enable = true;
+      bantime = "1h";
+      maxretry = 5;
+      bantime-increment = {
+        enable = true;
+        maxtime = "1w";
+        rndtime = "10m";
+      };
+    };
+
     pcscd.enable = true;
   };
 

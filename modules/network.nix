@@ -26,11 +26,10 @@ _: {
       wifi.powersave = true;
     };
 
-    # Firewall uses iptables underthehood
-    # Rules are for syncthing
+    # UFW-style default deny inbound policy with explicit service openings.
     firewall = rec {
       enable = true;
-      # For syncthing & kdeconnect
+      # For KDE Connect.
       allowedTCPPortRanges = [
         {
           from = 1714;
@@ -38,9 +37,9 @@ _: {
         }
       ];
       allowedUDPPortRanges = allowedTCPPortRanges;
-      allowedTCPPorts = [8384 22000];
-      allowedUDPPorts = [22000 21027];
+      allowedTCPPorts = [2764];
       allowPing = false;
+      logRefusedConnections = true;
       logReversePathDrops = true;
     };
 
