@@ -74,5 +74,10 @@ The following old paths were intentionally removed:
 ```sh
 sudo nix --extra-experimental-features 'nix-command flakes' flake check --show-trace
 rg 'mkOutOfStoreSymlink|wallust|ncmpcpp|maple-mono' home modules hosts flake.nix || true
+git diff --name-only
 git status --short
 ```
+
+Before pushing functional config changes, confirm `DESCRIPTION.MD` was updated
+in the same change or that the diff only contains docs/formatting edits that do
+not affect the repo handoff map.

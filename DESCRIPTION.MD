@@ -8,6 +8,16 @@ This file is meant as a handoff map for future sessions. The README is the
 short overview; this file explains what the pieces do, what is intentionally
 weird, and what problems have already been solved.
 
+## Maintenance Contract
+
+Keep this file current with the repo. Any functional config change should
+update `DESCRIPTION.MD` in the same change, even if the edit is only a short
+note confirming that an existing section is still accurate.
+
+If a future checkout is missing this file, recreate it before making further
+config changes. It should summarize the host model, shared modules, Home
+Manager layout, intentional weirdness, and operational gotchas.
+
 ## Mental Model
 
 The repo is split into three main layers:
@@ -468,6 +478,8 @@ sudo ss -tlnp | grep sshd
 
 - Check `git status --short` before editing. There may be user changes.
 - Do not revert unrelated dirty files.
+- Keep `DESCRIPTION.MD` present and current whenever functional config changes
+  are made.
 - If Mick asks to commit everything, include both assistant-made changes and
   existing user-made dirty changes after reviewing the diff.
 - Prefer editing repo sources over generated Home Manager targets.
