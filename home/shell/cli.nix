@@ -92,7 +92,7 @@
       WarnWeakCrypto no-pq-kex
 
     Host Wormhole
-      HostName 192.168.1.60
+      HostName 100.69.143.37
       PreferredAuthentications publickey
       IdentityFile ~/.ssh/Wormhole
       User mick

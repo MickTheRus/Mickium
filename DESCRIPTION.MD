@@ -222,7 +222,7 @@ ahead of the plugin API. The pinned Hyprland package set exists to avoid that.
 
 ### Wallpaper
 
-Wallpaper is set with `awww`, not `swww`.
+Wallpaper is set with `awww`.
 
 The baked source wallpaper is:
 
@@ -295,7 +295,7 @@ SSH client config is generated from Nix. The desired hosts include:
 
 - `github.com` on port 22.
 - `montanamesh` over Tailscale on port 2764.
-- `Wormhole` on LAN port 2764.
+- `Wormhole` over Tailscale on port 2764.
 - `Maxwell` over Tailscale on port 2764.
 - `Altar` over Tailscale on port 2764.
 
@@ -397,7 +397,6 @@ that config exists on a fresh install, a manual workaround may be needed.
 
 - Hyprland plugin compatibility is fragile. Keep the pinned Hyprland package
   set unless intentionally updating `hyprsplit`.
-- `swww` is not installed. Wallpaper uses `awww`.
 - Home Manager owns many files in `~/.config`; deleting stale unmanaged files
   may be needed if activation says a file is in the way.
 - OpenSSH uses port 2764, not 22.
