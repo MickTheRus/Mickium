@@ -362,7 +362,10 @@ Notable tools:
 - Android/phone: `android-tools`, `scrcpy`.
 - Git: `gitFull`, `gh`, `lazygit`.
 - Virtualization: QEMU/KVM/libvirt, OVMF, swtpm, `virtiofsd`.
-- Minecraft: Prism Launcher.
+- Minecraft: Prism Launcher, plus `jdk17`/`jdk21` in `games.nix` for
+  per-instance Java selection. `jdk22` was requested but nixpkgs dropped it
+  upstream (short-lived non-LTS release, no longer built or available as a
+  Temurin binary); `jdk21` (current LTS) stands in for it.
 - JetBrains: Rider.
 - Wine: `wineWow64Packages.stableFull` and `winetricks`.
 - Radio/APRS/serial/mesh: `direwolf`, YAAC, `gpsbabel`, AX.25 tools,
