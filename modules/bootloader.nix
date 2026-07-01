@@ -51,7 +51,10 @@
 
     loader = {
       # FIXME change first line if you want to use Grub
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 5;
+      };
       efi.canTouchEfiVariables = true;
       timeout = 1;
     };
