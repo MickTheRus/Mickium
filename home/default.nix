@@ -6,6 +6,7 @@
 
   imports = [
     inputs.nix-index-db.homeModules.nix-index
+    inputs.codex-desktop-linux.homeManagerModules.default
     ./security
     ./shell
     ./programs

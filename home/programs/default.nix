@@ -14,6 +14,7 @@
     ./packages.nix
     ./media.nix
     ./rofi.nix
+    ./codex-desktop.nix
   ];
 
   programs = {

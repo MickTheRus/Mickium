@@ -45,7 +45,8 @@ Important inputs:
 - `hosts`: StevenBlack hosts blocklist module.
 - `doom-emacs`: Doom Emacs source with submodules enabled.
 - `nix-index-db`: command-not-found/index integration.
-- `claude-desktop`, `meshcore-cli`: app/package inputs used by the user profile.
+- `claude-desktop`, `meshcore-cli`, `codex-desktop-linux`: app/package inputs
+  used by the user profile.
 
 The dev shell includes useful Nix maintenance tools such as `alejandra`,
 `deadnix`, `nil`, `statix`, and `git`.
@@ -370,6 +371,29 @@ Notable tools:
 
 YAAC is packaged from its upstream zip with a small wrapper around Java. If it
 fails during unpack, keep the derivation's `dontUnpack`/manual unzip behavior.
+
+## Codex Desktop for Linux
+
+`home/programs/codex-desktop.nix` enables `programs.codexDesktopLinux` from
+the `codex-desktop-linux` flake input
+(https://github.com/ilysenko/codex-desktop-linux), an unofficial Linux build
+of OpenAI's Codex Desktop. The Home Manager module is imported at the top
+level in `home/default.nix` (same pattern as `nix-index-db`), and the config
+file sets `cliPackage = pkgs.codex;` so the Desktop launcher is wrapped with
+an explicit `CODEX_CLI_PATH` pointing at the `codex` CLI already installed via
+`home/programs/packages.nix`, instead of depending on session `PATH`.
+
+Only the base package variant is enabled. `computerUseUi.enable`,
+`remoteMobileControl.enable`, and `remoteControl.enable` are left off; they
+pull in extra runtime deps (`ydotool`, AT-SPI, an app-server exposed over a
+listener) and are opt-in on purpose. Turn them on in
+`home/programs/codex-desktop.nix` if needed later.
+
+This package builds a Rust binary and repackages an upstream `Codex.dmg`
+(fixed-output derivation), so first build/switch after adding it will take a
+while and needs network access. If the upstream DMG hash goes stale, wait for
+the input's daily hash-refresh bot and re-run `nix flake update
+codex-desktop-linux`.
 
 ## Wine Prefix Note
 
