@@ -167,8 +167,8 @@ Desktop services and hardware:
 
 - Enables Ly as the display manager.
 - Enables Hyprland.
-- Enables KDE Connect, Steam, NoiseTorch, PipeWire, portals, printing,
-  fingerprint support, power services, GVFS, upower, fstrim, and seatd.
+- Enables KDE Connect, Steam, PipeWire, portals, printing, fingerprint
+  support, power services, GVFS, upower, fstrim, and seatd.
 - Enables Tailscale and starts a login helper service that runs:
 
 ```sh
@@ -304,10 +304,11 @@ emacs -nw
 SSH client config is generated from Nix. The desired hosts include:
 
 - `github.com` on port 22.
-- `montanamesh` over Tailscale on port 2764.
-- `Wormhole` over Tailscale on port 2764.
-- `Maxwell` over Tailscale on port 2764.
-- `Altar` over Tailscale on port 2764.
+- `montanamesh` on port 2764 with `~/.ssh/montanamesh`.
+- `Wormhole` on port 2764 with `~/.ssh/Wormhole`.
+- `Maxwell` on port 2764 with `~/.ssh/Personal_Computers`.
+- `Altar` on port 2764 with `~/.ssh/Personal_Computers`.
+- `Wortox` on port 2764 with `~/.ssh/Personal_Computers`.
 
 The NixOS OpenSSH server also listens on port 2764.
 

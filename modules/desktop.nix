@@ -7,7 +7,6 @@
   programs = {
     dconf.enable = true;
     kdeconnect.enable = true;
-    noisetorch.enable = true; # virtual noise suppressor
     steam.enable = true;
   };
 

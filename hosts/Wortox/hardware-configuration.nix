@@ -12,47 +12,38 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/7486e120-73f5-4bc3-88ac-ca591786ee2a";
+    { device = "/dev/disk/by-label/NIXOS";
       fsType = "btrfs";
       options = [ "subvol=@" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/7486e120-73f5-4bc3-88ac-ca591786ee2a";
+    { device = "/dev/disk/by-label/NIXOS";
       fsType = "btrfs";
       options = [ "subvol=@home" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/7486e120-73f5-4bc3-88ac-ca591786ee2a";
+    { device = "/dev/disk/by-label/NIXOS";
       fsType = "btrfs";
       options = [ "subvol=@nix" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/.snapshots" =
-    { device = "/dev/disk/by-uuid/7486e120-73f5-4bc3-88ac-ca591786ee2a";
+    { device = "/dev/disk/by-label/NIXOS";
       fsType = "btrfs";
       options = [ "subvol=@snapshots" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/7486e120-73f5-4bc3-88ac-ca591786ee2a";
+    { device = "/dev/disk/by-label/NIXOS";
       fsType = "btrfs";
       options = [ "subvol=@log" "compress=zstd" "noatime" ];
     };
 
-  # XBOOTLDR partition: kernels and boot entries go here (~1GB FAT32, sda4)
+  # NixOS-owned ESP: kernels, boot entries, and the systemd-boot EFI binary.
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7D47-6056";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
-
-  # ESP: only systemd-boot EFI binary goes here (32MB Ventoy EFI, sda2)
-  # Mounted at /efi (not /boot/efi) to avoid FAT32 case-insensitivity
-  # conflict between /boot/EFI (XBOOTLDR kernels) and /boot/efi (ESP mount)
-  fileSystems."/efi" =
-    { device = "/dev/disk/by-uuid/EA6C-95B2";
+    { device = "/dev/disk/by-label/NIXBOOT";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };

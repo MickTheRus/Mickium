@@ -87,7 +87,7 @@
       HostName 100.68.161.20
       IdentityFile ~/.ssh/montanamesh
       PreferredAuthentications publickey
-      User mick
+       User mick
       Port 2764
       WarnWeakCrypto no-pq-kex
 
@@ -108,7 +108,14 @@
     Host Altar
       HostName 100.119.129.119
       PreferredAuthentications publickey
-      IdentityFile ~/.ssh/Personal/Computers
+      IdentityFile ~/.ssh/Personal_Computers
+      User mick
+      Port 2764
+
+    Host Wortox
+      HostName 100.113.147.1
+      PreferredAuthentications publickey
+      IdentityFile ~/.ssh/Personal_Computers
       User mick
       Port 2764
   '';
