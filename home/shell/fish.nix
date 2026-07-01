@@ -5,7 +5,12 @@
     shellAliases = {
       docker = "podman";
       docker-compose = "podman-compose";
+      e = "emacs -nw";
+      nvim = "emacs -nw";
       sudo = "doas";
+      v = "emacs -nw";
+      vi = "emacs -nw";
+      vim = "emacs -nw";
     };
 
     plugins = [

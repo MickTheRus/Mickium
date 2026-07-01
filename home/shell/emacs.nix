@@ -4,7 +4,12 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  doomSourceVersion =
+    inputs.doom-emacs.rev
+    or inputs.doom-emacs.lastModifiedDate
+    or "unknown";
+in {
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-pgtk;
@@ -23,7 +28,23 @@
     startWithUserSession = "graphical";
   };
 
-  home.activation.doomSync = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.installDoomEmacs = lib.hm.dag.entryAfter ["linkGeneration"] ''
+    doom_dir="${config.xdg.configHome}/emacs"
+    source_version="${doomSourceVersion}"
+    marker="$doom_dir/.mickium-doom-source"
+
+    if [ -L "$doom_dir" ] || [ ! -e "$marker" ] || [ "$(cat "$marker" 2>/dev/null || true)" != "$source_version" ]; then
+      rm -rf "$doom_dir.tmp"
+      mkdir -p "$(dirname "$doom_dir")"
+      cp -R "${inputs.doom-emacs}" "$doom_dir.tmp"
+      chmod -R u+rwX "$doom_dir.tmp"
+      printf '%s\n' "$source_version" > "$doom_dir.tmp/.mickium-doom-source"
+      rm -rf "$doom_dir"
+      mv "$doom_dir.tmp" "$doom_dir"
+    fi
+  '';
+
+  home.activation.doomSync = lib.hm.dag.entryAfter ["installDoomEmacs"] ''
     doom_bin="${config.xdg.configHome}/emacs/bin/doom"
 
     if [ -x "$doom_bin" ]; then
@@ -69,10 +90,9 @@
     })
   ];
 
-  # Doom itself is pinned by flake.lock; the user's Doom modules/packages/config
-  # are kept in this repo so a fresh clone has the full editor setup.
+  # Doom itself is copied from the pinned flake input during activation because
+  # Doom writes mutable state under ~/.config/emacs/.local.
   xdg.configFile = {
-    "emacs".source = inputs.doom-emacs;
     "doom".source = ./doom;
   };
 }
