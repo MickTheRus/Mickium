@@ -10,6 +10,10 @@
     or inputs.doom-emacs.lastModifiedDate
     or "unknown";
 in {
+  home.sessionVariables = {
+    DOOMDIR = "${config.xdg.configHome}/doom";
+  };
+
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-pgtk;
@@ -28,6 +32,10 @@ in {
     startWithUserSession = "graphical";
   };
 
+  systemd.user.services.emacs.Service.Environment = [
+    "DOOMDIR=${config.xdg.configHome}/doom"
+  ];
+
   home.activation.installDoomEmacs = lib.hm.dag.entryAfter ["linkGeneration"] ''
     doom_dir="${config.xdg.configHome}/emacs"
     source_version="${doomSourceVersion}"
@@ -38,6 +46,9 @@ in {
       mkdir -p "$(dirname "$doom_dir")"
       cp -R "${inputs.doom-emacs}" "$doom_dir.tmp"
       chmod -R u+rwX "$doom_dir.tmp"
+      if [ -d "$doom_dir.tmp/sources/doom+/modules" ]; then
+        cp -R "$doom_dir.tmp/sources/doom+/modules/." "$doom_dir.tmp/modules/"
+      fi
       printf '%s\n' "$source_version" > "$doom_dir.tmp/.mickium-doom-source"
       rm -rf "$doom_dir"
       mv "$doom_dir.tmp" "$doom_dir"

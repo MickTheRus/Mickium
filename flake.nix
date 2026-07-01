@@ -22,7 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     doom-emacs = {
-      url = "github:doomemacs/doomemacs";
+      url = "git+https://github.com/doomemacs/doomemacs?submodules=1";
       flake = false;
     };
     claude-desktop = {
