@@ -264,6 +264,8 @@ Expected behavior:
 ### Waybar Laptop Differences
 
 Waybar checks the NixOS host name. Battery UI is only enabled for `Altar`.
+The battery, MPD, and system tray modules use the same rounded background
+treatment as the other right-side status modules.
 
 If a battery shows up on a desktop or disappears on the laptop, inspect:
 
@@ -363,9 +365,11 @@ Notable tools:
 - Git: `gitFull`, `gh`, `lazygit`.
 - Virtualization: QEMU/KVM/libvirt, OVMF, swtpm, `virtiofsd`.
 - Minecraft: Prism Launcher, plus `jdk17`/`jdk21` in `games.nix` for
-  per-instance Java selection. `jdk22` was requested but nixpkgs dropped it
-  upstream (short-lived non-LTS release, no longer built or available as a
-  Temurin binary); `jdk21` (current LTS) stands in for it.
+  per-instance Java selection. The JDKs are linked separately at
+  `~/.local/share/java/jdk17` and `~/.local/share/java/jdk21` to avoid binary
+  collisions in the Home Manager package environment. `jdk22` was requested
+  but nixpkgs dropped it upstream (short-lived non-LTS release, no longer built
+  or available as a Temurin binary); `jdk21` (current LTS) stands in for it.
 - JetBrains: Rider.
 - Wine: `wineWow64Packages.stableFull` and `winetricks`.
 - Radio/APRS/serial/mesh: `direwolf`, YAAC, `gpsbabel`, AX.25 tools,

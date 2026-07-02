@@ -290,11 +290,14 @@ in {
         color: @foreground;
       }
 
+      #battery,
       #clock,
       #hardware,
+      #mpd,
       #network,
       #pulseaudio,
       #taskbar,
+      #tray,
       #quicklinks-right,
       #quicklinks-left {
         border-radius: 12px;
