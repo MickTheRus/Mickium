@@ -166,7 +166,10 @@ MPD is managed through Home Manager and reads music from:
 /home/mick/Music
 ```
 
-The intended TUI MPD client is `rmpc`. `ncmpcpp` has intentionally been removed.
+The intended TUI MPD client is `rmpc`. The `mpc` command-line client is also
+installed for quick scripting and playback control. Both connect to the local
+MPD service at `127.0.0.1:6600`; `MPD_HOST` is set automatically. `ncmpcpp` has
+intentionally been removed.
 
 Media config also includes mpv, imv, yt-dlp, playerctl/playerctld, qpwgraph,
 pavucontrol, pulsemixer, and pamixer.
