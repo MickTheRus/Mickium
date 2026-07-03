@@ -333,7 +333,9 @@ The activation script copies the pinned Doom source into writable
 the bundled Doom module tree when needed.
 
 Activation then runs Doom sync. Sync failures are warnings and should not block
-Home Manager activation.
+Home Manager activation. The generated `home-manager-mick.service` has an
+extended 30 minute start timeout because a fresh Doom package sync can take
+longer than systemd's default 5 minute oneshot timeout.
 
 Known fixes already applied:
 

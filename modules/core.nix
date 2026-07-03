@@ -76,5 +76,7 @@
     HibernateDelaySec = "3600";
   };
 
+  systemd.services.home-manager-mick.serviceConfig.TimeoutStartSec = "30m";
+
   system.stateVersion = lib.mkDefault "26.05";
 }
