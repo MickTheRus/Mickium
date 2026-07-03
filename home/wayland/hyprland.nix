@@ -37,7 +37,7 @@ in {
     cmake
     cpio
     jaq
-    grimblast
+    hyprshot
     hyprmon
     hyprmoncfg
     swaybg
