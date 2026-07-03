@@ -30,23 +30,6 @@
     # blast
     julia
 
-    # R
-    (rWrapper.override {
-      packages = with rPackages; [
-        ggplot2
-        # dplyr
-        # tidyverse # set of 9 packages
-        languageserver
-        lintr
-        # stringr
-        # httr
-        # ggvis
-        # shiny
-        # rio
-        # rmarkdown
-      ];
-    })
-
     # nix
     nil
     nixd
