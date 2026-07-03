@@ -105,7 +105,6 @@ Boot and kernel behavior:
 - Uses `system.boot.loader.kernelFile = "vmlinuz"` for newer nixpkgs kernel
   naming behavior.
 - Includes xpadneo support.
-- Enables aarch64 binfmt support.
 
 The systemd-boot generation limit only controls boot menu entries. It does not
 delete old Nix store paths by itself.

@@ -60,7 +60,6 @@
     };
     supportedFilesystems = ["ntfs"];
     tmp.cleanOnBoot = true;
-    binfmt.emulatedSystems = ["aarch64-linux"];
   };
 
   # nixpkgs-unstable renamed the Zen kernel image from bzImage to vmlinuz.
