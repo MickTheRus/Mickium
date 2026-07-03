@@ -299,6 +299,8 @@ The terminal setup is Kitty-only. Foot and Zellij were intentionally removed.
 Shell/editor behavior:
 
 - Fish is the main interactive shell.
+- Home Manager shell integrations should target Fish; stale Zsh integrations
+  are intentionally disabled.
 - Common aliases also exist for other shell contexts.
 - `v`, `vi`, `vim`, `nvim`, and `e` alias to:
 
