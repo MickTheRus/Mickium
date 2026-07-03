@@ -1,8 +1,7 @@
 {inputs, ...}:
 # glue all configs together
 {
-  # NEVER EVER TOUCH IT ⚠️
-  config.home.stateVersion = "24.05"; # OR CRY WITH BROKE SYS
+  config.home.stateVersion = "26.05";
 
   imports = [
     inputs.nix-index-db.homeModules.nix-index

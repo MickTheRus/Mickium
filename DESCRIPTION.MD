@@ -195,6 +195,8 @@ Containers and virtualization:
 The Home Manager tree owns desktop config, shell config, editor config, apps,
 themes, SSH client config, Wayland config, and user packages.
 
+`home/default.nix` sets the shared Home Manager `home.stateVersion` to `26.05`.
+
 ## Wayland, Hyprland, and Waybar
 
 Main files:
