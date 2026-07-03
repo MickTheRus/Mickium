@@ -44,8 +44,6 @@
 
     # allow users to mount fuse filesystems with allow_other
     fuse.userAllowOther = true;
-
-    bash.promptInit = ''eval "$(${pkgs.starship}/bin/starship init bash)"'';
   };
 
   time = {

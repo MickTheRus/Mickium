@@ -146,7 +146,6 @@ home/shell/doom/         Vendored Doom config imported from ~/Mickium/dot.config
 home/shell/git.nix       Git config and ignored per-device state.
 home/shell/cli.nix       General CLI packages.
 home/shell/nix.nix       Nix tooling: alejandra, deadnix, statix, direnv.
-home/shell/starship.nix  Prompt config.
 ```
 
 Per-device state such as shell history, cache folders, build outputs, and

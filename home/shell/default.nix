@@ -7,7 +7,6 @@ in {
     ./cli.nix
     ./fish.nix
     ./git.nix
-    ./starship.nix
     ./nix.nix
     ./code.nix
     ./emacs.nix
