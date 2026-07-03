@@ -94,6 +94,7 @@ Core user/system defaults:
 - Replaces `sudo` with a small wrapper pointing to `doas`.
 - Sets locale, console keyboard, editor/browser environment variables, and
   base shell support.
+- Sets the shared NixOS `system.stateVersion` default to `26.05`.
 
 ### `modules/bootloader.nix`
 

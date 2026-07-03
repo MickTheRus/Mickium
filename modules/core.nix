@@ -76,6 +76,5 @@
     HibernateDelaySec = "3600";
   };
 
-  # NEVER EVER TOUCH THIS ⚠️
-  system.stateVersion = lib.mkDefault "23.05"; # OR CRY WITH BROKE SYS
+  system.stateVersion = lib.mkDefault "26.05";
 }
