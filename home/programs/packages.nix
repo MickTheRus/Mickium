@@ -90,7 +90,7 @@ in {
     blender
     bolt-launcher
     direwolf
-    inputs.claude-desktop.packages.${pkgs.system}.claude-desktop
+    inputs.claude-desktop.packages.${pkgs.stdenv.hostPlatform.system}.claude-desktop
     codex
     cutecom
     gpsbabel

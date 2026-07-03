@@ -12,7 +12,6 @@ in {
     ./code.nix
     ./emacs.nix
     ./terminal.nix
-    ./zsh.nix
   ];
 
   # add environment variables

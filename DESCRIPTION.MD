@@ -102,8 +102,8 @@ Boot and kernel behavior:
 - Uses the Linux Zen kernel.
 - Enables `systemd-boot`.
 - Limits visible systemd-boot generation entries to 5.
-- Uses `system.boot.loader.kernelFile = "vmlinuz"` for newer nixpkgs kernel
-  naming behavior.
+- Lets nixpkgs choose the correct bootloader kernel image name for the selected
+  kernel package.
 - Includes xpadneo support.
 
 The systemd-boot generation limit only controls boot menu entries. It does not

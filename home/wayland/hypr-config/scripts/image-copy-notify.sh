@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 # The main usage of this script (other than storing the clipboard items to cliphist)
 # is to get a notification when an image is copied.

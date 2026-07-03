@@ -5,9 +5,7 @@
 }:
 # configuration shared by all hosts
 {
-  # enable zsh autocompletion for system packages (systemd, etc)
   environment = {
-    pathsToLink = ["/share/zsh"];
     variables = {
       EDITOR = "emacsclient -nw -a emacs";
       VISUAL = "emacsclient -c -a emacs";
@@ -48,16 +46,6 @@
     fuse.userAllowOther = true;
 
     bash.promptInit = ''eval "$(${pkgs.starship}/bin/starship init bash)"'';
-    zsh = {
-      enable = true;
-      autosuggestions.enable = true;
-      syntaxHighlighting = {
-        enable = true;
-        patterns = {"rm -rf *" = "fg=black,bg=red";};
-        styles = {"alias" = "fg=magenta";};
-        highlighters = ["main" "brackets" "pattern"];
-      };
-    };
   };
 
   time = {

@@ -1,3 +1,3 @@
-#!/bin/zsh
+#!/bin/sh
 
 hyprpicker -af hex
