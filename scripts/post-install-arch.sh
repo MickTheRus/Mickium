@@ -38,7 +38,7 @@ pacman_packages=(
   podman-compose
   tailscale
   steam
-  steam-native-runtime
+  steam-devices
   playerctl
   mpd
   mpc
