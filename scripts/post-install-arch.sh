@@ -138,6 +138,10 @@ install_paru_git() {
     return
   fi
 
+  if pacman -Q paru >/dev/null 2>&1; then
+    sudo pacman -R --noconfirm paru
+  fi
+
   local build_dir
   build_dir=$(mktemp -d)
 
