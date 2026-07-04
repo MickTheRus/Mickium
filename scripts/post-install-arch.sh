@@ -51,7 +51,6 @@ pacman_packages=(
   lazygit
   jre-openjdk
   thunar
-  telegram-desktop
   rpi-imager
   qpwgraph
   picard
@@ -82,6 +81,7 @@ aur_packages=(
   vintagestory
   vs-launcher
   ventoy-bin
+  telegram-desktop-bin
   ktailctl
   joplin-desktop
 )
