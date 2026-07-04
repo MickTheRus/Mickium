@@ -37,9 +37,12 @@ tooltip {
 
 #clock,
 #hardware,
+#battery,
+#mpd,
 #network,
 #pulseaudio,
 #taskbar,
+#tray,
 #quicklinks-right,
 #quicklinks-left {
     border-radius: 12px;
@@ -97,9 +100,6 @@ tooltip {
 #workspaces button.urgent {
 	color: @foreground;
 	transition: all 0.2s ease-in-out;
-}
-
-#tray {
 }
 
 /* quicklinks  */

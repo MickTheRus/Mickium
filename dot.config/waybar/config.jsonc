@@ -27,6 +27,9 @@
   "hyprland/workspaces": {
     "sort-by": "number",
     "all-outputs": false,
+    "persistent-workspaces": {
+      "*": 10,
+    },
     "warp-on-scroll": false,
     "format": "{icon}",
     "format-icons": {
@@ -63,8 +66,8 @@
       "30": "10",
       "default": "",
     },
-    "on-scroll-up": "hyprctl dispatch split-cycleworkspaces -1",
-    "on-scroll-down": "hyprctl dispatch split-cycleworkspaces +1",
+    "on-scroll-up": "hyprctl dispatch split:workspace m-1",
+    "on-scroll-down": "hyprctl dispatch split:workspace m+1",
   },
   "hyprland/window": {
     "format": "{title}",
@@ -85,16 +88,10 @@
   "group/quicklinks-left": {
     "orientation": "horizontal",
     "modules": [
-      "image",
       "custom/chatgpt",
       "custom/settings",
       "custom/clipboard",
     ],
-  },
-  "image": {
-    "path": "/home/hrigved/Pictures/Icons/arch.png",
-    "on-click": "~/.config/rofi/menus/drun.sh",
-    "size": 18,
   },
   "custom/chatgpt": {
     "format": " ",
@@ -189,7 +186,7 @@
     "format": " ",
     "tooltip": true,
     "tooltip-format": " Change Wallpaper!",
-    "on-click": "~/.config/rofi/menus/swww.sh",
+    "on-click": "~/.config/rofi/menus/awww.sh",
   },
   "custom/notification": {
     "tooltip": false,
@@ -236,6 +233,17 @@
     },
     "max-volume": 150,
     "on-click": "pavucontrol",
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15,
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% 󰂄",
+    "format-plugged": "{capacity}% 󰂄",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "tooltip-format": "{timeTo} remaining",
   },
   // Network setup
   "network": {

@@ -1,4 +1,5 @@
-#!/bin/zsh
+#!/usr/bin/env bash
+set -euo pipefail
 
 # The main usage of this script (other than storing the clipboard items to cliphist)
 # is to get a notification when an image is copied.
@@ -11,6 +12,6 @@ fi
 
 notify-send "Image Copied!" 'This image is copied to clipboard! <img src="/tmp/clipboard-image">' -i "preferences-wallpaper"
 
-cat /tmp/clipboard-image | cliphist store # store to cliphist
+cliphist store < /tmp/clipboard-image # store to cliphist
 
 mv -f /tmp/clipboard-image /tmp/prev-clipboard-image

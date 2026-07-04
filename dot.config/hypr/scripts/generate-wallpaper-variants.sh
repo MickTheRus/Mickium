@@ -1,9 +1,10 @@
-#!/bin/zsh
+#!/usr/bin/env bash
+set -euo pipefail
 
 ###############################
 ########## WLOGOUT ############
 ###############################
-magick ~/.cache/current-wallpaper -scale 75% ~/.cache/temp
-magick ~/.cache/temp -fill black -colorize 50% ~/.cache/wlogout-background
-magick ~/.cache/wlogout-background -blur 0x10 ~/.cache/wlogout-background
-rm ~/.cache/temp
+magick "$HOME/.cache/current-wallpaper" -scale 75% "$HOME/.cache/temp"
+magick "$HOME/.cache/temp" -fill black -colorize 50% "$HOME/.cache/wlogout-background"
+magick "$HOME/.cache/wlogout-background" -blur 0x10 "$HOME/.cache/wlogout-background"
+rm "$HOME/.cache/temp"

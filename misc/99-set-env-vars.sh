@@ -1,9 +1,9 @@
-#!/usr/bin/env
+#!/usr/bin/env bash
 
 # XDG Base Directories
 export XDG_DATA_HOME="$HOME"/.local/share
 export XDG_CONFIG_HOME="$HOME"/.config
-export XDG_STATE_HOME="$HOME"/.local/state 
+export XDG_STATE_HOME="$HOME"/.local/state
 export XDG_CACHE_HOME="$HOME"/.cache
 
 # Bash History File
@@ -18,4 +18,4 @@ export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 # GNU Realine
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 
-export PATH=$PATH:/home/mick/.local/share/cargo/bin
+export PATH="$PATH:$CARGO_HOME/bin"

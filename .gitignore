@@ -1,6 +1,3 @@
-/dot.config/zsh/.zcompdump
-/dot.config/zsh/.zsh_history
-/dot.config/zsh/.zcompcache
 /dot.config/fish/fish_variables*
 /dot.config/fish/fish_history
 /dot.config/fish/generated_completions/
