@@ -7,6 +7,10 @@ env_script_src="$repo_root/misc/99-set-env-vars.sh"
 pacman_packages=(
   base-devel
   git
+  nix
+  direnv
+  age
+  sops
   rust
   fish
   emacs
@@ -80,6 +84,17 @@ aur_packages=(
   ventoy-bin
   ktailctl
   joplin-desktop
+)
+nix_profile_packages=(
+  nixpkgs#home-manager
+  nixpkgs#nh
+  nixpkgs#alejandra
+  nixpkgs#deadnix
+  nixpkgs#statix
+  nixpkgs#nil
+  nixpkgs#nixfmt-rfc-style
+  nixpkgs#nix-output-monitor
+  nixpkgs#nix-tree
 )
 
 if (( EUID == 0 )); then
@@ -230,6 +245,34 @@ enable_paru_bottom_up() {
   fi
 }
 
+configure_nix_admin_tooling() {
+  local nix_conf=/etc/nix/nix.conf
+
+  sudo install -d -o root -g root -m 0755 /etc/nix
+  if [[ ! -f $nix_conf ]]; then
+    sudo install -o root -g root -m 0644 /dev/null "$nix_conf"
+  fi
+
+  if grep -Eq '^[[:space:]]*experimental-features[[:space:]]*=' "$nix_conf"; then
+    sudo sed -i -E 's/^[[:space:]]*experimental-features[[:space:]]*=.*/experimental-features = nix-command flakes/' "$nix_conf"
+  else
+    printf '\nexperimental-features = nix-command flakes\n' | sudo tee -a "$nix_conf" >/dev/null
+  fi
+
+  if grep -Eq '^[[:space:]]*trusted-users[[:space:]]*=' "$nix_conf"; then
+    sudo sed -i -E "s/^[[:space:]]*trusted-users[[:space:]]*=.*/trusted-users = root $target_user @wheel/" "$nix_conf"
+  else
+    printf 'trusted-users = root %s @wheel\n' "$target_user" | sudo tee -a "$nix_conf" >/dev/null
+  fi
+
+  sudo systemctl enable --now nix-daemon.service
+
+  sudo -u "$target_user" env \
+    HOME="$target_home" \
+    NIX_CONFIG='experimental-features = nix-command flakes' \
+    nix profile install --accept-flake-config "${nix_profile_packages[@]}"
+}
+
 configure_podman() {
   sudo install -d -o root -g root -m 0755 /etc/containers/registries.conf.d
   sudo tee /etc/containers/registries.conf.d/10-mickium.conf >/dev/null <<'EOF'
@@ -324,6 +367,7 @@ install_env_profile_script
 setup_env_paths
 install_paru_git
 install_config_packages
+configure_nix_admin_tooling
 install_fnm_via_cargo
 set_fish_as_default_shell
 enable_paru_bottom_up

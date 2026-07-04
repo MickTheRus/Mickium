@@ -18,4 +18,7 @@ export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 # GNU Realine
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 
+export EDITOR="emacs -nw"
+export VISUAL="emacs -nw"
+
 export PATH="$PATH:$CARGO_HOME/bin"

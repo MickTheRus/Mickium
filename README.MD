@@ -193,8 +193,8 @@ configs, writes a passwordless sudoers entry for the current user, sets Fish as
 the user's login shell, installs `misc/99-set-env-vars.sh` into
 `/etc/profile.d/`, creates the XDG/Cargo/GnuPG folders it defines, installs
 Rust/Cargo, installs `fnm` through Cargo, enables `BottomUp` in
-`/etc/paru.conf`, configures Podman, enables Tailscale, configures MPD for
-`~/Music` with `ympd`, and symlinks each entry from `dot.config/` into
-`~/.config/`. Existing targets in `~/.config/` are removed before the symlinks
-are created. `GNUPGHOME` is forced to `0700` so GnuPG does not reject it as
-world-readable.
+`/etc/paru.conf`, configures Podman, enables Tailscale, configures Nix admin
+tooling, configures MPD for `~/Music` with `ympd`, and symlinks each entry from
+`dot.config/` into `~/.config/`. Existing targets in `~/.config/` are removed
+before the symlinks are created. `GNUPGHOME` is forced to `0700` so GnuPG does
+not reject it as world-readable.
