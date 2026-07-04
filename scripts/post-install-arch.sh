@@ -138,8 +138,15 @@ install_paru_git() {
     return
   fi
 
-  if pacman -Q paru >/dev/null 2>&1; then
-    sudo pacman -R --noconfirm paru
+  local old_paru_packages=()
+  for package in paru paru-debug; do
+    if pacman -Q "$package" >/dev/null 2>&1; then
+      old_paru_packages+=("$package")
+    fi
+  done
+
+  if ((${#old_paru_packages[@]})); then
+    sudo pacman -R --noconfirm "${old_paru_packages[@]}"
   fi
 
   local build_dir
