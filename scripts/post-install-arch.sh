@@ -182,6 +182,17 @@ install_codex_desktop_linux() {
     return
   fi
 
+  local old_codex_packages=()
+  for package in openai-codex-desktop codex-desktop; do
+    if pacman -Q "$package" >/dev/null 2>&1; then
+      old_codex_packages+=("$package")
+    fi
+  done
+
+  if ((${#old_codex_packages[@]})); then
+    sudo pacman -R --noconfirm "${old_codex_packages[@]}"
+  fi
+
   local build_dir
   build_dir=$(mktemp -d)
 
