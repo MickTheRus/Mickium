@@ -79,7 +79,8 @@ fish --no-config -n dot.config/fish/config.fish dot.config/fish/conf.d/*.fish do
   configures passwordless sudo for the current user, sets Fish as the login
   shell, installs `misc/99-set-env-vars.sh` into `/etc/profile.d/`, creates
   the XDG/Cargo/GnuPG directories defined by that file, installs Rust/Cargo,
-  installs `fnm` through Cargo, enables `BottomUp` in `/etc/paru.conf`, and
+  installs `fnm` through Cargo, enables `BottomUp` in `/etc/paru.conf`,
+  configures Podman/Tailscale, configures MPD for `~/Music` with `ympd`, and
   replaces existing `~/.config` targets with symlinks to this repo's
   `dot.config/` entries.
 - `GNUPGHOME` must be owned by the user and mode `0700`; GnuPG complains when

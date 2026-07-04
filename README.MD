@@ -188,22 +188,13 @@ Run the Arch post-install helper as the target user, not with `sudo`:
 ./scripts/post-install-arch.sh
 ```
 
-The script installs `paru-git`, installs the core apps used by these configs,
-writes a passwordless sudoers entry for the current user, sets Fish as the
-user's login shell, installs `misc/99-set-env-vars.sh` into `/etc/profile.d/`,
-creates the XDG/Cargo/GnuPG folders it defines, installs Rust/Cargo, installs
-`fnm` through Cargo, enables `BottomUp` in `/etc/paru.conf`, and symlinks each
-entry from `dot.config/` into `~/.config/`. Existing targets in `~/.config/`
-are removed before the symlinks are created. `GNUPGHOME` is forced to `0700`
-so GnuPG does not reject it as world-readable.
-
-## Repo Rules
-
-- Keep Arch changes in `/home/mick/Mickium`.
-- Use `/home/mick/Documents/Mickium` only as Nix reference material unless
-  explicitly asked to edit that checkout.
-- Do not copy stale user-specific paths into this repo.
-- Preserve existing dirty work unless Mick explicitly asks for it to be
-  reverted.
-- Keep generated state, shell history, caches, and local machine files out of
-  Git.
+The script installs `paru-git`, installs the desktop/app stack used by these
+configs, writes a passwordless sudoers entry for the current user, sets Fish as
+the user's login shell, installs `misc/99-set-env-vars.sh` into
+`/etc/profile.d/`, creates the XDG/Cargo/GnuPG folders it defines, installs
+Rust/Cargo, installs `fnm` through Cargo, enables `BottomUp` in
+`/etc/paru.conf`, configures Podman, enables Tailscale, configures MPD for
+`~/Music` with `ympd`, and symlinks each entry from `dot.config/` into
+`~/.config/`. Existing targets in `~/.config/` are removed before the symlinks
+are created. `GNUPGHOME` is forced to `0700` so GnuPG does not reject it as
+world-readable.

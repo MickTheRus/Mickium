@@ -14,6 +14,7 @@ pacman_packages=(
   hypridle
   hyprlock
   hyprpicker
+  hyprshot
   hyprcursor
   kitty
   waybar
@@ -28,11 +29,32 @@ pacman_packages=(
   pipewire
   pipewire-pulse
   wireplumber
+  podman
+  podman-docker
+  podman-compose
+  tailscale
+  steam
+  steam-native-runtime
   playerctl
   mpd
   mpc
+  prismlauncher
+  qbittorrent
+  kdeconnect
+  lutris
+  openrgb
   yazi
   lazygit
+  jre-openjdk
+  thunar
+  telegram-desktop
+  rpi-imager
+  qpwgraph
+  picard
+  libreoffice-fresh
+  btop
+  inkscape
+  krita
   qt5ct
   qt6ct
   xdg-desktop-portal-hyprland
@@ -41,9 +63,23 @@ pacman_packages=(
 aur_packages=(
   brave-bin
   awww-git
-  hyprshot
   pyprland
   wlogout
+  equibop-bin
+  meshtastic-python
+  meshcore-cli-git
+  bolt-launcher
+  irony-mod-manager-bin
+  rider
+  claude-desktop-bin
+  codex-desktop-linux
+  yubico-authenticator
+  ympd
+  vintagestory
+  vs-launcher
+  ventoy-bin
+  ktailctl
+  joplin-desktop
 )
 
 if (( EUID == 0 )); then
@@ -73,6 +109,11 @@ cargo_home="$xdg_data_home/cargo"
 gnupg_home="$xdg_data_home/gnupg"
 inputrc_path="$xdg_config_home/readline/inputrc"
 cargo_bin="$cargo_home/bin"
+music_dir="$target_home/Music"
+mpd_config_dir="$xdg_config_home/mpd"
+mpd_data_dir="$xdg_data_home/mpd"
+mpd_state_dir="$xdg_state_home/mpd"
+mpd_cache_dir="$xdg_cache_home/mpd"
 
 install_paru_git() {
   sudo pacman -S --needed --noconfirm base-devel git
@@ -163,6 +204,16 @@ enable_passwordless_sudo() {
   rm -f "$temp_file"
 }
 
+enable_multilib() {
+  local pacman_conf=/etc/pacman.conf
+
+  if ! grep -Eq '^\[multilib\]' "$pacman_conf"; then
+    sudo sed -i '/^#\[multilib\]/{s/^#//;n;s/^#//;}' "$pacman_conf"
+  fi
+
+  sudo pacman -Sy --noconfirm
+}
+
 enable_paru_bottom_up() {
   local paru_conf=/etc/paru.conf
 
@@ -177,6 +228,76 @@ enable_paru_bottom_up() {
   else
     printf '\n[options]\nBottomUp\n' | sudo tee -a "$paru_conf" >/dev/null
   fi
+}
+
+configure_podman() {
+  sudo install -d -o root -g root -m 0755 /etc/containers/registries.conf.d
+  sudo tee /etc/containers/registries.conf.d/10-mickium.conf >/dev/null <<'EOF'
+unqualified-search-registries = ["docker.io"]
+EOF
+
+  sudo install -d -o root -g root -m 0755 /etc/containers/containers.conf.d
+  sudo tee /etc/containers/containers.conf.d/10-mickium-compose.conf >/dev/null <<'EOF'
+[engine]
+compose_warning_logs = false
+compose_providers = ["/usr/bin/podman-compose"]
+EOF
+
+  sudo systemctl enable --now podman.socket
+  systemctl --user enable --now podman.socket || true
+}
+
+enable_tailscale() {
+  sudo systemctl enable --now tailscaled
+}
+
+configure_mpd_and_ympd() {
+  sudo loginctl enable-linger "$target_user" || true
+
+  sudo -u "$target_user" mkdir -p \
+    "$music_dir" \
+    "$mpd_config_dir" \
+    "$mpd_data_dir/playlists" \
+    "$mpd_state_dir" \
+    "$mpd_cache_dir" \
+    "$xdg_config_home/systemd/user"
+
+  sudo -u "$target_user" tee "$mpd_config_dir/mpd.conf" >/dev/null <<EOF
+music_directory     "$music_dir"
+playlist_directory  "$mpd_data_dir/playlists"
+db_file             "$mpd_data_dir/database"
+log_file            "$mpd_state_dir/log"
+pid_file            "$mpd_state_dir/pid"
+state_file          "$mpd_state_dir/state"
+sticker_file        "$mpd_data_dir/sticker.sql"
+
+bind_to_address     "127.0.0.1"
+port                "6600"
+auto_update         "yes"
+
+audio_output {
+    type            "pipewire"
+    name            "PipeWire"
+}
+EOF
+
+  sudo -u "$target_user" tee "$xdg_config_home/systemd/user/ympd.service" >/dev/null <<'EOF'
+[Unit]
+Description=ympd MPD web client
+After=mpd.service
+Wants=mpd.service
+
+[Service]
+ExecStart=/usr/bin/ympd --host 127.0.0.1 --port 6600 --webport 8080
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+EOF
+
+  systemctl --user daemon-reload
+  systemctl --user enable --now mpd.service
+  systemctl --user enable --now ympd.service
 }
 
 link_dot_config() {
@@ -198,6 +319,7 @@ link_dot_config() {
 }
 
 enable_passwordless_sudo
+enable_multilib
 install_env_profile_script
 setup_env_paths
 install_paru_git
@@ -205,6 +327,9 @@ install_config_packages
 install_fnm_via_cargo
 set_fish_as_default_shell
 enable_paru_bottom_up
+configure_podman
+enable_tailscale
 link_dot_config
+configure_mpd_and_ympd
 
 echo "post-install setup complete for $target_user."
