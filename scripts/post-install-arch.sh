@@ -29,6 +29,7 @@ pacman_packages=(
   swaync
   wl-clipboard
   cliphist
+  ffmpeg
   imagemagick
   ydotool
   dolphin
@@ -216,7 +217,14 @@ install_codex_desktop_linux() {
   rm -rf "$build_dir"
 }
 
+replace_ffmpeg_obs() {
+  if pacman -Q ffmpeg-obs >/dev/null 2>&1; then
+    sudo pacman -Rdd --noconfirm ffmpeg-obs
+  fi
+}
+
 install_config_packages() {
+  replace_ffmpeg_obs
   sudo pacman -Syu --needed --noconfirm "${pacman_packages[@]}"
   install_electron_rebuild_toolchain
   env \
