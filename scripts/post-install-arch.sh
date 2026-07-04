@@ -180,7 +180,13 @@ install_electron_rebuild_toolchain() {
 install_config_packages() {
   sudo pacman -Syu --needed --noconfirm "${pacman_packages[@]}"
   install_electron_rebuild_toolchain
-  paru -S --needed --noconfirm "${aur_packages[@]}"
+  env \
+    NODE_ENV=development \
+    npm_config_include=dev \
+    NPM_CONFIG_INCLUDE=dev \
+    npm_config_omit= \
+    NPM_CONFIG_OMIT= \
+    paru -S --needed --noconfirm "${aur_packages[@]}"
 }
 
 install_env_profile_script() {
