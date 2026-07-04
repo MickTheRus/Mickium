@@ -77,7 +77,6 @@ aur_packages=(
   irony-mod-manager-bin
   rider
   claude-desktop-bin
-  codex-desktop-linux
   yubico-authenticator-bin
   ympd
   vintagestory
@@ -177,6 +176,35 @@ install_electron_rebuild_toolchain() {
   sudo npm install -g @electron/rebuild
 }
 
+install_codex_desktop_linux() {
+  if pacman -Q codex-desktop-linux >/dev/null 2>&1; then
+    echo "codex-desktop-linux is already installed."
+    return
+  fi
+
+  local build_dir
+  build_dir=$(mktemp -d)
+
+  git clone https://aur.archlinux.org/codex-desktop-linux.git "$build_dir/codex-desktop-linux"
+  sed -i 's/"read-aloud-mcp",//g; s/,"read-aloud-mcp"//g' "$build_dir/codex-desktop-linux/PKGBUILD"
+
+  if ! (
+    cd "$build_dir/codex-desktop-linux"
+    env \
+      NODE_ENV=development \
+      npm_config_include=dev \
+      NPM_CONFIG_INCLUDE=dev \
+      npm_config_omit= \
+      NPM_CONFIG_OMIT= \
+      makepkg -si --needed --noconfirm
+  ); then
+    rm -rf "$build_dir"
+    return 1
+  fi
+
+  rm -rf "$build_dir"
+}
+
 install_config_packages() {
   sudo pacman -Syu --needed --noconfirm "${pacman_packages[@]}"
   install_electron_rebuild_toolchain
@@ -187,6 +215,7 @@ install_config_packages() {
     npm_config_omit= \
     NPM_CONFIG_OMIT= \
     paru -S --needed --noconfirm "${aur_packages[@]}"
+  install_codex_desktop_linux
 }
 
 install_env_profile_script() {
