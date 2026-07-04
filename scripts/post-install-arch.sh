@@ -20,6 +20,7 @@ pacman_packages=(
   hyprpicker
   hyprshot
   hyprcursor
+  awww
   kitty
   waybar
   rofi
@@ -65,7 +66,6 @@ pacman_packages=(
 )
 aur_packages=(
   brave-bin
-  awww-git
   pyprland
   wlogout
   equibop-bin
@@ -76,14 +76,14 @@ aur_packages=(
   rider
   claude-desktop-bin
   codex-desktop-linux
-  yubico-authenticator
+  yubico-authenticator-bin
   ympd
   vintagestory
   vs-launcher
   ventoy-bin
   telegram-desktop-bin
   ktailctl
-  joplin-desktop
+  joplin-appimage
 )
 nix_profile_packages=(
   nixpkgs#home-manager
