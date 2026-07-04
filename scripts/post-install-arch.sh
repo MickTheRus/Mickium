@@ -7,6 +7,8 @@ env_script_src="$repo_root/misc/99-set-env-vars.sh"
 pacman_packages=(
   base-devel
   git
+  nodejs
+  npm
   nix
   direnv
   age
@@ -164,8 +166,20 @@ install_paru_git() {
   rm -rf "$build_dir"
 }
 
+install_electron_rebuild_toolchain() {
+  command -v npm >/dev/null
+
+  if command -v electron-rebuild >/dev/null 2>&1; then
+    echo "electron-rebuild is already installed."
+    return
+  fi
+
+  sudo npm install -g @electron/rebuild
+}
+
 install_config_packages() {
   sudo pacman -Syu --needed --noconfirm "${pacman_packages[@]}"
+  install_electron_rebuild_toolchain
   paru -S --needed --noconfirm "${aur_packages[@]}"
 }
 
