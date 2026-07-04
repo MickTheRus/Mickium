@@ -13,7 +13,7 @@ pacman_packages=(
   sops
   rust
   fish
-  emacs
+  emacs-wayland
   hyprland
   hypridle
   hyprlock
