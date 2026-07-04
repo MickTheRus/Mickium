@@ -165,7 +165,7 @@ install_paru_git() {
 }
 
 install_config_packages() {
-  sudo pacman -S --needed --noconfirm "${pacman_packages[@]}"
+  sudo pacman -Syu --needed --noconfirm "${pacman_packages[@]}"
   paru -S --needed --noconfirm "${aur_packages[@]}"
 }
 
