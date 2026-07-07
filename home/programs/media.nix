@@ -27,8 +27,9 @@
   };
 
   home.packages = with pkgs; [
-    # audio control
+    # audio and video tools
     bluetuith
+    davinci-resolve
     pavucontrol
     playerctl
     pulsemixer

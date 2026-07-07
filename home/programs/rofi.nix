@@ -36,7 +36,8 @@
       text = ''
         #!/usr/bin/env bash
 
-        rofi -show drun -theme "$HOME/.config/rofi/styles/drun.rasi"
+        systemd-run --user --scope --collect --quiet \
+            rofi -show drun -theme "$HOME/.config/rofi/styles/drun.rasi"
       '';
     };
 

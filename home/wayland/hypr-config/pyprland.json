@@ -4,7 +4,7 @@
   },
   "scratchpads": {
     "terminal": {
-      "command": "kitty --class kitty-scratchpad",
+      "command": "systemd-run --user --scope --collect --quiet kitty --class kitty-scratchpad",
       "animation": "fromTop",
       "unfocus": "hide"
     }
