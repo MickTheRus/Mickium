@@ -7,8 +7,21 @@
   programs = {
     dconf.enable = true;
     kdeconnect.enable = true;
-    steam.enable = true;
+    steam = {
+      enable = true;
+      package = pkgs.steam.override {
+        extraPreBwrapCmds = ''
+          if [ -z "''${STEAM_CAPS_CLEARED:-}" ]; then
+            export STEAM_CAPS_CLEARED=1
+            exec ${pkgs.libcap}/bin/capsh --caps= -- -c 'exec "$@"' steam "$0" "$@"
+          fi
+        '';
+      };
+    };
   };
+
+  # Steam's pressure-vessel runtime uses Bubblewrap, which needs user namespaces.
+  security.unprivilegedUsernsClone = true;
 
   powerManagement = {
     enable = true;

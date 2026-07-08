@@ -32,6 +32,7 @@
     davinci-resolve
     pavucontrol
     playerctl
+    pulseaudio # pactl client tools; the PulseAudio server stays disabled system-wide.
     pulsemixer
     pamixer
     mpc

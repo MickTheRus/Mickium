@@ -168,8 +168,11 @@ Desktop services and hardware:
 
 - Enables Ly as the display manager.
 - Enables Hyprland.
-- Enables KDE Connect, Steam, PipeWire, portals, printing, fingerprint
-  support, power services, GVFS, upower, fstrim, and seatd.
+- Enables dconf, KDE Connect, Steam, PipeWire, portals, printing,
+  fingerprint support, power services, GVFS, upower, fstrim, atd, and seatd.
+- Wraps Steam with a small `capsh` trampoline and enables unprivileged user
+  namespaces for Steam pressure-vessel/Bubblewrap behavior.
+- Caps journald disk usage and enables udisks2 for user-drive mounting.
 - Enables Tailscale and starts a login helper service that runs:
 
 ```sh
@@ -177,6 +180,17 @@ tailscale up --accept-dns --accept-routes --operator=mick --timeout=0s
 ```
 
 - Configures lid/power handling through logind for suspend-then-hibernate.
+- Enables graphics/32-bit graphics support and the shared font set.
+
+### `modules/bluetooth.nix`
+
+Bluetooth:
+
+- Enables BlueZ.
+- Sets FastConnectable, JustWorksRepairing, device privacy, and experimental
+  BlueZ features.
+- Disables the user `telephony_client` service as a workaround for the known
+  nixpkgs/Bluetooth telephony issue.
 
 ### `modules/containers.nix`
 
@@ -196,6 +210,9 @@ The Home Manager tree owns desktop config, shell config, editor config, apps,
 themes, SSH client config, Wayland config, and user packages.
 
 `home/default.nix` sets the shared Home Manager `home.stateVersion` to `26.05`.
+It imports nix-index integration, the Codex Desktop Linux Home Manager module,
+and the repo-owned `home/security`, `home/shell`, `home/programs`, and
+`home/wayland` trees.
 
 ## Wayland, Hyprland, and Waybar
 
@@ -363,11 +380,12 @@ Package groups are mostly under:
 
 - `home/programs/packages.nix`
 - `home/programs/games.nix`
+- `home/programs/media.nix`
 - `home/shell/cli.nix`
 
 Notable tools:
 
-- Android/phone: `android-tools`, `scrcpy`.
+- Android/phone: `android-tools`, `scrcpy`, KDE Connect.
 - Git: `gitFull`, `gh`, `lazygit`.
 - Virtualization: QEMU/KVM/libvirt, OVMF, swtpm, `virtiofsd`.
 - Minecraft: Prism Launcher, plus `jdk17`/`jdk21` in `games.nix` for
@@ -377,9 +395,15 @@ Notable tools:
   but nixpkgs dropped it upstream (short-lived non-LTS release, no longer built
   or available as a Temurin binary); `jdk21` (current LTS) stands in for it.
 - JetBrains: Rider.
-- Wine: `wineWow64Packages.stableFull` and `winetricks`.
+- Gaming/Wine: Steam, Heroic Games Launcher, Bolt Launcher,
+  `wineWow64Packages.stableFull`, and `winetricks`.
+- Media/audio: MPD with `rmpc`/`mpc`, mpv, imv, yt-dlp, `playerctl`,
+  `playerctld`, qpwgraph, pavucontrol, pamixer, pulsemixer, and PulseAudio
+  client tools for `pactl`. The system audio server is still PipeWire with
+  PulseAudio compatibility, not the PulseAudio daemon.
+- Creative/media apps: Blender, Inkscape, Krita, DaVinci Resolve, Equibop.
 - Radio/APRS/serial/mesh: `direwolf`, YAAC, `gpsbabel`, AX.25 tools,
-  `picocom`, MeshCore CLI, Meshtastic tools.
+  MeshCore CLI, Meshtastic tools, and serial helpers such as `cutecom`.
 - Browser: Brave through the Chromium Home Manager module.
 
 YAAC is packaged from its upstream zip with a small wrapper around Java. If it

@@ -2,6 +2,7 @@
 # games
 {
   home.packages = with pkgs; [
+    heroic
     wineWow64Packages.stableFull
     winetricks
   ];
