@@ -84,16 +84,13 @@ in {
     tlp = {
       enable = true;
       settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "balance_performance";
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
         CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
         CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
 
         USB_AUTOSUSPEND = 1;
-        DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
-        DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "bluetooth";
-
         CPU_BOOST_ON_AC = 0;
         CPU_BOOST_ON_BAT = 0;
         CPU_HWP_DYN_BOOST_ON_AC = 1;

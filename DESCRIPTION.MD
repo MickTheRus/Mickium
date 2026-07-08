@@ -181,6 +181,9 @@ tailscale up --accept-dns --accept-routes --operator=mick --timeout=0s
 ```
 
 - Configures lid/power handling through logind for suspend-then-hibernate.
+- Sets CPU governor policy to `performance` while charging/AC-powered and
+  `powersave` on battery through auto-cpufreq/TLP.
+- Leaves Bluetooth available on battery and startup; TLP should not rfkill it.
 - Enables graphics/32-bit graphics support and the shared font set.
 
 ### `modules/bluetooth.nix`
@@ -188,8 +191,12 @@ tailscale up --accept-dns --accept-routes --operator=mick --timeout=0s
 Bluetooth:
 
 - Enables BlueZ.
-- Sets FastConnectable, JustWorksRepairing, device privacy, and experimental
-  BlueZ features.
+- Sets FastConnectable, JustWorksRepairing, device privacy, a controller class,
+  and BLE connection interval hints for xpadneo/Xbox controller stability.
+- Enables BlueZ userspace HID handling for Xbox controller support through
+  xpadneo.
+- Leaves BlueZ experimental profiles disabled; they were causing noisy RAP/BAP
+  failures around Xbox controller connection attempts.
 - Disables the user `telephony_client` service as a workaround for the known
   nixpkgs/Bluetooth telephony issue.
 

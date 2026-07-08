@@ -4,10 +4,21 @@
     package = pkgs.bluez;
     settings = {
       General = {
+        Class = "0x000100";
+        Experimental = false;
         FastConnectable = true;
         JustWorksRepairing = "always";
         Privacy = "device";
-        Experimental = true;
+      };
+      LE = {
+        ConnectionLatency = 0;
+        MaxConnectionInterval = 9;
+        MinConnectionInterval = 7;
+      };
+    };
+    input = {
+      General = {
+        UserspaceHID = true;
       };
     };
   };
