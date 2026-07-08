@@ -167,11 +167,12 @@ under the user home; if login behavior changes, check that file and `pcscd`.
 Desktop services and hardware:
 
 - Enables Ly as the display manager.
-- Enables Hyprland.
+- Enables Hyprland through a wrapper that clears inherited ambient
+  capabilities before the compositor starts user apps.
 - Enables dconf, KDE Connect, Steam, PipeWire, portals, printing,
   fingerprint support, power services, GVFS, upower, fstrim, atd, and seatd.
-- Wraps Steam with a small `capsh` trampoline and enables unprivileged user
-  namespaces for Steam pressure-vessel/Bubblewrap behavior.
+- Enables unprivileged user namespaces for Steam pressure-vessel, Heroic,
+  DaVinci Resolve, and other Bubblewrap/FHS runtime users.
 - Caps journald disk usage and enables udisks2 for user-drive mounting.
 - Enables Tailscale and starts a login helper service that runs:
 
@@ -477,6 +478,9 @@ that config exists on a fresh install, a manual workaround may be needed.
 - Systemd-boot entry limiting is separate from Nix garbage collection.
 - Android udev rules package was removed upstream; newer systemd uaccess rules
   supersede it, so do not re-add the removed package blindly.
+- If Bubblewrap-based apps fail with `Unexpected capabilities but not setuid`,
+  check that the Hyprland session is using the no-ambient-caps wrapper and that
+  child processes no longer inherit `CAP_SYS_NICE`.
 
 ## Useful Maintenance Commands
 

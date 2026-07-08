@@ -3,24 +3,40 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  wrapHyprlandNoAmbientCaps = package:
+    (pkgs.symlinkJoin {
+      name = "${package.name}-no-ambient-caps";
+      paths = [package];
+      nativeBuildInputs = [pkgs.makeWrapper];
+      postBuild = ''
+        rm -rf "$out/share/systemd"
+
+        wrapProgram "$out/bin/Hyprland" \
+          --run 'if [ -z "''${HYPRLAND_CAPS_CLEARED:-}" ]; then export HYPRLAND_CAPS_CLEARED=1; exec ${pkgs.libcap}/bin/capsh --noamb -- -c '"'"'exec "$@"'"'"' Hyprland "$0" "$@"; fi'
+      '';
+    })
+    // {
+      inherit (package) passthru providedSessions version;
+      meta =
+        (package.meta or {})
+        // {
+          outputsToInstall = ["out"];
+        };
+      override = args: wrapHyprlandNoAmbientCaps package;
+    };
+  hyprlandNoAmbientCaps = wrapHyprlandNoAmbientCaps pkgs.hyprland;
+in {
   programs = {
     dconf.enable = true;
     kdeconnect.enable = true;
-    steam = {
-      enable = true;
-      package = pkgs.steam.override {
-        extraPreBwrapCmds = ''
-          if [ -z "''${STEAM_CAPS_CLEARED:-}" ]; then
-            export STEAM_CAPS_CLEARED=1
-            exec ${pkgs.libcap}/bin/capsh --caps= -- -c 'exec "$@"' steam "$0" "$@"
-          fi
-        '';
-      };
-    };
+    steam.enable = true;
+    hyprland.package = hyprlandNoAmbientCaps;
   };
 
-  # Steam's pressure-vessel runtime uses Bubblewrap, which needs user namespaces.
+  # Bubblewrap/pressure-vessel need user namespaces and reject inherited ambient
+  # capabilities. Ly grants the session CAP_SYS_NICE, so Hyprland is wrapped
+  # above to clear capabilities before it starts user apps.
   security.unprivilegedUsernsClone = true;
 
   powerManagement = {
@@ -220,7 +236,6 @@
   };
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-hyprland];
-    configPackages = [pkgs.xdg-desktop-portal-hyprland];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 }
