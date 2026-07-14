@@ -2,7 +2,17 @@
   pkgs,
   config,
   ...
-}:
+}: let
+  davinciResolveXcb = pkgs.symlinkJoin {
+    name = "davinci-resolve-xcb";
+    paths = [pkgs.davinci-resolve];
+    nativeBuildInputs = [pkgs.makeWrapper];
+    postBuild = ''
+      wrapProgram "$out/bin/davinci-resolve" \
+        --set QT_QPA_PLATFORM xcb
+    '';
+  };
+in
 # media - control and enjoy audio/video
 {
   services = {
@@ -29,7 +39,8 @@
   home.packages = with pkgs; [
     # audio and video tools
     bluetuith
-    davinci-resolve
+    clinfo
+    davinciResolveXcb
     pavucontrol
     playerctl
     pulseaudio # pactl client tools; the PulseAudio server stays disabled system-wide.

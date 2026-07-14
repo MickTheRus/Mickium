@@ -56,8 +56,13 @@ The dev shell includes useful Nix maintenance tools such as `alejandra`,
 Hosts are exposed through `hosts/default.nix` as lowercase flake outputs:
 
 - `maxwell`: desktop profile. The real live Maxwell may be Arch-based, so do
-  not assume the running Maxwell machine is currently this NixOS config.
+  not assume the running Maxwell machine is currently this NixOS config. Its
+  NixOS profile assumes a Ryzen 5800X3D plus Radeon 9070-class GPU and enables
+  AMD ROCm OpenCL.
 - `altar`: Lenovo laptop profile. This is the actively installed laptop target.
+  Its current GPU path is AMD Barcelo/Renoir-class integrated graphics, so it
+  uses Mesa OpenCL/Rusticl with `RUSTICL_ENABLE=radeonsi` instead of Intel
+  OpenCL or the heavier ROCm stack.
 - `wortox`: Ventoy-adjacent portable system drive. It has extra bootloader
   handling so entries/kernels go to XBOOTLDR and EFI variables are not touched.
 
@@ -185,6 +190,9 @@ tailscale up --accept-dns --accept-routes --operator=mick --timeout=0s
   `powersave` on battery through auto-cpufreq/TLP.
 - Leaves Bluetooth available on battery and startup; TLP should not rfkill it.
 - Enables graphics/32-bit graphics support and the shared font set.
+- Host-specific GPU compute is layered in `hosts/default.nix`: Altar uses
+  Mesa OpenCL/Rusticl for its AMD integrated GPU, while Maxwell enables AMD
+  ROCm OpenCL for the Radeon 9070-class desktop GPU.
 
 ### `modules/bluetooth.nix`
 
@@ -193,8 +201,9 @@ Bluetooth:
 - Enables BlueZ.
 - Sets FastConnectable, JustWorksRepairing, device privacy, a controller class,
   and BLE connection interval hints for xpadneo/Xbox controller stability.
-- Enables BlueZ userspace HID handling for Xbox controller support through
-  xpadneo.
+- Leaves BlueZ userspace HID disabled so Bluetooth controllers are handled by
+  the kernel HID stack/xpadneo. If only D-pad input works in games, confirm
+  this setting has not been flipped back on.
 - Leaves BlueZ experimental profiles disabled; they were causing noisy RAP/BAP
   failures around Xbox controller connection attempts.
 - Disables the user `telephony_client` service as a workaround for the known
@@ -404,11 +413,15 @@ Notable tools:
   or available as a Temurin binary); `jdk21` (current LTS) stands in for it.
 - JetBrains: Rider.
 - Gaming/Wine: Steam, Heroic Games Launcher, Bolt Launcher,
-  `wineWow64Packages.stableFull`, and `winetricks`.
+  `wineWow64Packages.stableFull`, `winetricks`, and controller diagnostics
+  through `evtest`/`jstest-gtk`.
 - Media/audio: MPD with `rmpc`/`mpc`, mpv, imv, yt-dlp, `playerctl`,
   `playerctld`, qpwgraph, pavucontrol, pamixer, pulsemixer, and PulseAudio
   client tools for `pactl`. The system audio server is still PipeWire with
-  PulseAudio compatibility, not the PulseAudio daemon.
+  PulseAudio compatibility, not the PulseAudio daemon. DaVinci Resolve is
+  wrapped with `QT_QPA_PLATFORM=xcb` because the bundled Qt build does not
+  include a Wayland platform plugin; `clinfo` is installed for checking GPU
+  compute/OpenCL availability.
 - Creative/media apps: Blender, Inkscape, Krita, DaVinci Resolve, Equibop.
 - Radio/APRS/serial/mesh: `direwolf`, YAAC, `gpsbabel`, AX.25 tools,
   MeshCore CLI, Meshtastic tools, and serial helpers such as `cutecom`.

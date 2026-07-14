@@ -3,6 +3,8 @@
 {
   home.packages = with pkgs; [
     heroic
+    evtest
+    jstest-gtk
     wineWow64Packages.stableFull
     winetricks
   ];

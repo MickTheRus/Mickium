@@ -16,9 +16,11 @@
         MinConnectionInterval = 7;
       };
     };
+    # Let the kernel HID stack/xpadneo own Bluetooth controllers. BlueZ
+    # userspace HID can expose only a partial controller profile to games.
     input = {
       General = {
-        UserspaceHID = true;
+        UserspaceHID = false;
       };
     };
   };
