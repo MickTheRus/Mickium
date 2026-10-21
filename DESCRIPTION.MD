@@ -22,7 +22,8 @@ Manager layout, intentional weirdness, and operational gotchas.
 
 The repo is split into three main layers:
 
-- `flake.nix` wires inputs, overlays, formatter/dev shell, and host outputs.
+- `flake.nix` wires inputs, formatter/dev shell, and host outputs. The
+  nixpkgs overlay lives in `modules/nix.nix`.
 - `hosts/` declares concrete machines and their hardware configs.
 - `modules/` defines shared NixOS system behavior.
 - `home/` defines the `mick` Home Manager environment.
@@ -37,10 +38,8 @@ usually replace them.
 
 Important inputs:
 
-- `nixpkgs`: main unstable package set.
-- `nixpkgs-hyprland`: pinned nixpkgs snapshot used by the overlay for Hyprland
-  and Hyprland plugins. This exists because `hyprsplit` can break against newer
-  Hyprland APIs.
+- `nixpkgs`: main unstable package set. Hyprland comes from here too; there
+  is no separate Hyprland pin (see "Hyprland Version and Plugin" below).
 - `home-manager`: Home Manager integrated as a NixOS module.
 - `hosts`: StevenBlack hosts blocklist module.
 - `doom-emacs`: Doom Emacs source with submodules enabled.
@@ -69,18 +68,19 @@ Hosts are exposed through `hosts/default.nix` as lowercase flake outputs:
 All hosts share the common module set and the same Home Manager user
 configuration for `mick`.
 
-Common build commands:
+Flake outputs are lowercase (`altar`) but `networking.hostName` is
+capitalised (`Altar`), so `nixos-rebuild --flake ~/Mickium` without an
+explicit `#altar` will not find the output. Always name it.
+
+Preferred rebuild (stages the generation for next boot, no live switch):
 
 ```sh
-nix build .#nixosConfigurations.altar.config.system.build.toplevel
-sudo ./result/bin/switch-to-configuration switch
+doas nixos-rebuild boot --flake ~/Mickium#altar
 ```
 
-or, when Git ownership/safe-directory is happy:
-
-```sh
-sudo nixos-rebuild switch --flake .#altar
-```
+Never run plain `nixos-rebuild` without `--flake`. It falls back to
+`/etc/nixos/configuration.nix`, which on these machines is only the
+installer stub (see "Known Sharp Edges").
 
 ## Shared System Modules
 
@@ -91,7 +91,11 @@ sudo nixos-rebuild switch --flake .#altar
 Core user/system defaults:
 
 - Creates `mick` as the main normal user.
-- Sets initial passwords for `root` and `mick`.
+- Sets `initialPassword` for `root` and `mick`. NixOS only applies this when
+  the user is created, so it normally has no effect. But if a generation that
+  does not declare `mick` is ever activated, NixOS deletes the user, and the
+  next good generation recreates it with the initial password. Run `passwd`
+  afterwards. Same uid (1000), so home ownership survives.
 - Adds `mick` to groups needed for admin, input, virtualization, ADB, serial,
   video, and similar workflows.
 - Installs system-level essentials including `android-tools`, `gitFull`, and
@@ -126,8 +130,16 @@ Nix daemon and flake settings:
 - Pins registry/nixPath entries to the flake inputs.
 - Adds `/home/mick/Mickium` as a Git safe directory in system config so
   root-driven rebuilds can evaluate the flake.
-- Overlays Hyprland and Hyprland plugins from the pinned `nixpkgs-hyprland`
-  input.
+- Permits the exact insecure `ventoy` version nixpkgs currently ships. Bump the
+  version string when nixpkgs bumps ventoy, or evaluation fails.
+- One overlay: adds `hyprlandPlugins.split-monitor-workspaces`, which is not
+  in nixpkgs (see "Hyprland Version and Plugin").
+- `system.autoUpgrade` rebuilds daily from the local checkout
+  (`/home/mick/Mickium#<lowercased hostName>`) with `upgrade = false` and
+  `operation = "boot"`. It honours the committed `flake.lock` and does not
+  update inputs, because a root-run input update would leave root-owned files
+  and lock commits in Mick's repo. Updating inputs stays a manual
+  `nix flake update`.
 
 That safe-directory bit exists because `sudo nixos-rebuild --flake` evaluates
 the Git repo as root, and libgit2 rejects repos not owned by the evaluating
@@ -173,12 +185,21 @@ Desktop services and hardware:
 
 - Enables Ly as the display manager.
 - Enables Hyprland through a wrapper that clears inherited ambient
-  capabilities before the compositor starts user apps.
+  capabilities before the compositor starts user apps. The NixOS Hyprland
+  module gives `Hyprland` a `cap_sys_nice` security wrapper, and NixOS now
+  refuses wrapper targets that are scripts, so the wrapper must be built with
+  `makeBinaryWrapper` (an ELF). It runs
+  `capsh --noamb -- -c 'exec "$0" "$@"' <real Hyprland>`.
 - Enables dconf, KDE Connect, Steam, PipeWire, portals, printing,
   fingerprint support, power services, GVFS, upower, fstrim, atd, and seatd.
-- Enables unprivileged user namespaces for Steam pressure-vessel, Heroic,
-  DaVinci Resolve, and other Bubblewrap/FHS runtime users.
-- Caps journald disk usage and enables udisks2 for user-drive mounting.
+- Unprivileged user namespaces (needed by Steam pressure-vessel, Heroic,
+  DaVinci Resolve and other Bubblewrap/FHS runtimes) are on by default on the
+  Zen kernel. `security.unprivilegedUsernsClone` was removed upstream, so do
+  not re-add it.
+- Caps journald disk usage via `services.journald.settings.Journal`
+  (`extraConfig` was removed upstream) and enables udisks2 for user-drive
+  mounting. The D-Bus keyring prompter comes from `gcr_4`; plain `gcr` was
+  removed from nixpkgs.
 - Enables Tailscale and starts a login helper service that runs:
 
 ```sh
@@ -249,23 +270,51 @@ Host-specific monitor layouts live here:
 - `home/wayland/hypr-config/monitors/Maxwell.conf`
 - `home/wayland/hypr-config/monitors/default.conf`
 
-### Hyprsplit
+### Hyprland Version and Plugin
 
-The repo uses the `hyprsplit` Hyprland plugin for split/per-monitor workspaces.
-Relevant config is in:
+Hyprland comes straight from main `nixpkgs` (0.56.2 as of the 2026-10-20
+lock). Per-monitor workspaces use the C++ build of
+[split-monitor-workspaces](https://github.com/zjeffer/split-monitor-workspaces),
+packaged in the `modules/nix.nix` overlay with
+`hyprlandPlugins.mkHyprlandPlugin` (meson + ninja, `lua5_5`). It was
+switched from `hyprsplit` on 2026-10-21 because hyprsplit stopped at Hyprland
+0.54.3/0.55.4 and does not build on 0.56.
+
+Pinning rule: the plugin `rev` must be the plugin commit that the repo's
+`hyprpm.toml` lists for the Hyprland version nixpkgs ships. Entries are
+`[hyprland_commit, plugin_commit]`, and the *second* hash is the one to use.
+After a `nix flake update` that bumps Hyprland, look up the new pin, update
+`rev`/`hash`/`version`, and rebuild. If a newer Hyprland has no pin yet, hold
+nixpkgs back rather than reintroducing a separate Hyprland pin (see the Mesa
+sharp edge below).
+
+Upstream deprecated the C++ plugin in favour of a Lua package. The Lua
+package does not support Home Manager config yet (issue #293), and this repo
+still uses hyprlang (`configType = "hyprlang"`), so stay on the C++ plugin.
+
+Config in `home/wayland/hypr-config/hyprland.conf`:
 
 ```text
-home/wayland/hypr-config/hyprland.conf
+plugin {
+    split-monitor-workspaces {
+        count = 10
+        enable_persistent_workspaces = 1
+    }
+}
 ```
 
-It sets:
+Keybinds (`conf/keybinds.conf`) use `split-workspace` and
+`split-movetoworkspace`. Waybar scroll uses `split-cycleworkspaces`.
 
-- `num_workspaces = 10`
-- `persistent_workspaces = true`
+Validate config changes against the built Hyprland before rebooting:
 
-Keybinds should use hyprsplit dispatchers such as `split:workspace`. If
-hyprsplit fails to build after a flake update, check whether Hyprland moved
-ahead of the plugin API. The pinned Hyprland package set exists to avoid that.
+```sh
+Hyprland --verify-config -c ~/.config/hypr/hyprland.conf
+```
+
+The validator does not load plugins, so "Invalid dispatcher split-…" errors
+are expected. Anything else is real. Hyprland 0.56 removed
+`dwindle:pseudotile`, and `layerrule = ignore_alpha` takes a number.
 
 ### Wallpaper
 
@@ -423,8 +472,15 @@ Notable tools:
   include a Wayland platform plugin; `clinfo` is installed for checking GPU
   compute/OpenCL availability.
 - Creative/media apps: Blender, Inkscape, Krita, DaVinci Resolve, Equibop.
-- Radio/APRS/serial/mesh: `direwolf`, YAAC, `gpsbabel`, AX.25 tools,
-  MeshCore CLI, Meshtastic tools, and serial helpers such as `cutecom`.
+- Radio/APRS/serial/mesh: `direwolf`, YAAC, `gpsbabel`, MeshCore CLI,
+  Meshtastic tools, and serial helpers such as `cutecom`. `ax25-tools` is
+  commented out in `home/programs/packages.nix`: it fails to build in nixpkgs
+  2026-10-20 because `linux/hdlcdrv.h` is gone from the kernel headers.
+  Re-enable it when nixpkgs fixes it.
+- MeshCore: `meshcore-cli` comes from its flake input, while the `meshcore`
+  Python library is packaged locally from PyPI in `packages.nix`. When the CLI
+  input moves, its `meshcore>=` requirement can outrun the local library
+  (`pythonRuntimeDepsCheck` fails). Bump `meshcore` (version + hash) to match.
 - Browser: Brave through the Chromium Home Manager module.
 
 YAAC is packaged from its upstream zip with a small wrapper around Java. If it
@@ -484,12 +540,44 @@ reproducibility but do not automatically make the build invalid.
 
 If root cannot evaluate the flake because of Git ownership, the repo-level
 system safe-directory config should fix it after a successful rebuild. Before
-that config exists on a fresh install, a manual workaround may be needed.
+that config exists on a fresh install, a manual workaround may be needed
+(for example `git config --global --add safe.directory '*'` as root on the
+live USB).
+
+After installing, rename `/etc/nixos/configuration.nix` to
+`configuration.nix.installer-stub` so a stray non-flake `nixos-rebuild`
+cannot build it.
 
 ## Known Sharp Edges
 
-- Hyprland plugin compatibility is fragile. Keep the pinned Hyprland package
-  set unless intentionally updating `hyprsplit`.
+- Hyprland plugin compatibility is fragile. The split-monitor-workspaces
+  `rev` must match the Hyprland version in nixpkgs (see "Hyprland Version and
+  Plugin").
+- Do not pin Hyprland to a different nixpkgs than the system. Hyprland links
+  `libgbm` from its own nixpkgs while the GPU driver (`/run/opengl-driver`)
+  comes from main nixpkgs. When they drift too far apart (e.g. libgbm 25.1 vs
+  Mesa 26.2), Hyprland aborts at startup with `Couldn't open a GBM device` /
+  `CBackend::create() failed` and Ly drops straight back to the login screen.
+  The crash report is in `~/.local/cache/hyprland/hyprlandCrashReport*.txt`.
+- `/etc/nixos/configuration.nix` was the bare installer stub (no users, no
+  SSH, no hostname). Any `nixos-rebuild` without `--flake`, including the old
+  channel-based `system.autoUpgrade`, built that stub. Activating it deleted
+  `mick`, dropped SSH and Tailscale, and left the machine unloginable
+  (generation 33 on Altar, 2026-10-21). On Altar the stub is now renamed to
+  `configuration.nix.installer-stub` so such a rebuild fails instead. Do the
+  same on any new install.
+- Never let root run Nix commands with `HOME=/home/mick`. That leaves
+  root-owned files in `~/.local/cache/nix`, and `nix flake update` as mick then
+  fails with "repository path … is not owned by current user". Fix it with
+  `doas chown -R mick:users ~/.local/cache/nix`.
+- `nixos-rebuild switch` over SSH can cut its own connection by restarting
+  sshd/Tailscale mid-activation. Use `boot` and reboot, or run the switch
+  inside `tmux`.
+- On these hosts `sudo` is a wrapper around `doas`, so `sudo -i` and other
+  sudo-only flags fail. Use `doas` directly.
+- Mick's login shell is fish, including for non-interactive SSH commands. Wrap
+  bash syntax (`$(...)`, `VAR=...`, `${PIPESTATUS}`) in `bash -c '…'` or
+  `ssh host bash -s <<'EOF'`.
 - Home Manager owns many files in `~/.config`; deleting stale unmanaged files
   may be needed if activation says a file is in the way.
 - OpenSSH uses port 2764, not 22.
@@ -510,32 +598,73 @@ Format Nix files:
 nix fmt
 ```
 
-Build a host:
+Evaluate every host (cheap; catches removed options):
+
+```sh
+for h in altar maxwell wortox; do
+  nix eval --raw .#nixosConfigurations.$h.config.system.build.toplevel.drvPath
+done
+```
+
+Build a host without installing it:
 
 ```sh
 nix build .#nixosConfigurations.altar.config.system.build.toplevel
 ```
 
-Switch using the built result:
+Update inputs and stage the result for next boot:
 
 ```sh
-sudo ./result/bin/switch-to-configuration switch
+cd ~/Mickium
+nix flake update                                 # as mick, never as root
+doas nixos-rebuild boot --flake ~/Mickium#altar
+reboot
 ```
 
-Rebuild directly:
-
-```sh
-sudo nixos-rebuild switch --flake .#altar
-```
-
-Update Altar remotely over Tailscale:
+Update Altar remotely over Tailscale (same thing; `boot` survives a dropped
+connection):
 
 ```sh
 ssh Altar
 cd ~/Mickium
 git pull --rebase
-sudo nixos-rebuild switch --flake .#altar
+doas nixos-rebuild boot --flake ~/Mickium#altar
 ```
+
+Roll back: pick an older generation in the systemd-boot menu, or make the
+previous one the default again:
+
+```sh
+doas nixos-rebuild boot --rollback
+```
+
+### Recovering an Unbootable or Unloginable Machine
+
+From a NixOS live USB (Altar layout: BTRFS on `nvme0n1p2` with subvolumes
+`@`, `@nix`, `@home`, `@log`, `@persist`; ESP on `nvme0n1p1`):
+
+```sh
+D=/dev/nvme0n1p2
+mount -o subvol=@ $D /mnt
+mount -o subvol=@nix $D /mnt/nix
+mount -o subvol=@home $D /mnt/home
+mount -o subvol=@log $D /mnt/var/log
+mount -o subvol=@persist $D /mnt/persist
+mount /dev/nvme0n1p1 /mnt/boot
+
+# Point the system profile at a known-good generation and rewrite the bootloader
+nixos-enter --root /mnt -c "nix-env -p /nix/var/nix/profiles/system --set /nix/var/nix/profiles/system-NN-link \
+  && NIXOS_INSTALL_BOOTLOADER=1 /nix/var/nix/profiles/system/bin/switch-to-configuration boot"
+
+# Or build and install the flake directly onto the disk
+TMPDIR=/mnt/var/tmp/nixbuild nixos-install --root /mnt \
+  --flake /mnt/home/mick/Mickium#altar --no-root-passwd --no-channel-copy
+```
+
+The live USB keeps its Nix store in RAM. Long builds can OOM-kill `nix`, so run
+`nix-collect-garbage` on the live system (never with `--store /mnt`) between
+attempts. Keep `TMPDIR` on the disk. Run `nix flake update` as the live
+`nixos` user (uid 1000, the repo owner), not root.
 
 If `git pull --rebase` reports local hardware/config changes, inspect them
 first. Host hardware config changes are often legitimate machine-local updates.
@@ -572,6 +701,8 @@ sudo ss -tlnp | grep sshd
 - For docs-only changes, commit only the docs file and avoid pulling in dirty
   config files.
 - For Hyprland plugin build failures, suspect version drift first.
+- `CLAUDE.md` holds the short agent-facing rules. Keep it consistent with this
+  file.
 - For Doom failures, inspect the activation copy/sync behavior before changing
   Doom modules.
 - For SSH issues, remember both client and server are intended to use port 2764.
