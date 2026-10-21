@@ -50,7 +50,7 @@ in {
     enable = true;
     configType = "hyprlang";
     plugins = [
-      pkgs.hyprlandPlugins.hyprsplit
+      pkgs.hyprlandPlugins.split-monitor-workspaces
     ];
     xwayland.enable = true;
     systemd.enable = true;

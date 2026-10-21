@@ -19,26 +19,35 @@
   nixpkgs = {
     config = {
       permittedInsecurePackages = [
-        "ventoy-1.1.12"
+        "ventoy-1.1.18"
       ];
       allowUnfree = true;
       allowBroken = false;
     };
     overlays = [
-      (_final: prev: let
-        hyprlandPkgs = import inputs.nixpkgs-hyprland {
-          system = prev.stdenv.hostPlatform.system;
-          config = {
-            allowUnfree = true;
-            allowBroken = false;
+      (_final: prev: {
+        hyprlandPlugins =
+          prev.hyprlandPlugins
+          // {
+            # Not in nixpkgs. Pinned to the plugin commit hyprpm.toml lists for
+            # Hyprland 0.56.2; bump it alongside Hyprland.
+            split-monitor-workspaces = prev.hyprlandPlugins.mkHyprlandPlugin {
+              pluginName = "split-monitor-workspaces";
+              version = "1.2.0-unstable-2026-07-27";
+              src = prev.fetchFromGitHub {
+                owner = "zjeffer";
+                repo = "split-monitor-workspaces";
+                rev = "b28df0d0df6bc8b07389552c38f645bbba13008b";
+                hash = "sha256-uwkgqUhX3+t0KjzlC8IkvGYEk65SfI4syHBmI8yYXAI=";
+              };
+              nativeBuildInputs = [prev.meson prev.ninja];
+              buildInputs = [prev.lua5_5];
+              meta = {
+                description = "Split Hyprland workspaces between monitors";
+                homepage = "https://github.com/zjeffer/split-monitor-workspaces";
+              };
+            };
           };
-        };
-      in {
-        hyprland = hyprlandPkgs.hyprland;
-        hyprlandPlugins = hyprlandPkgs.hyprlandPlugins;
-        hyprland-protocols = hyprlandPkgs.hyprland-protocols;
-        hyprwayland-scanner = hyprlandPkgs.hyprwayland-scanner;
-        xdg-desktop-portal-hyprland = hyprlandPkgs.xdg-desktop-portal-hyprland;
       })
     ];
   };
@@ -108,5 +117,14 @@
       # ];
     };
   };
-  system.autoUpgrade.enable = true;
+  # Rebuild from the local checkout, honouring the committed flake.lock (run
+  # `nix flake update` yourself). Running as root, letting it update inputs
+  # would leave root-owned files in the repo. "boot" applies on next reboot
+  # instead of switching a live session.
+  system.autoUpgrade = {
+    enable = true;
+    flake = "/home/mick/Mickium#${lib.toLower config.networking.hostName}";
+    upgrade = false;
+    operation = "boot";
+  };
 }

@@ -81,8 +81,8 @@ in {
           "30" = "10";
           default = "";
         };
-        on-scroll-up = "hyprctl dispatch split:workspace m-1";
-        on-scroll-down = "hyprctl dispatch split:workspace m+1";
+        on-scroll-up = "hyprctl dispatch split-cycleworkspaces -1";
+        on-scroll-down = "hyprctl dispatch split-cycleworkspaces +1";
       };
 
       "hyprland/window" = {

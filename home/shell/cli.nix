@@ -8,7 +8,6 @@
     fzf
     # wonderful spells
     aspell
-    aspellDicts.en-science
     aspellDicts.en
     hunspell
     hunspellDicts.en-us

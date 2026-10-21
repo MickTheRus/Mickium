@@ -38,12 +38,12 @@
 
   meshcore = py.buildPythonPackage rec {
     pname = "meshcore";
-    version = "2.3.7";
+    version = "2.3.17";
     pyproject = true;
 
     src = py.fetchPypi {
       inherit pname version;
-      hash = "sha256-JnEH4JqW99DWP0vbFALQM6ckuq3Zyb7Pm3GkWBcPYLs=";
+      hash = "sha256-1IqyXgMya46XbNEd1r/PtKEAl/oUV7k+773VPLVQnA8=";
     };
 
     build-system = [py.hatchling];
@@ -60,7 +60,7 @@
 
   meshcore-cli = py.buildPythonPackage {
     pname = "meshcore-cli";
-    version = "1.5.7";
+    version = "1.6.6";
     pyproject = true;
 
     src = inputs.meshcore-cli;
@@ -86,7 +86,7 @@
 in {
   home.packages = with pkgs; [
     # misc
-    ax25-tools
+    # ax25-tools # FTBFS in nixpkgs 2026-10-20: linux/hdlcdrv.h gone from kernel headers; re-enable when fixed
     blender
     bolt-launcher
     direwolf

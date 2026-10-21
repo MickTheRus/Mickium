@@ -8,12 +8,19 @@
     (pkgs.symlinkJoin {
       name = "${package.name}-no-ambient-caps";
       paths = [package];
-      nativeBuildInputs = [pkgs.makeWrapper];
+      nativeBuildInputs = [pkgs.makeBinaryWrapper];
+      # security.wrappers requires an ELF target, so use a binary wrapper that
+      # runs the real Hyprland through capsh with ambient capabilities cleared.
       postBuild = ''
         rm -rf "$out/share/systemd"
 
-        wrapProgram "$out/bin/Hyprland" \
-          --run 'if [ -z "''${HYPRLAND_CAPS_CLEARED:-}" ]; then export HYPRLAND_CAPS_CLEARED=1; exec ${pkgs.libcap}/bin/capsh --noamb -- -c '"'"'exec "$@"'"'"' Hyprland "$0" "$@"; fi'
+        rm "$out/bin/Hyprland"
+        makeBinaryWrapper ${pkgs.libcap}/bin/capsh "$out/bin/Hyprland" \
+          --add-flag --noamb \
+          --add-flag -- \
+          --add-flag -c \
+          --add-flag 'exec "$0" "$@"' \
+          --add-flag ${package}/bin/Hyprland
       '';
     })
     // {
@@ -36,8 +43,8 @@ in {
 
   # Bubblewrap/pressure-vessel need user namespaces and reject inherited ambient
   # capabilities. Ly grants the session CAP_SYS_NICE, so Hyprland is wrapped
-  # above to clear capabilities before it starts user apps.
-  security.unprivilegedUsernsClone = true;
+  # above to clear capabilities before it starts user apps. Unprivileged user
+  # namespaces are enabled by default on non-hardened kernels.
 
   powerManagement = {
     enable = true;
@@ -46,15 +53,15 @@ in {
 
   services = {
     dbus = {
-      packages = with pkgs; [dconf gcr udisks2];
+      packages = with pkgs; [dconf gcr_4 udisks2];
       enable = true;
     };
     udev.packages = [];
 
-    journald.extraConfig = ''
-      SystemMaxUse=50M
-      RuntimeMaxUse=10M
-    '';
+    journald.settings.Journal = {
+      SystemMaxUse = "50M";
+      RuntimeMaxUse = "10M";
+    };
 
     # To mount drives with udiskctl command
     udisks2.enable = true;
