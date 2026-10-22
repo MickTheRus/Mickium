@@ -1,0 +1,1 @@
+/home/mick/Mickium/CLAUDE.md
