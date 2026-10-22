@@ -17,10 +17,10 @@
       ## TCP hardening
       # Prevent bogus ICMP errors from filling up logs.
       "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
-      # Reverse path filtering causes the kernel to do source validation of
-      # packets received from all interfaces. This can mitigate IP spoofing.
-      "net.ipv4.conf.default.rp_filter" = 1;
-      "net.ipv4.conf.all.rp_filter" = 1;
+      # Loose reverse path filtering (2): still drops spoofed sources with no
+      # route, but does not break Tailscale subnet routes or asymmetric paths.
+      "net.ipv4.conf.default.rp_filter" = 2;
+      "net.ipv4.conf.all.rp_filter" = 2;
       # Do not accept IP source route packets (we're not a router)
       "net.ipv4.conf.all.accept_source_route" = 0;
       "net.ipv6.conf.all.accept_source_route" = 0;
@@ -56,7 +56,7 @@
         configurationLimit = 5;
       };
       efi.canTouchEfiVariables = true;
-      timeout = 1;
+      timeout = 5;
     };
     supportedFilesystems = ["ntfs"];
     tmp.cleanOnBoot = true;

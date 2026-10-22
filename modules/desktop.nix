@@ -47,10 +47,8 @@ in {
   # above to clear capabilities before it starts user apps. Unprivileged user
   # namespaces are enabled by default on non-hardened kernels.
 
-  powerManagement = {
-    enable = true;
-    powertop.enable = true;
-  };
+  # TLP owns CPU/USB/PCIe power policy; auto-cpufreq and powertop would fight it.
+  powerManagement.enable = true;
 
   services = {
     dbus = {
@@ -74,20 +72,6 @@ in {
     };
 
     # power management
-    auto-cpufreq = {
-      enable = true;
-      settings = {
-        battery = {
-          governor = "powersave";
-          turbo = "never";
-        };
-        charger = {
-          governor = "performance";
-          turbo = "auto";
-        };
-      };
-    };
-
     thermald.enable = true;
     tlp = {
       enable = true;
@@ -99,13 +83,13 @@ in {
         CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
 
         USB_AUTOSUSPEND = 1;
-        CPU_BOOST_ON_AC = 0;
+        CPU_BOOST_ON_AC = 1;
         CPU_BOOST_ON_BAT = 0;
         CPU_HWP_DYN_BOOST_ON_AC = 1;
         CPU_HWP_DYN_BOOST_ON_BAT = 0;
 
         CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 70;
+        CPU_MAX_PERF_ON_AC = 100;
         CPU_MIN_PERF_ON_BAT = 0;
         CPU_MAX_PERF_ON_BAT = 30;
       };
@@ -208,7 +192,6 @@ in {
     graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = [pkgs.libGL pkgs.mesa pkgs.freeglut pkgs.libGLU pkgs.libglibutil];
     };
   };
 

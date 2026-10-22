@@ -97,9 +97,7 @@
       allowed-users = ["@wheel"];
       # only allow sudo users to manage the nix store
       trusted-users = ["@wheel" "root"];
-      keep-outputs = true;
       warn-dirty = false;
-      keep-derivations = true;
       sandbox = true;
       max-jobs = "auto";
       # continue building derivations if one fails

@@ -29,8 +29,6 @@
     ];
   };
 
-  # Sets big font for bootloader, as I have small laptop.
-  # You can remove font and packages line to have default font kernel chooses.
   console = {
     earlySetup = true;
     keyMap = "us";

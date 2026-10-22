@@ -118,6 +118,9 @@ Boot and kernel behavior:
 - Uses the Linux Zen kernel.
 - Enables `systemd-boot`.
 - Limits visible systemd-boot generation entries to 5.
+- Shows the boot menu for 5 seconds so older generations are reachable.
+- Uses loose reverse-path filtering (`rp_filter = 2`) so Tailscale subnet
+  routes and asymmetric paths are not dropped.
 - Lets nixpkgs choose the correct bootloader kernel image name for the selected
   kernel package.
 - Includes xpadneo support.
@@ -133,6 +136,9 @@ Nix daemon and flake settings:
 - Sets trusted users.
 - Keeps derivations and outputs.
 - Enables weekly garbage collection for store paths older than 7 days.
+- Does not set `keep-outputs`/`keep-derivations`: they pinned build outputs and
+  `.drv` files and bloated the store (124 GB on Altar). Do not re-enable them
+  unless you need offline rebuilds of dev shells.
 - Pins registry/nixPath entries to the flake inputs.
 - Adds `/home/mick/Mickium` as a Git safe directory in system config so
   root-driven rebuilds can evaluate the flake.
@@ -167,8 +173,9 @@ Networking:
 - Enables StevenBlack host blocking through the flake input.
 - Enables Avahi/mDNS.
 - Enables OpenSSH on port `2764`, key-only (`PasswordAuthentication` and
-  `KbdInteractiveAuthentication` are off). Keep a working key in
-  `authorizedKeys` before activating.
+  `KbdInteractiveAuthentication` are off; `UseDns` is off to avoid
+  reverse-lookup delays). Keep a working key in `authorizedKeys` before
+  activating.
 - Opens firewall port `2764`.
 - Opens KDE Connect TCP/UDP range `1714-1764` on `tailscale0` only. LAN
   discovery no longer works; add devices by their Tailscale IP in KDE Connect.
@@ -236,8 +243,22 @@ tailscale up --accept-dns --accept-routes --operator=mick --timeout=0s
 ```
 
 - Configures lid/power handling through logind for suspend-then-hibernate.
-- Sets CPU governor policy to `performance` while charging/AC-powered and
-  `powersave` on battery through auto-cpufreq/TLP.
+- Sets CPU governor policy to `performance` while charging/AC-powered (max
+  performance 100%, boost on) and `powersave` on battery (max 30%, boost off).
+  TLP is the only power tool: auto-cpufreq and powertop auto-tune were removed
+  because they fought TLP over governors and USB autosuspend.
+- Altar has a 16 GiB swapfile at `/swap/swapfile`, in a nested btrfs
+  subvolume created once with `doas btrfs subvolume create /swap` (before the
+  first rebuild that adds it). It is the hibernate target for
+  suspend-then-hibernate. Resume is configured in `hosts/default.nix`:
+  `boot.resumeDevice` is the root filesystem UUID and `resume_offset=33056037`
+  is in `boot.kernelParams` (from
+  `doas btrfs inspect-internal map-swapfile -r /swap/swapfile`). If the
+  swapfile is ever recreated or resized, re-read the offset and update it
+  before hibernating; a wrong offset loses the image.
+  `security.protectKernelImage` (on in `modules/security.nix`) adds the
+  `nohibernate` kernel parameter, so Altar overrides it to `false` in the same
+  module; Maxwell and Wortox keep it on.
 - Leaves Bluetooth available on battery and startup; TLP should not rfkill it.
 - Enables graphics/32-bit graphics support and the shared font set.
 - Host-specific GPU compute is layered in `hosts/default.nix`: Altar uses
@@ -373,7 +394,8 @@ Expected behavior:
 
 - Manual lock is bound in Hyprland config.
 - Idle lock is handled by `hypridle`.
-- Lid close is handled by systemd-logind and should suspend-then-hibernate.
+- Lid close is handled by systemd-logind and should suspend-then-hibernate
+  (needs the swapfile and resume setup above to actually hibernate).
 
 ### Waybar Laptop Differences
 

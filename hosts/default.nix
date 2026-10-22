@@ -20,6 +20,28 @@
     # Use Mesa Rusticl rather than Intel OpenCL or the heavier ROCm stack.
     environment.sessionVariables.RUSTICL_ENABLE = "radeonsi";
   };
+  # Hibernate target for suspend-then-hibernate. Root is btrfs, so the swapfile
+  # lives in its own nested subvolume (`btrfs subvolume create /swap`), which
+  # keeps it out of snapshots and NoCoW. resume_offset comes from
+  # `btrfs inspect-internal map-swapfile -r /swap/swapfile` and must be redone
+  # if the swapfile is ever recreated or resized.
+  altarSwap = {lib, ...}: {
+    # protectKernelImage adds `nohibernate` (and blocks kexec), which makes
+    # hibernate impossible. Altar needs hibernate, so override it here.
+    security.protectKernelImage = lib.mkForce false;
+
+    boot = {
+      resumeDevice = "/dev/disk/by-uuid/ad31b8e7-def5-4b96-89f8-0a52465dffc0";
+      kernelParams = ["resume_offset=33056037"];
+    };
+
+    swapDevices = [
+      {
+        device = "/swap/swapfile";
+        size = 16 * 1024;
+      }
+    ];
+  };
   maxwellGpuCompute = {...}: {
     # Maxwell has a Ryzen 5800X3D and Radeon 9070-class GPU, so use AMD's
     # ROCm OpenCL runtime rather than the Mesa fallback used on Altar.
@@ -61,6 +83,7 @@ in {
         {networking.hostName = "Altar";}
         ./Altar/hardware-configuration.nix
         altarGpuCompute
+        altarSwap
         bootloader
         hmModule
         {inherit home-manager;}

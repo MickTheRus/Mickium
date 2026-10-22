@@ -50,7 +50,6 @@
       # for container or vm
       enable = false;
       internalInterfaces = ["ve-+"];
-      externalInterface = "wlp1s0";
       # Lazy IPv6 connectivity for the container
       enableIPv6 = true;
     };
@@ -73,7 +72,7 @@
       enable = true;
       ports = [2764];
       settings = {
-        UseDns = true;
+        UseDns = false;
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
       };
