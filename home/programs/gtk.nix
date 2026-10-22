@@ -18,6 +18,7 @@ in {
     package = pkgs.adwaita-icon-theme;
     size = 24;
     gtk.enable = true;
+    enable = true;
   };
 
   home.sessionVariables.GTK_THEME = gtkThemeName;

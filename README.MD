@@ -31,16 +31,20 @@ The checkout is expected at `/home/mick/Mickium`.
 # Update inputs (run as yourself, not root)
 nix flake update
 
-# Build and stage the new system for the next boot
-doas nixos-rebuild boot --flake ~/Mickium#altar
+# Build and activate the new system
+doas nixos-rebuild switch --flake ~/Mickium#altar
+```
 
-# Reboot into it; the previous generation stays in the boot menu
+Over SSH, use `boot` instead and reboot into the new generation (the previous
+one stays in the boot menu):
+
+```sh
+doas nixos-rebuild boot --flake ~/Mickium#altar
 reboot
 ```
 
-Prefer `boot` over `switch`, especially over SSH. A `switch` restarts
-services in the live session, and a dropped connection mid-switch can leave
-the system half-activated.
+A `switch` restarts services in the live session, and a dropped connection
+mid-switch can leave the system half-activated, so only use it locally.
 
 `system.autoUpgrade` does the same thing daily: it rebuilds from this
 checkout with `operation = "boot"`, honouring the committed `flake.lock`.

@@ -30,14 +30,15 @@
         // {
           outputsToInstall = ["out"];
         };
-      override = args: wrapHyprlandNoAmbientCaps package;
+      override = _: wrapHyprlandNoAmbientCaps package;
     };
   hyprlandNoAmbientCaps = wrapHyprlandNoAmbientCaps pkgs.hyprland;
 in {
   programs = {
     dconf.enable = true;
-    kdeconnect.enable = true;
     steam.enable = true;
+    # Claude Desktop downloads generic Linux Claude Code binaries at runtime.
+    nix-ld.enable = true;
     hyprland.package = hyprlandNoAmbientCaps;
   };
 

@@ -15,6 +15,7 @@
       settings = {
         ipv6_servers = true;
         require_dnssec = true;
+        cache = true;
 
         sources.public-resolvers = {
           urls = [
@@ -39,6 +40,11 @@
     };
 
     pcscd.enable = true;
+    # Provides org.freedesktop.secrets; also unlocks the login keyring via PAM.
+    # Ly delegates to the login PAM stack, so it inherits this integration.
+    gnome.gnome-keyring.enable = true;
+    # Keep the existing SSH agent; only use GNOME Keyring for secrets.
+    gnome.gcr-ssh-agent.enable = false;
   };
 
   programs.ssh.startAgent = true;

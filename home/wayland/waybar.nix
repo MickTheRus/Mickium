@@ -22,7 +22,11 @@ in {
           "network"
           "pulseaudio"
         ]
-        ++ (if isLaptop then ["battery"] else [])
+        ++ (
+          if isLaptop
+          then ["battery"]
+          else []
+        )
         ++ [
           "group/hardware"
           "tray"

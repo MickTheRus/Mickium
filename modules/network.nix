@@ -1,4 +1,4 @@
-_: {
+{lib, ...}: {
   networking = {
     # Killer feature, Its a must these days.
     # Adblocker!! It uses steven black hosts.
@@ -11,8 +11,8 @@ _: {
     };
 
     # dns
-    # mullvad dns
-    nameservers = ["194.242.2.5" "194.242.2.9"];
+    # All lookups go through the local dnscrypt-proxy (modules/security.nix).
+    nameservers = ["127.0.0.1"];
     dhcpcd = {
       wait = "background";
       extraConfig = "noarp";
@@ -22,22 +22,25 @@ _: {
       enable = true;
       unmanaged = ["docker0" "rndis0" "interface-name:ve-*"];
       wifi.macAddress = "random";
-      dns = "systemd-resolved";
+      # Don't push DHCP-provided DNS into resolved; dnscrypt-proxy handles it.
+      dns = lib.mkForce "none";
       wifi.powersave = true;
     };
 
     # UFW-style default deny inbound policy with explicit service openings.
-    firewall = rec {
+    firewall = {
       enable = true;
-      # For KDE Connect.
-      allowedTCPPortRanges = [
-        {
-          from = 1714;
-          to = 1764;
-        }
-      ];
-      allowedUDPPortRanges = allowedTCPPortRanges;
       allowedTCPPorts = [2764];
+      # KDE Connect, reachable over Tailscale only.
+      interfaces.tailscale0 = rec {
+        allowedTCPPortRanges = [
+          {
+            from = 1714;
+            to = 1764;
+          }
+        ];
+        allowedUDPPortRanges = allowedTCPPortRanges;
+      };
       allowPing = false;
       logRefusedConnections = true;
       logReversePathDrops = true;
@@ -58,17 +61,22 @@ _: {
     avahi = {
       enable = true;
       nssmdns4 = true;
-      publish = {
-        enable = true;
-        domain = true;
-        userServices = true;
+      settings.publish = {
+        disable-publishing = false;
+        publish-domain = true;
+        disable-user-service-publishing = false;
+        publish-addresses = true;
       };
     };
 
     openssh = {
       enable = true;
       ports = [2764];
-      settings.UseDns = true;
+      settings = {
+        UseDns = true;
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+      };
     };
 
     # DNS resolver
@@ -76,6 +84,7 @@ _: {
       enable = true;
       settings.Resolve = {
         DNSSEC = "false";
+        # Mullvad plain DNS is only used if dnscrypt-proxy is down.
         FallbackDNS = ["194.242.2.5" "194.242.2.9"];
       };
     };

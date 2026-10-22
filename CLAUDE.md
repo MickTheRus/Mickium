@@ -43,7 +43,10 @@ for h in altar maxwell wortox; do nix eval --raw .#nixosConfigurations.$h.config
 # Update inputs. Run as mick, never as root.
 nix flake update
 
-# Stage a rebuild for next boot. The preferred way to apply changes.
+# Apply changes when working locally on the machine.
+doas nixos-rebuild switch --flake ~/Mickium#altar
+
+# Over SSH, stage for next boot instead (see rule 2).
 doas nixos-rebuild boot --flake ~/Mickium#altar
 
 # Validate Hyprland config with the built Hyprland. Ignore "Invalid dispatcher split-…".
@@ -62,9 +65,10 @@ These all come from real breakage. See "Known Sharp Edges" in
 1. **Always use `--flake ~/Mickium#<host>`.** Plain `nixos-rebuild` builds
    `/etc/nixos/configuration.nix`, which is only the installer stub.
    Activating it deletes user `mick` and drops SSH and Tailscale.
-2. **Use `boot`, not `switch`, especially over SSH.** A switch can restart
-   sshd or Tailscale and cut its own connection mid-activation. If you must
-   switch remotely, do it inside `tmux`.
+2. **Use `switch` locally, `boot` over SSH.** On the machine itself, suggest
+   `nixos-rebuild switch`. Over SSH, suggest `boot`: a switch can restart sshd
+   or Tailscale and cut its own connection mid-activation. If you must switch
+   remotely, do it inside `tmux`.
 3. **Never run Nix as root with mick's `HOME`.** It leaves root-owned files in
    `~/.local/cache/nix` and breaks `nix flake update` for mick.
 4. **Hyprland must come from main nixpkgs.** A separate Hyprland pin brings an

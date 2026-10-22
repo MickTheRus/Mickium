@@ -52,7 +52,6 @@
   };
 
   users.users = {
-    root.initialPassword = "123";
     mick = {
       isNormalUser = true;
       initialPassword = "123";

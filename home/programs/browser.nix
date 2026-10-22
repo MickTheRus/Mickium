@@ -3,7 +3,11 @@
     chromium = {
       enable = true;
       package = pkgs.brave;
-      commandLineArgs = ["--enable-features=TouchpadOverscrollHistoryNavigation"];
+      commandLineArgs = [
+        "--enable-features=TouchpadOverscrollHistoryNavigation"
+        # Hyprland is not detected as a desktop with a keyring; select Secret Service explicitly.
+        "--password-store=gnome-libsecret"
+      ];
       extensions = [
         {id = "dbepggeogbaibhgnhhndojpepiihcmeb";} # vimium
         {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";} # dark-reader

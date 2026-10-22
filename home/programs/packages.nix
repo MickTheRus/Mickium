@@ -84,6 +84,9 @@
     doCheck = false;
   };
 in {
+  # Hyprland is not auto-detected as a GNOME session by Electron.
+  home.sessionVariables.CLAUDE_PASSWORD_STORE = "gnome-libsecret";
+
   home.packages = with pkgs; [
     # misc
     # ax25-tools # FTBFS in nixpkgs 2026-10-20: linux/hdlcdrv.h gone from kernel headers; re-enable when fixed
@@ -97,6 +100,7 @@ in {
     inkscape
     jetbrains.rider
     kdePackages.kdeconnect-kde
+    kicad
     kitty
     krita
     meshcore-cli
@@ -104,6 +108,7 @@ in {
     prismlauncher
     qbittorrent
     scrcpy
+    seahorse
     thunar
     thunar-volman
     ventoy

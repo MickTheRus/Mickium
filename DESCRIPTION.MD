@@ -72,7 +72,13 @@ Flake outputs are lowercase (`altar`) but `networking.hostName` is
 capitalised (`Altar`), so `nixos-rebuild --flake ~/Mickium` without an
 explicit `#altar` will not find the output. Always name it.
 
-Preferred rebuild (stages the generation for next boot, no live switch):
+Rebuild when working locally on the machine (activates immediately):
+
+```sh
+doas nixos-rebuild switch --flake ~/Mickium#altar
+```
+
+Over SSH, stage the generation for next boot instead (no live switch):
 
 ```sh
 doas nixos-rebuild boot --flake ~/Mickium#altar
@@ -91,7 +97,7 @@ installer stub (see "Known Sharp Edges").
 Core user/system defaults:
 
 - Creates `mick` as the main normal user.
-- Sets `initialPassword` for `root` and `mick`. NixOS only applies this when
+- Sets `initialPassword` for `mick` (root has none and is locked). NixOS only applies this when
   the user is created, so it normally has no effect. But if a generation that
   does not declare `mick` is ever activated, NixOS deletes the user, and the
   next good generation recreates it with the initial password. Run `passwd`
@@ -151,12 +157,23 @@ Networking:
 
 - Enables NetworkManager.
 - Uses randomized Wi-Fi MACs.
-- Uses systemd-resolved with Mullvad fallback DNS.
+- Uses systemd-resolved, which forwards all lookups to the local
+  `dnscrypt-proxy` (`DNS=127.0.0.1`). NetworkManager runs with `dns = "none"`
+  (forced, since the resolved module sets it) so DHCP/router DNS is not pushed
+  into resolved. Mullvad plain DNS is only `FallbackDNS`, used if
+  dnscrypt-proxy is down. Tailscale MagicDNS still registers itself with
+  resolved directly. DNSSEC validation is done by dnscrypt-proxy
+  (`require_dnssec`), so resolved's own `DNSSEC` stays off.
 - Enables StevenBlack host blocking through the flake input.
 - Enables Avahi/mDNS.
-- Enables OpenSSH on port `2764`.
+- Enables OpenSSH on port `2764`, key-only (`PasswordAuthentication` and
+  `KbdInteractiveAuthentication` are off). Keep a working key in
+  `authorizedKeys` before activating.
 - Opens firewall port `2764`.
-- Opens KDE Connect TCP/UDP range `1714-1764`.
+- Opens KDE Connect TCP/UDP range `1714-1764` on `tailscale0` only. LAN
+  discovery no longer works; add devices by their Tailscale IP in KDE Connect.
+  The daemon comes from Home Manager (`services.kdeconnect`). Do not enable
+  NixOS `programs.kdeconnect`: it opens the ports on every interface.
 
 SSH should not be expected on port 22 for these NixOS hosts.
 
@@ -167,6 +184,14 @@ Security/authentication:
 - Enables `doas` with passwordless `wheel`.
 - Disables sudo.
 - Enables `pcscd` and YubiKey/U2F packages.
+- Enables GNOME Keyring as the desktop Secret Service (`org.freedesktop.secrets`).
+  The NixOS module adds unlocking/startup to the `login` PAM stack, which Ly
+  delegates to. Use the login password as the login keyring password for
+  automatic unlocking; fingerprint/U2F-only login cannot supply that password
+  and may require unlocking the keyring manually in Seahorse. The existing
+  GPG/SSH agent configuration is unchanged: `services.gnome.gcr-ssh-agent`
+  is explicitly disabled because its default follows GNOME Keyring and
+  conflicts with `programs.ssh.startAgent`.
 - Enables PAM U2F with auth file:
 
 ```text
@@ -174,7 +199,7 @@ Security/authentication:
 ```
 
 - Wires `gtklock` and `hyprlock` into the normal login PAM stack.
-- Enables fail2ban and dnscrypt-proxy.
+- Enables fail2ban and dnscrypt-proxy (with caching; see the network section).
 
 Security keys are accepted through PAM U2F. The configured key file is managed
 under the user home; if login behavior changes, check that file and `pcscd`.
@@ -184,13 +209,17 @@ under the user home; if login behavior changes, check that file and `pcscd`.
 Desktop services and hardware:
 
 - Enables Ly as the display manager.
+- Enables `programs.nix-ld` for generic Linux binaries downloaded at runtime
+  by Claude Desktop (notably its Claude Code executable). Without the standard
+  ELF loader compatibility, those binaries exit with code 127 and the NixOS
+  "Could not start dynamically linked executable" message.
 - Enables Hyprland through a wrapper that clears inherited ambient
   capabilities before the compositor starts user apps. The NixOS Hyprland
   module gives `Hyprland` a `cap_sys_nice` security wrapper, and NixOS now
   refuses wrapper targets that are scripts, so the wrapper must be built with
   `makeBinaryWrapper` (an ELF). It runs
   `capsh --noamb -- -c 'exec "$0" "$@"' <real Hyprland>`.
-- Enables dconf, KDE Connect, Steam, PipeWire, portals, printing,
+- Enables dconf, Steam, PipeWire, portals, printing,
   fingerprint support, power services, GVFS, upower, fstrim, atd, and seatd.
 - Unprivileged user namespaces (needed by Steam pressure-vessel, Heroic,
   DaVinci Resolve and other Bubblewrap/FHS runtimes) are on by default on the
@@ -437,6 +466,16 @@ doom sync
 emacs -nw
 ```
 
+If sync reports a missing `.local/straight/repos/straight.el/straight.el`,
+inspect that checkout first. An interrupted bootstrap can leave only `.git`
+with no commits; Doom sees the directory and skips downloading it again.
+Move that incomplete checkout aside as a backup, then run `doom sync` as
+`mick` to retry the bootstrap. After a successful sync, recover a daemon that
+hit systemd's restart limit with `systemctl --user reset-failed emacs` and
+`systemctl --user restart emacs`. Home Manager deliberately warns rather than
+aborting activation when sync fails, so successful activation alone does not
+confirm Doom initialized successfully.
+
 On Altar, Doom was verified to load with dired and dashboard available after
 the previous fixes.
 
@@ -472,6 +511,15 @@ Notable tools:
   include a Wayland platform plugin; `clinfo` is installed for checking GPU
   compute/OpenCL availability.
 - Creative/media apps: Blender, Inkscape, Krita, DaVinci Resolve, Equibop.
+- Electronics/PCB design: KiCad, including the standard library set provided
+  by the nixpkgs `kicad` package.
+- Credentials: Seahorse manages GNOME Keyring. Claude Desktop is launched
+  with `CLAUDE_PASSWORD_STORE=gnome-libsecret` so Electron selects the Secret
+  Service backend under Hyprland. Brave gets the equivalent
+  `--password-store=gnome-libsecret` via `commandLineArgs` in
+  `home/programs/browser.nix`. Missing keyring support previously produced
+  `safeStorage` errors and prevented session persistence. These changes require
+  activating the new system generation and a fresh login before testing.
 - Radio/APRS/serial/mesh: `direwolf`, YAAC, `gpsbabel`, MeshCore CLI,
   Meshtastic tools, and serial helpers such as `cutecom`. `ax25-tools` is
   commented out in `home/programs/packages.nix`: it fails to build in nixpkgs
@@ -571,8 +619,8 @@ cannot build it.
   fails with "repository path … is not owned by current user". Fix it with
   `doas chown -R mick:users ~/.local/cache/nix`.
 - `nixos-rebuild switch` over SSH can cut its own connection by restarting
-  sshd/Tailscale mid-activation. Use `boot` and reboot, or run the switch
-  inside `tmux`.
+  sshd/Tailscale mid-activation. Over SSH use `boot` and reboot, or run the
+  switch inside `tmux`. Locally, `switch` is the normal command.
 - On these hosts `sudo` is a wrapper around `doas`, so `sudo -i` and other
   sudo-only flags fail. Use `doas` directly.
 - Mick's login shell is fish, including for non-interactive SSH commands. Wrap
@@ -612,13 +660,12 @@ Build a host without installing it:
 nix build .#nixosConfigurations.altar.config.system.build.toplevel
 ```
 
-Update inputs and stage the result for next boot:
+Update inputs and apply the result (locally):
 
 ```sh
 cd ~/Mickium
 nix flake update                                 # as mick, never as root
-doas nixos-rebuild boot --flake ~/Mickium#altar
-reboot
+doas nixos-rebuild switch --flake ~/Mickium#altar
 ```
 
 Update Altar remotely over Tailscale (same thing; `boot` survives a dropped
