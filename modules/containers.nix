@@ -25,6 +25,8 @@
       qemu = {
         package = pkgs.qemu_kvm;
         swtpm.enable = true;
+        # Run guests as the unprivileged qemu-libvirtd user, not root.
+        runAsRoot = false;
         vhostUserPackages = [pkgs.virtiofsd];
       };
     };

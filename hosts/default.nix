@@ -3,7 +3,7 @@
   nixpkgs,
   ...
 }: let
-  lib = nixpkgs.lib;
+  inherit (nixpkgs) lib;
   inherit (self) inputs;
   bootloader = ../modules/bootloader.nix;
   core = ../modules;
@@ -42,7 +42,7 @@
       }
     ];
   };
-  maxwellGpuCompute = {...}: {
+  maxwellGpuCompute = _: {
     # Maxwell has a Ryzen 5800X3D and Radeon 9070-class GPU, so use AMD's
     # ROCm OpenCL runtime rather than the Mesa fallback used on Altar.
     hardware.amdgpu.opencl.enable = true;

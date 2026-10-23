@@ -59,13 +59,13 @@
   documentation = {
     enable = true;
     nixos.enable = true;
-    doc.enable = true;
+    doc.enable = false;
     info.enable = true;
     man = {
       enable = true;
       cache.enable = true; # will take little time
     };
-    dev.enable = true;
+    dev.enable = false;
   };
 
   # Collect garbage and delete generation every 6 day. Will help to get some storage space.

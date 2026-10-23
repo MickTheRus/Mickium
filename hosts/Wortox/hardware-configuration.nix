@@ -2,7 +2,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }: {
@@ -10,46 +9,52 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "uas" "usbhid"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = [];
-  boot.extraModulePackages = [];
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/NIXOS";
-    fsType = "btrfs";
-    options = ["subvol=@" "compress=zstd" "noatime"];
+  boot = {
+    initrd = {
+      availableKernelModules = ["nvme" "xhci_pci" "ahci" "uas" "usbhid"];
+      kernelModules = [];
+    };
+    kernelModules = [];
+    extraModulePackages = [];
   };
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-label/NIXOS";
-    fsType = "btrfs";
-    options = ["subvol=@home" "compress=zstd" "noatime"];
-  };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/NIXOS";
+      fsType = "btrfs";
+      options = ["subvol=@" "compress=zstd" "noatime"];
+    };
 
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-label/NIXOS";
-    fsType = "btrfs";
-    options = ["subvol=@nix" "compress=zstd" "noatime"];
-  };
+    "/home" = {
+      device = "/dev/disk/by-label/NIXOS";
+      fsType = "btrfs";
+      options = ["subvol=@home" "compress=zstd" "noatime"];
+    };
 
-  fileSystems."/.snapshots" = {
-    device = "/dev/disk/by-label/NIXOS";
-    fsType = "btrfs";
-    options = ["subvol=@snapshots" "compress=zstd" "noatime"];
-  };
+    "/nix" = {
+      device = "/dev/disk/by-label/NIXOS";
+      fsType = "btrfs";
+      options = ["subvol=@nix" "compress=zstd" "noatime"];
+    };
 
-  fileSystems."/var/log" = {
-    device = "/dev/disk/by-label/NIXOS";
-    fsType = "btrfs";
-    options = ["subvol=@log" "compress=zstd" "noatime"];
-  };
+    "/.snapshots" = {
+      device = "/dev/disk/by-label/NIXOS";
+      fsType = "btrfs";
+      options = ["subvol=@snapshots" "compress=zstd" "noatime"];
+    };
 
-  # NixOS-owned ESP: kernels, boot entries, and the systemd-boot EFI binary.
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/NIXBOOT";
-    fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
+    "/var/log" = {
+      device = "/dev/disk/by-label/NIXOS";
+      fsType = "btrfs";
+      options = ["subvol=@log" "compress=zstd" "noatime"];
+    };
+
+    # NixOS-owned ESP: kernels, boot entries, and the systemd-boot EFI binary.
+    "/boot" = {
+      device = "/dev/disk/by-label/NIXBOOT";
+      fsType = "vfat";
+      options = ["fmask=0022" "dmask=0022"];
+    };
   };
 
   swapDevices = [];

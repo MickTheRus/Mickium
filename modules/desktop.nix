@@ -52,7 +52,7 @@ in {
 
   services = {
     dbus = {
-      packages = with pkgs; [dconf gcr_4 udisks2];
+      packages = [pkgs.gcr_4];
       enable = true;
     };
     udev.packages = [];

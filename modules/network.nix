@@ -1,4 +1,27 @@
-{lib, ...}: {
+{
+  config,
+  inputs,
+  lib,
+  ...
+}: let
+  # Same blocklist as networking.stevenBlackHosts, minus upstream's
+  # `fe80::1%lo0 localhost` line: it is a BSD interface name that libvirt's
+  # dnsmasq rejects as a "bad address" when it reads /etc/hosts.
+  blocklist = let
+    cfg = config.networking.stevenBlackHosts;
+    alternates = lib.concatStringsSep "-" (
+      lib.optional cfg.blockFakenews "fakenews"
+      ++ lib.optional cfg.blockGambling "gambling"
+      ++ lib.optional cfg.blockPorn "porn"
+      ++ lib.optional cfg.blockSocial "social"
+    );
+    orig = builtins.replaceStrings ["fe80::1%lo0 localhost\n"] [""] (
+      builtins.readFile "${inputs.hosts}/alternates/${alternates}/hosts"
+    );
+    ipv6 = builtins.replaceStrings ["0.0.0.0"] ["::"] orig;
+  in
+    orig + lib.optionalString cfg.enableIPv6 ("\n" + ipv6);
+in {
   networking = {
     # Killer feature, Its a must these days.
     # Adblocker!! It uses steven black hosts.
@@ -9,6 +32,8 @@
       blockPorn = true;
       blockSocial = false;
     };
+
+    extraHosts = lib.mkForce blocklist;
 
     # dns
     # All lookups go through the local dnscrypt-proxy (modules/security.nix).
@@ -83,6 +108,9 @@
       enable = true;
       settings.Resolve = {
         DNSSEC = "false";
+        # LLMNR is spoofable, and Avahi already answers mDNS.
+        LLMNR = "false";
+        MulticastDNS = "false";
         # Mullvad plain DNS is only used if dnscrypt-proxy is down.
         FallbackDNS = ["194.242.2.5" "194.242.2.9"];
       };

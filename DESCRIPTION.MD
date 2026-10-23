@@ -134,7 +134,8 @@ Nix daemon and flake settings:
 
 - Enables flakes and `nix-command`.
 - Sets trusted users.
-- Keeps derivations and outputs.
+- Builds only the man pages and NixOS/info docs; `documentation.dev` and
+  `doc` are off to keep the closure small.
 - Enables weekly garbage collection for store paths older than 7 days.
 - Does not set `keep-outputs`/`keep-derivations`: they pinned build outputs and
   `.drv` files and bloated the store (124 GB on Altar). Do not re-enable them
@@ -170,8 +171,13 @@ Networking:
   dnscrypt-proxy is down. Tailscale MagicDNS still registers itself with
   resolved directly. DNSSEC validation is done by dnscrypt-proxy
   (`require_dnssec`), so resolved's own `DNSSEC` stays off.
-- Enables StevenBlack host blocking through the flake input.
-- Enables Avahi/mDNS.
+- Enables StevenBlack host blocking through the flake input. `extraHosts` is
+  overridden with `mkForce` in `modules/network.nix` to rebuild the same
+  blocklist minus upstream's `fe80::1%lo0 localhost` line, which libvirt's
+  dnsmasq rejected as a "bad address". It mirrors the input module's logic, so
+  recheck it if the `hosts` input changes how it builds `extraHosts`.
+- Enables Avahi/mDNS (Avahi owns mDNS; resolved has `MulticastDNS` and `LLMNR`
+  off, since LLMNR is spoofable and two mDNS responders conflict).
 - Enables OpenSSH on port `2764`, key-only (`PasswordAuthentication` and
   `KbdInteractiveAuthentication` are off; `UseDns` is off to avoid
   reverse-lookup delays). Keep a working key in `authorizedKeys` before
@@ -285,7 +291,8 @@ Bluetooth:
 Containers and virtualization:
 
 - Enables Podman with Docker compatibility and Docker socket compatibility.
-- Enables libvirt/QEMU/KVM.
+- Enables libvirt/QEMU/KVM. Guests run as the unprivileged `qemu-libvirtd`
+  user (`qemu.runAsRoot = false`), not root.
 - Includes OVMF and swtpm support.
 - Installs/uses `virtiofsd`.
 - Enables SPICE USB redirection.
