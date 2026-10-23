@@ -15,6 +15,7 @@
     ./media.nix
     ./rofi.nix
     ./codex-desktop.nix
+    ./radio.nix
   ];
 
   programs = {

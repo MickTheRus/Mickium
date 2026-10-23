@@ -542,6 +542,26 @@ Notable tools:
   `home/programs/browser.nix`. Missing keyring support previously produced
   `safeStorage` errors and prevented session persistence. These changes require
   activating the new system generation and a fresh login before testing.
+- Radio programmers: the RT Systems V5 programmers for the TH-D75, BTECH
+  DMR-6X2 Pro and AnyTone AT-D578UV run under Wine from one shared prefix,
+  `~/.local/share/wine-radio/rtsystems` (not managed by Nix). The RT installers
+  hang under Wine, so the prefix was built by installing them in a Windows 10
+  VM (libvirt `radio-win10`, disk `/var/lib/libvirt/images/radio-win10.qcow2`)
+  and copying the result out. The recipe, if the prefix is ever lost:
+  - Copy `C:\RT Systems V5`, `C:\ProgramData\RT Systems V5`, and
+    `C:\Program Files (x86)\Common Files\RT Systems V5` from the VM disk into
+    the prefix's `drive_c`, and import `HKCU\Software\RT Systems V5`.
+  - Copy `FPSPRU80.ocx`, `MSMASK32.OCX` and `mfc42u.dll` from the VM's
+    `SysWOW64` into the prefix's `syswow64`, then register the two OCX files and
+    `CommonData_V5.dll` with `wine C:\windows\syswow64\regsvr32.exe`.
+  - The program's `.ddt` licence file is bound to the VM's C: volume serial, so
+    write `7EEB2BB3` to `drive_c/.windows-serial`.
+  - Map the cables: `HKLM\Software\Wine\Ports` has `Com3=/dev/ttyACM0` (TH-D75),
+    `Com4=/dev/ttyUSB0` and `Com5=/dev/ttyUSB1` (FTDI cables). In the port dialog
+    tick "Show all ports". Your user is in `dialout`, so no udev rule is needed.
+  `home/programs/radio.nix` adds launchers (`rt-thd75`, `rt-dmr6x2pro`,
+  `rt-atd578`), menu entries and file associations for `.THD75`/`.d75`,
+  `.DMR6X2Pro` and `.ATD578`. Only the TH-D75 has been tested against a radio.
 - Radio/APRS/serial/mesh: `direwolf`, YAAC, `gpsbabel`, MeshCore CLI,
   Meshtastic tools, and serial helpers such as `cutecom`. `ax25-tools` is
   commented out in `home/programs/packages.nix`: it fails to build in nixpkgs
