@@ -597,10 +597,14 @@ was refreshed then). If the build fails with a hash mismatch, set `version` to
 the new file date and update the hash; the bump recipe is in the comment in
 `home/programs/packages.nix`.
 
-Fish: the Tide prompt settings in `home/shell/fish.nix` are set as global
-variables on every shell start, not universal, so they never rewrite
-`fish_variables`. Fish has no `sudo` alias; `sudo` is the `doas` wrapper from
-`modules/core.nix`.
+Fish: the prompt is stock Tide (`fishPlugins.tide`), Classic style with angled
+separators, dark segments, a two-line prompt and many icons (needs a Nerd Font;
+kitty uses Iosevka Nerd Font). `interactiveShellInit` in `home/shell/fish.nix`
+runs `tide configure --auto ...` once, then records `_mickium_tide_config` as a
+universal variable. To change the look, edit the flags and bump that version
+number so it re-applies; running `tide configure` by hand also works but is
+overwritten on the next bump. Fish has no `sudo` alias; `sudo` is the `doas`
+wrapper from `modules/core.nix`.
 
 ## Codex Desktop for Linux
 
