@@ -7,11 +7,15 @@
 
   yaac = pkgs.stdenvNoCC.mkDerivation {
     pname = "yaac";
-    version = "2026-06-10";
+    version = "2026-09-04";
 
+    # Upstream only ever serves the latest YAAC.zip from this URL, so the hash
+    # goes stale whenever it releases. To bump: set `version` to the file's
+    # modified date (see sourceforge.net/projects/yetanotheraprsc/best_release.json)
+    # and take the new hash from `nix-prefetch-url` + `nix hash convert`.
     src = pkgs.fetchurl {
       url = "https://downloads.sourceforge.net/project/yetanotheraprsc/YAAC.zip";
-      hash = "sha256-5kw/yl+kZvCK9JwhBMpgTBTWwcnWgXcUCN0Hx9tQB+Y=";
+      hash = "sha256-pWxAN9E4TjmSkKECTjsteBolEldxVSgofbg6GUKdXV8=";
     };
 
     dontUnpack = true;

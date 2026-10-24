@@ -60,9 +60,15 @@
         wallpaper_path="$HOME/.config/hypr/Wallpaper.jpeg"
         mkdir -p "$HOME/.cache"
 
+        # autostart.conf starts awww-daemon at the same time; give it a moment
+        # before launching a second one, which would crash on the bound socket.
+        for _ in $(seq 1 25); do
+            awww query >/dev/null 2>&1 && break
+            sleep 0.2
+        done
         if ! awww query >/dev/null 2>&1; then
             awww-daemon &
-            sleep 0.2
+            sleep 0.5
         fi
 
         if [[ -f "$wallpaper_path" ]]; then

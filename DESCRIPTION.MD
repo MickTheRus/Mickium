@@ -171,6 +171,12 @@ Networking:
   dnscrypt-proxy is down. Tailscale MagicDNS still registers itself with
   resolved directly. DNSSEC validation is done by dnscrypt-proxy
   (`require_dnssec`), so resolved's own `DNSSEC` stays off.
+  Even with `dns = "none"`, the router's DNS reappeared on `wlo1` after
+  reconnects, so a NetworkManager dispatcher script (`clear-link-dns` in
+  `modules/network.nix`) runs `resolvectl revert` on Wi-Fi/Ethernet links on
+  `up`, `dhcp4-change`, `dhcp6-change`, `reapply` and `connectivity-change`.
+  Check with `resolvectl dns wlo1` (should list nothing); a lookup that prints
+  `-- link: wlo1` did not go through dnscrypt.
 - Enables StevenBlack host blocking through the flake input. `extraHosts` is
   overridden with `mkForce` in `modules/network.nix` to rebuild the same
   blocklist minus upstream's `fe80::1%lo0 localhost` line, which libvirt's
@@ -391,7 +397,10 @@ Home Manager links it to:
 
 The wallpaper helper still has an old filename in the Rofi module, but it uses
 `awww` internally. If wallpaper is blank, check that `awww-daemon` is running
-and that `~/.config/hypr/Wallpaper.jpeg` exists.
+and that `~/.config/hypr/Wallpaper.jpeg` exists. `autostart.conf` starts
+`awww-daemon` and the helper script together, so the script waits up to five
+seconds for the first daemon before starting one itself; otherwise the second
+daemon crashed on the bound socket and dumped core at every login.
 
 ### Lock and Lid Behavior
 
@@ -582,6 +591,16 @@ Notable tools:
 
 YAAC is packaged from its upstream zip with a small wrapper around Java. If it
 fails during unpack, keep the derivation's `dontUnpack`/manual unzip behavior.
+Upstream only serves the latest `YAAC.zip` from one URL, so the pinned hash goes
+stale whenever it releases (it was already stale for the 2026-09-04 build and
+was refreshed then). If the build fails with a hash mismatch, set `version` to
+the new file date and update the hash; the bump recipe is in the comment in
+`home/programs/packages.nix`.
+
+Fish: the Tide prompt settings in `home/shell/fish.nix` are set as global
+variables on every shell start, not universal, so they never rewrite
+`fish_variables`. Fish has no `sudo` alias; `sudo` is the `doas` wrapper from
+`modules/core.nix`.
 
 ## Codex Desktop for Linux
 

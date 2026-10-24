@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }: let
   # Same blocklist as networking.stevenBlackHosts, minus upstream's
@@ -49,6 +50,25 @@ in {
       wifi.macAddress = "random";
       # Don't push DHCP-provided DNS into resolved; dnscrypt-proxy handles it.
       dns = lib.mkForce "none";
+      # NetworkManager still leaves the DHCP-provided DNS on the Wi-Fi/Ethernet
+      # link in resolved after each (re)connect. Clear it so every lookup goes
+      # through dnscrypt-proxy. Tailscale and virtual links are left alone.
+      dispatcherScripts = [
+        {
+          type = "basic";
+          source = pkgs.writeShellScript "clear-link-dns" ''
+            case "$1" in
+              wl*|en*|eth*)
+                case "$2" in
+                  up|dhcp4-change|dhcp6-change|reapply|connectivity-change)
+                    ${pkgs.systemd}/bin/resolvectl revert "$1"
+                    ;;
+                esac
+                ;;
+            esac
+          '';
+        }
+      ];
       wifi.powersave = true;
     };
 
