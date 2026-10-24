@@ -66,15 +66,10 @@
       };
     };
 
-    skim = {
+    # Keeps fish inside `nix develop` / `nix shell` instead of dropping to bash.
+    nix-your-shell = {
       enable = true;
       enableFishIntegration = true;
-      enableZshIntegration = false;
-      defaultCommand = "rg --files --hidden";
-      changeDirWidgetOptions = [
-        "--preview 'eza --icons --git --color always -T -L 3 {} | head -200'"
-        "--exact"
-      ];
     };
   };
 

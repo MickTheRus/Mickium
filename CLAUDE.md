@@ -106,3 +106,5 @@ These all come from real breakage. See "Known Sharp Edges" in
 - When a package fails to build upstream and there's no easy fix, comment it
   out with a dated note saying why. Don't delete it.
 - Commit messages are short and imperative ("Update flake inputs", "Fix X").
+- No AI attribution in commits or PRs: no `Co-Authored-By` trailer and no
+  "Generated with Claude Code" line.

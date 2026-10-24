@@ -603,7 +603,11 @@ kitty uses Iosevka Nerd Font). `interactiveShellInit` in `home/shell/fish.nix`
 runs `tide configure --auto ...` once, then records `_mickium_tide_config` as a
 universal variable. To change the look, edit the flags and bump that version
 number so it re-applies; running `tide configure` by hand also works but is
-overwritten on the next bump. Fish has no `sudo` alias; `sudo` is the `doas`
+overwritten on the next bump. Other fish plugins: `fzf.fish` (the only fuzzy
+finder binding: skim was removed because both bound Ctrl+R), `sponge`,
+`autopair`, `done` (desktop notification when a long command finishes) and
+`puffer` (`!!` and `...` expansion). `programs.nix-your-shell` keeps fish
+inside `nix develop`/`nix shell`. Fish has no `sudo` alias; `sudo` is the `doas`
 wrapper from `modules/core.nix`.
 
 ## Codex Desktop for Linux

@@ -25,6 +25,18 @@
         name = "sponge";
         src = pkgs.fishPlugins.sponge.src;
       }
+      {
+        name = "autopair";
+        src = pkgs.fishPlugins.autopair.src;
+      }
+      {
+        name = "done";
+        src = pkgs.fishPlugins.done.src;
+      }
+      {
+        name = "puffer";
+        src = pkgs.fishPlugins.puffer.src;
+      }
     ];
 
     interactiveShellInit = ''
