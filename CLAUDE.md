@@ -27,7 +27,7 @@ by Home Manager. Edit the repo copy, never `~/.config/hypr`.
 
 | Output | hostName | Machine |
 | --- | --- | --- |
-| `altar` | `Altar` | Lenovo laptop, AMD Barcelo iGPU. The actively used NixOS box. |
+| `altar` | `Altar` | HP Envy x360 laptop, AMD Barcelo iGPU. The actively used NixOS box. |
 | `maxwell` | `Maxwell` | Desktop. The live Maxwell may be running Arch, so confirm first. |
 | `wortox` | `Wortox` | Portable drive beside Ventoy. Must not touch EFI vars. |
 

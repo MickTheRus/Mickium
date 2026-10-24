@@ -75,7 +75,7 @@ in {
     specialArgs = {inherit inputs;};
   };
 
-  # lenovo laptop
+  # HP Envy x360 laptop
   altar = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules =

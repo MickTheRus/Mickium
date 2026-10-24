@@ -12,11 +12,22 @@ dotfiles checkout.
 
 ---
 
+## Screenshots
+
+Altar running the config: Hyprland with Waybar, Kitty with the Tide prompt and
+fastfetch, and btop.
+
+![Hyprland desktop on Altar: Kitty with fastfetch and the Tide prompt next to btop](docs/screenshots/desktop.png)
+
+The Rofi launcher over the same workspace.
+
+![Rofi application launcher over the desktop](docs/screenshots/launcher.png)
+
 ## Hosts
 
 | Flake output | Machine | Notes |
 | --- | --- | --- |
-| `altar` | Lenovo laptop | AMD Barcelo iGPU, Mesa OpenCL (Rusticl), battery UI in Waybar |
+| `altar` | HP Envy x360 laptop | AMD Barcelo iGPU, Mesa OpenCL (Rusticl), battery UI in Waybar |
 | `maxwell` | Desktop | Ryzen 5800X3D + Radeon 9070-class GPU, ROCm OpenCL |
 | `wortox` | Portable system drive | Lives beside Ventoy, never touches EFI variables |
 
@@ -57,7 +68,7 @@ flake.lock      Pinned input revisions (committed on purpose)
 hosts/          Host wiring (default.nix) and per-machine hardware configs
 modules/        Shared NixOS system modules
 home/           Home Manager configuration for user mick
-docs/           Maintenance notes and cleanup rationale
+docs/           Maintenance notes, cleanup rationale and screenshots
 ```
 
 ### System modules (`modules/`)
@@ -65,12 +76,12 @@ docs/           Maintenance notes and cleanup rationale
 | File | What it covers |
 | --- | --- |
 | `core.nix` | User account, shell, locale, console, base packages |
-| `bootloader.nix` | systemd-boot, Linux Zen kernel, xpadneo |
-| `desktop.nix` | Ly, Hyprland wrapper, PipeWire, Steam, power, Tailscale, graphics |
-| `network.nix` | NetworkManager, DNS, host blocking, Avahi, SSH on port 2764 |
-| `security.nix` | doas, PAM U2F / YubiKey login, fail2ban |
+| `bootloader.nix` | systemd-boot (5 second menu), Linux Zen kernel, xpadneo, network and kernel hardening sysctls |
+| `desktop.nix` | Ly, Hyprland wrapper, PipeWire, Steam, TLP power management, lid and hibernate handling, Tailscale, graphics |
+| `network.nix` | NetworkManager, DNS through `dnscrypt-proxy`, host blocking, Avahi, key-only SSH on port 2764, firewall |
+| `security.nix` | doas, PAM U2F / YubiKey login, fail2ban, `dnscrypt-proxy`, GNOME Keyring |
 | `bluetooth.nix` | BlueZ tuned for Xbox controllers |
-| `containers.nix` | Podman (Docker-compatible), libvirt / QEMU / KVM |
+| `containers.nix` | Podman (Docker-compatible), libvirt / QEMU / KVM with unprivileged guests |
 | `nix.nix` | Nix settings, overlays, garbage collection, auto-upgrade |
 
 ### Home Manager (`home/`)
@@ -78,7 +89,7 @@ docs/           Maintenance notes and cleanup rationale
 | Path | What it covers |
 | --- | --- |
 | `home/wayland/` | Hyprland, Waybar, Hyprlock, Hypridle, scripts |
-| `home/programs/` | Desktop apps, media, games, browsers, theming, launchers |
+| `home/programs/` | Desktop apps, media, games, browsers, theming, launchers, radio programmers (`radio.nix`) |
 | `home/shell/` | Fish, git, CLI tools, Kitty, Emacs / Doom |
 | `home/security/` | YubiKey / Yubico config |
 
@@ -106,18 +117,47 @@ installed by Home Manager, so edit the repo copy, not `~/.config/hypr`.
 | Creative | Blender, Inkscape, Krita, DaVinci Resolve |
 | Gaming | Steam, Heroic, Bolt Launcher, Prism Launcher, Wine |
 | Media | MPD + `rmpc`, mpv, imv, yt-dlp, qpwgraph, pavucontrol |
-| Radio and mesh | Meshtastic, MeshCore CLI, direwolf, YAAC, cutecom |
+| Radio and mesh | RT Systems programmers (Wine), Meshtastic, MeshCore CLI, direwolf, YAAC, cutecom |
 | Devices | KDE Connect, Tailscale, Ventoy, Yubico Authenticator, scrcpy |
 | Dev | Rider, Emacs / Doom, `gh`, lazygit, Podman |
 
 ## Shell and Editor
 
-- **Shell:** Fish is the login and interactive shell.
+- **Shell:** Fish is the login and interactive shell, with the stock
+  [Tide](https://github.com/IlanCosman/tide) prompt in its Classic style
+  (two lines, Nerd Font icons). Plugins: `fzf.fish`, `sponge`, `autopair`,
+  `done` and `puffer`; `nix-your-shell` keeps fish inside `nix develop`.
 - **Editor:** Emacs with Doom. Doom is pinned in `flake.lock` and installed
   into a writable `~/.config/emacs`. The user config lives in
   `home/shell/doom/`. Home Manager runs `doom sync` on activation, and the
   Emacs daemon starts with the session.
 - **Vim aliases:** `v`, `vi`, `vim` and `nvim` all open `emacs -nw`.
+
+## Networking and Security
+
+- **DNS:** every lookup goes through a local `dnscrypt-proxy` via
+  systemd-resolved; NetworkManager does not hand DHCP DNS to resolved, and a
+  dispatcher script clears any that leaks onto the Wi-Fi link.
+- **SSH:** port 2764, key-only. fail2ban watches it.
+- **Firewall:** default deny. KDE Connect ports are open on the Tailscale
+  interface only. LLMNR is off.
+- **Login:** PAM U2F / YubiKey, and GNOME Keyring unlocks with the login
+  password (Brave and Claude Desktop use it through libsecret).
+- **VMs:** libvirt guests run as an unprivileged user.
+
+## Power and Hibernate
+
+TLP manages power (full performance on AC, capped on battery). Altar has a
+16 GiB btrfs swapfile with kernel resume configured, so the lid closing runs
+suspend-then-hibernate and the machine can hibernate.
+
+## Radio Programmers
+
+The RT Systems programmers for the Kenwood TH-D75, BTECH DMR-6X2 Pro and
+AnyTone AT-D578UV run under Wine from one prefix, with launchers, menu entries
+and file associations from `home/programs/radio.nix`. The installers hang
+under Wine, so the prefix was built from a Windows VM install; the recipe is in
+[`DESCRIPTION.MD`](DESCRIPTION.MD).
 
 ## Development
 

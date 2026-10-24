@@ -58,7 +58,7 @@ Hosts are exposed through `hosts/default.nix` as lowercase flake outputs:
   not assume the running Maxwell machine is currently this NixOS config. Its
   NixOS profile assumes a Ryzen 5800X3D plus Radeon 9070-class GPU and enables
   AMD ROCm OpenCL.
-- `altar`: Lenovo laptop profile. This is the actively installed laptop target.
+- `altar`: HP Envy x360 laptop profile. This is the actively installed laptop target.
   Its current GPU path is AMD Barcelo/Renoir-class integrated graphics, so it
   uses Mesa OpenCL/Rusticl with `RUSTICL_ENABLE=radeonsi` instead of Intel
   OpenCL or the heavier ROCm stack.
