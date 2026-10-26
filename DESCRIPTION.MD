@@ -242,6 +242,14 @@ bare touch while nothing is waiting makes the key type a one-time code instead.
 Because the key replaces the password step, logging in with only the key does
 not unlock the GNOME Keyring.
 
+At the Ly login screen `cue` text is never displayed, and nothing starts until
+you press Enter: Ly only runs PAM then. Select the user, press Enter (the
+password field can be empty or contain anything, because the key is
+`sufficient` and the password is not checked once the touch succeeds), then
+touch the key when it blinks. Touching before Enter just makes the key type a
+one-time code. If the key is not touched, the stack falls through to the
+password check, so typing the real password and pressing Enter still works.
+
 ### `modules/desktop.nix`
 
 Desktop services and hardware:
