@@ -220,8 +220,27 @@ Security/authentication:
 - Wires `gtklock` and `hyprlock` into the normal login PAM stack.
 - Enables fail2ban and dnscrypt-proxy (with caching; see the network section).
 
-Security keys are accepted through PAM U2F. The configured key file is managed
-under the user home; if login behavior changes, check that file and `pcscd`.
+Security keys are accepted through PAM U2F as `sufficient`, so touching the
+key is enough for login (Ly uses the `login` stack), polkit, `su` and the lock
+screens, and the password still works as a fallback. The key file is
+`home/security/yubico/u2f_keys`, installed by Home Manager. `origin` and `appid`
+are fixed to `pam://mickium` in `modules/security.nix`; pam_u2f otherwise ties a
+registration to `pam://<hostname>`, which made the old entry fail with "Device
+for this keyhandle is not present" on a key registered elsewhere. A key must be
+registered for that origin:
+
+```sh
+nix shell nixpkgs#pam_u2f -c pamu2fcfg -u mick -o pam://mickium -i pam://mickium > ~/new_u2f_key
+```
+
+It asks for the key's FIDO2 PIN, then a touch. Put the output line in
+`u2f_keys` (add a second line for a backup key with `pamu2fcfg -n`). To test
+without logging out, create a throwaway `/etc/pam.d/u2ftest` containing
+`auth required <pam_u2f.so> authfile=... origin=pam://mickium appid=pam://mickium cue`
+and run `pamtester u2ftest mick authenticate`; delete the file afterwards. A
+bare touch while nothing is waiting makes the key type a one-time code instead.
+Because the key replaces the password step, logging in with only the key does
+not unlock the GNOME Keyring.
 
 ### `modules/desktop.nix`
 
@@ -255,6 +274,9 @@ tailscale up --accept-dns --accept-routes --operator=mick --timeout=0s
 ```
 
 - Configures lid/power handling through logind for suspend-then-hibernate.
+- Enables a monthly btrfs scrub (only on hosts with a btrfs filesystem, so not
+  Maxwell), `smartd` drive-health alerts as desktop notifications, and `fwupd`
+  for firmware updates (`fwupdmgr get-updates`, then `fwupdmgr update`).
 - Sets CPU governor policy to `performance` while charging/AC-powered (max
   performance 100%, boost on) and `powersave` on battery (max 30%, boost off).
   TLP is the only power tool: auto-cpufreq and powertop auto-tune were removed

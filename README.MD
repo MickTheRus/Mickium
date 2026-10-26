@@ -188,8 +188,9 @@ Maintenance rationale lives in [`docs/MAINTENANCE.md`](docs/MAINTENANCE.md).
    run `passwd` right away.
 5. Finish the Tailscale sign-in. The login URL is in
    `journalctl -u tailscaled-login -b`.
-6. Pair security keys into `~/.config/Yubico/u2f_keys` before relying on
-   security-key login.
+6. Register your YubiKey with
+   `pamu2fcfg -u mick -o pam://mickium -i pam://mickium` and put the output in
+   `home/security/yubico/u2f_keys` before relying on security-key login.
 
 For `#wortox`, replace `hosts/Wortox/hardware-configuration.nix` with one
 generated on the target drive first. The committed file only exists to keep

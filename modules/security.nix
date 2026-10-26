@@ -62,6 +62,10 @@
         control = "sufficient";
         settings = {
           authfile = "/home/mick/.config/Yubico/u2f_keys";
+          # Fixed origin/appid so one registration works on every host; the
+          # default is pam://<hostname>, which ties a key to a single machine.
+          origin = "pam://mickium";
+          appid = "pam://mickium";
           cue = true;
         };
       };

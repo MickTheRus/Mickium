@@ -108,6 +108,20 @@ in {
 
     atd.enable = true;
     fstrim.enable = true;
+
+    # Monthly btrfs scrub, only on hosts that actually have a btrfs filesystem
+    # (Maxwell does not, and the module asserts without one).
+    btrfs.autoScrub.enable = lib.mkDefault (
+      builtins.any (fs: fs.fsType == "btrfs") (lib.attrValues config.fileSystems)
+    );
+
+    # Drive health alerts as desktop notifications, and LVFS firmware updates
+    # (`fwupdmgr get-updates`, `fwupdmgr update`).
+    smartd = {
+      enable = true;
+      notifications.systembus-notify.enable = true;
+    };
+    fwupd.enable = true;
     upower.enable = true;
 
     # For android file transfer via usb, or better check on KDE connect
