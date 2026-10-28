@@ -503,6 +503,41 @@ Changes from upstream:
 - The battery module has a charging state, and the brightness icon shows the
   percentage on hover.
 
+### Rofi control center
+
+`home/programs/rofi-control/` is a set of rofi menus ported from BlackNode
+(github.com/zhaleff/BlackNode, MIT), installed to `~/.config/rofi/control/` by
+`home/programs/rofi.nix` and opened with Super+Shift+E (`$control` in
+`hyprland.conf`; the old emoji menu, its plugin need and its keybind were
+removed). `scripts/launcher.sh` lists the menus: WiFi, Bluetooth, Audio, Music,
+Monitor, Keyboard Layout, Screenshots, Record Screen, and four entries that open
+this config's own menus (Clipboard, Wallpaper, Session). Every submenu has a Back
+entry that returns to the launcher.
+
+Changes from upstream: screenshots are saved to `~/Pictures/Screenshots` and
+copied to the clipboard (upstream needs `satty`); the keyboard menu lists the
+layouts from `kb_layout` in `hyprland.conf` (`us,ru`); the Monitor menu has no
+`monitor.lua` entry; Record Screen had a typo on its first line and needs
+`wf-recorder`, now installed; and the colours come from `colors.rasi`, a fixed
+Catppuccin Mocha palette with a maroon accent (upstream generates it with
+matugen). Not ported: Pomodoro (needs `pomodoro-cli`, not in nixpkgs, and was
+dropped), Notification (dunst), Reload, Bookmarks, Shortcuts, What's New
+(fetches from GitHub), Package (pacman/yay) and the wallpaper picker.
+
+The app launcher (Super+R, `rofi/menus/drun.sh`) uses the same `submenu.rasi`
+theme with icons on and plain app names, which is also what BlackNode's own
+launcher does; the old `drun.rasi` theme was removed. The palette is Catppuccin
+Mocha with the maroon accent, matching the GTK and Qt themes.
+
+Themes: `themes/presets/submenu.rasi` is the centred list the launcher and most
+menus use, and `submenu-bottom.rasi` is a horizontal strip at the bottom of the
+screen (Screenshots and Music). BlackNode also has `wallselect.rasi`, a
+full-width row of large wallpaper thumbnails; it is not installed, because the
+existing wallpaper menu (`rofi/menus/swww.sh`) does that job.
+
+The WiFi menu passes the password to `nmcli` on its command line, where other
+local processes can briefly see it. It is as upstream wrote it.
+
 ## Theming
 
 GTK and Qt theming are configured separately.

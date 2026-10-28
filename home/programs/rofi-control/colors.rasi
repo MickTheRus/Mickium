@@ -1,0 +1,15 @@
+/* Colour tokens for the rofi control-center and app-launcher themes.
+   Catppuccin Mocha with the maroon accent, the same palette as the GTK theme
+   (catppuccin-mocha-maroon-standard) and the Qt colour scheme. BlackNode
+   generates this file with matugen from the wallpaper; here it is fixed.
+   E6 is 90% opacity. */
+* {
+    primary:                #eba0acE6;  /* maroon */
+    on-primary:             #11111b;    /* crust, as the Qt scheme uses on the accent */
+    error:                  #f38ba8E6;  /* red */
+    on-error:               #11111b;    /* crust */
+    surface:                #1e1e2eE6;  /* base */
+    on-surface:             #cdd6f4;    /* text */
+    surface-container-low:  #181825E6;  /* mantle */
+    surface-container-high: #313244E6;  /* surface0 */
+}

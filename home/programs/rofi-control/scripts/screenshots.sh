@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+ROFI_DIR="$HOME/.config/rofi/control"
+THEME="$ROFI_DIR/themes/presets/submenu-bottom.rasi"
+SHOTS_DIR="${XDG_SCREENSHOTS_DIR:-$HOME/Pictures/Screenshots}"
+mkdir -p "$SHOTS_DIR"
+
+for bin in grim slurp wl-copy hyprctl jq; do
+    command -v "$bin" >/dev/null 2>&1 || { notify-send "Screenshot" "Missing: $bin"; exit 1; }
+done
+
+choice=$(printf '%s\n' \
+    "󰩭  Region" \
+    "󰖯  Window" \
+    "󰍹  Output" \
+    "󱄄  All" \
+    | rofi -dmenu -theme "$THEME" -p "Screenshot" -l 4 -theme-str 'window {width: 47%;}')
+
+[ -z "$choice" ] && exit 0
+[[ "$choice" == *"Back" ]] && exec bash "$ROFI_DIR/scripts/launcher.sh"
+
+outfile="$SHOTS_DIR/shot-$(date '+%Y%m%d-%H%M%S').png"
+
+finish() {
+    wl-copy --type image/png < "$outfile"
+    notify-send "Screenshot" "Saved and copied: $outfile"
+}
+
+case "$choice" in
+    *"Region")
+        geo=$(slurp -d) || exit 1
+        grim -g "$geo" "$outfile" && finish
+        ;;
+    *"Window")
+        geo=$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
+        grim -g "$geo" "$outfile" && finish
+        ;;
+    *"Output")
+        geo=$(slurp -o -r) || exit 1
+        grim -g "$geo" "$outfile" && finish
+        ;;
+    *"All")
+        grim "$outfile" && finish
+        ;;
+esac

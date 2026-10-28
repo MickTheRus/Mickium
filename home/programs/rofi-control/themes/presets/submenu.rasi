@@ -1,0 +1,97 @@
+@import "~/.config/rofi/control/colors.rasi"
+
+configuration {
+    font:                        "Iosevka Nerd Font 16";
+    show-icons:                  false;
+}
+
+window {
+    width:                       35%;
+    transparency:                "real";
+    location:                    center;
+    anchor:                      center;
+    border-radius:               12px;
+    background-color:            @surface;
+}
+
+mainbox {
+    spacing:                     12px;
+    padding:                     16px;
+    orientation:                 vertical;
+    children:                    [ "inputbar", "listview" ];
+    background-color:            transparent;
+}
+inputbar {
+    spacing:                     12px;
+    padding:                     14px 20px;
+    border-radius:               12px;
+    children:                    [ "prompt", "entry" ];
+    background-color:            @surface-container-high;
+}
+
+prompt {
+    str:                         "";
+    vertical-align:              0.5;
+    background-color:            transparent;
+    text-color:                  @primary;
+}
+
+entry {
+    padding:                     0px;
+    placeholder:                 "";
+    cursor:                      text;
+    vertical-align:              0.5;
+    background-color:            transparent;
+    text-color:                  @on-surface;
+}
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       12;
+    spacing:                     4px;
+    padding:                     0px;
+    cycle:                       true;
+    dynamic:                     true;
+    fixed-height:                false;
+    scrollbar:                   false;
+    layout:                      vertical;
+    background-color:            transparent;
+    text-color:                  @on-surface;
+}
+
+element {
+    spacing:                     0px;
+    padding:                     12px 16px;
+    border-radius:               12px;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  @on-surface;
+}
+
+element selected.normal {
+    background-color:            @primary;
+    text-color:                  @on-primary;
+}
+
+element-icon {
+    size:                        28px;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+element-text {
+    margin:                      0px 0px 0px 14px;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+textbox {
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+    background-color:            inherit;
+    text-color:                  inherit;
+}

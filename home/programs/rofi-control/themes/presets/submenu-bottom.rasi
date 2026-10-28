@@ -1,0 +1,67 @@
+@import "~/.config/rofi/control/colors.rasi"
+
+configuration {
+    font:                        "Iosevka Nerd Font 15";
+    show-icons:                  false;
+}
+
+window {
+    width:                       50%;
+    height:                      100px;
+    transparency:                "real";
+    border-radius:               12px;
+    margin:                      0px 0px 16px;
+    background-color:            @surface;
+    location:                    south;
+    anchor:                      center;
+    padding:                     12px;
+}
+
+mainbox {
+    spacing:                     0px;
+    padding:                     0px;
+    orientation:                 horizontal;
+    children:                    [ "listview" ];
+    background-color:            transparent;
+}
+
+listview {
+    enabled:                     true;
+    columns:                     5;
+    spacing:                     6px;
+    padding:                     0px;
+    cycle:                       true;
+    lines:                       6;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      horizontal;
+    background-color:            transparent;
+    text-color:                  @on-surface;
+    fixed-height:                true;
+}
+
+element {
+    spacing:                     0px;
+    padding:                     16px 24px;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  @on-surface;
+    border-radius:               12px;
+}
+
+element selected.normal {
+    background-color:            @primary;
+    text-color:                  @on-primary;
+}
+
+element-icon {
+    size:                        0px;
+}
+
+element-text {
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
