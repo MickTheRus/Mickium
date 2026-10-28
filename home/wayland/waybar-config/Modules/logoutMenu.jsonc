@@ -1,0 +1,9 @@
+{
+  "custom/logoutMenu": {
+    "format": "{icon}",
+    "format-icons": "",
+    "exec-on-event": "true",
+    "on-click": "~/.config/hypr/scripts/power-menu.sh",
+    "tooltip-format": "Power Menu"
+  }
+}

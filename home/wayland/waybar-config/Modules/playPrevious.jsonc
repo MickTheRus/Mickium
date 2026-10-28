@@ -1,0 +1,9 @@
+{
+  "custom/playPrevious": {
+    "format": "{}",
+    "exec": "echo '󰒮'",
+    "interval": 2,
+    "on-click": "playerctl previous",
+    "tooltip": false
+  }
+}

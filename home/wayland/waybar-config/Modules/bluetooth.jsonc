@@ -1,0 +1,11 @@
+{
+    "custom/bluetooth": {
+        "exec": "~/.config/waybar/Scripts/System/bluetoothModule.sh",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "kitty -e bluetoothctl",
+        "on-click-right": "bluetoothctl power toggle",
+        "tooltip": true,
+        "format": "{}"
+    }
+}

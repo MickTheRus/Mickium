@@ -1,0 +1,14 @@
+{
+  "include": [
+    "~/.config/waybar/Layouts/blacknode.jsonc"
+  ],
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "margin-left": 2,
+  "margin-right": 2,
+  "margin-top": 5,
+  "margin-bottom": 0,
+  "spacing": 2,
+  "reload_style_on_change": true
+}

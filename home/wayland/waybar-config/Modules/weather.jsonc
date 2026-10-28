@@ -1,0 +1,9 @@
+{
+  "custom/weather": {
+    "format": "{}",
+    "tooltip": true,
+    "return-type": "json",
+    "exec": "waybar-weather",
+    "interval": 900
+  }
+}

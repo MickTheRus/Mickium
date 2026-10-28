@@ -1,0 +1,9 @@
+{
+  "custom/playNext": {
+    "format": "{}",
+    "exec": "echo '󰒭'",
+    "interval": 2,
+    "on-click": "playerctl next",
+    "tooltip": false
+  }
+}

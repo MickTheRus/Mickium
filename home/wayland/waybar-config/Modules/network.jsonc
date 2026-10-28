@@ -1,0 +1,19 @@
+{
+"network": {
+    "interval": 3,
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰈀  {ipaddr}",
+    "format-linked": "󰈁  {ifname} (not IP)",
+    "format-disconnected": "󰖪",
+    "format-alt": "󰛳  {ifname}",
+    "tooltip-format-wifi": "{icon}  {essid}\n  {ipaddr}/{cidr}\n󰓅  {signalStrength}% signal\n↓  {bandwidthDownBytes} ↑  {bandwidthUpBytes}",
+    "tooltip-format-ethernet": "󰈀  {ifname}\n{ipaddr}/{cidr}\nGateway: {gwaddr}",
+    "tooltip-format-disconnected": "󰖪  Offline",
+    "on-click": "kitty -e nmtui",
+    "format-icons": {
+        "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "ethernet": ["󰈀"],
+        "disconnected": ["󰖪"]
+    }
+}
+}

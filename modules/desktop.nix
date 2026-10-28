@@ -127,6 +127,22 @@ in {
     # For android file transfer via usb, or better check on KDE connect
     gvfs.enable = true;
 
+    # Location for the Waybar weather module. Wi-Fi positioning through
+    # BeaconDB (default provider), falling back to IP geolocation. Modem and
+    # network-GPS (NMEA over Avahi) sources are off: this laptop has neither,
+    # and a network NMEA feed could spoof the location.
+    geoclue2 = {
+      enable = true;
+      enable3G = false;
+      enableCDMA = false;
+      enableNmea = false;
+      # The demo `where-am-i` tool, which the weather script calls.
+      appConfig."geoclue-where-am-i" = {
+        isAllowed = true;
+        isSystem = false;
+      };
+    };
+
     tailscale = {
       enable = true;
       openFirewall = true;

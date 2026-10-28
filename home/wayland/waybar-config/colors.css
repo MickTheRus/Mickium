@@ -1,0 +1,32 @@
+/* Colour tokens read by style.css. BlackNode generates this file with matugen
+   from the wallpaper; here it is a fixed Catppuccin Mocha (maroon accent)
+   palette. To go back to wallpaper-driven colours, generate this file with the
+   template in BlackNode's Configs/.config/matugen/templates/waybar.css. */
+@define-color primary #eba0ac;
+@define-color on-primary #1e1e2e;
+
+@define-color surface rgba(30, 30, 46, 0.85);
+@define-color on-surface #cdd6f4;
+
+@define-color primary-container #45475a;
+@define-color on-primary-container #cdd6f4;
+
+@define-color secondary #f2cdcd;
+@define-color on-secondary #1e1e2e;
+
+@define-color secondary-container #313244;
+@define-color on-secondary-container #cdd6f4;
+
+@define-color tertiary #cba6f7;
+@define-color on-tertiary #1e1e2e;
+
+@define-color tertiary-container #45475a;
+@define-color on-tertiary-container #cdd6f4;
+
+@define-color error #f38ba8;
+@define-color on-error #1e1e2e;
+
+@define-color error-container #45283a;
+@define-color on-error-container #f38ba8;
+
+@define-color outline #6c7086;

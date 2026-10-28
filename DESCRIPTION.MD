@@ -281,6 +281,13 @@ Desktop services and hardware:
 tailscale up --accept-dns --accept-routes --operator=mick --timeout=0s
 ```
 
+- Enables GeoClue2 for the Waybar weather module: Wi-Fi positioning through
+  BeaconDB (the nixpkgs default provider) with IP-geolocation fallback. The
+  modem (3G, CDMA) and network-GPS (NMEA over Avahi) sources are off; a network
+  NMEA feed could spoof the location. Only the demo `where-am-i` tool
+  (`geoclue-where-am-i`) is allowed, as a non-system app. The weather script
+  asks it only when the Wi-Fi network changes or its cached fix is over six
+  hours old, and falls back to the fixed location in `weather-location.json`.
 - Configures lid/power handling through logind for suspend-then-hibernate.
 - Enables a monthly btrfs scrub (only on hosts with a btrfs filesystem, so not
   Maxwell), `smartd` drive-health alerts as desktop notifications, and `fwupd`
@@ -352,7 +359,8 @@ Main files:
 - `home/wayland/default.nix`: shared Wayland packages and session variables.
 - `home/wayland/hyprland.nix`: generates and links Hyprland config.
 - `home/wayland/hypr-config/`: source Hyprland config tree.
-- `home/wayland/waybar.nix`: Waybar config.
+- `home/wayland/waybar.nix` and `home/wayland/waybar-config/`: Waybar (see
+  "Waybar (BlackNode-based)" below).
 
 Hyprland config is generated into a host-specific store-built directory, then
 linked into `~/.config/hypr`. Edit the repo source, not the generated target.
@@ -443,17 +451,57 @@ Expected behavior:
 - Lid close is handled by systemd-logind and should suspend-then-hibernate
   (needs the swapfile and resume setup above to actually hibernate).
 
-### Waybar Laptop Differences
+### Waybar (BlackNode-based)
 
-Waybar checks the NixOS host name. Battery UI is only enabled for `Altar`.
-The battery, MPD, and system tray modules use the same rounded background
-treatment as the other right-side status modules.
+The bar is the Waybar config from BlackNode (github.com/zhaleff/BlackNode, MIT;
+its licence is kept in `home/wayland/waybar-config/LICENSE-BlackNode`), adapted
+for NixOS. `home/wayland/waybar.nix` installs the files in
+`home/wayland/waybar-config/` into `~/.config/waybar` (config, `Layouts/`,
+`Modules/`, `Scripts/`, `style.css`, `colors.css`) and adds the tools they call
+(`jq`, `psmisc`, `wlogout`, and a `waybar-weather` wrapper). Edit the repo copy
+and restart Waybar with Super+Shift+R; changes to `~/.config/waybar` itself do
+not stick.
 
-If a battery shows up on a desktop or disappears on the laptop, inspect:
+Layout: left the OS icon, workspaces (numbers 1 to 10, with the second
+monitor's 11 to 20 shown as 1 to 10), a privacy and status block, and the NixOS
+block; centre the idle inhibitor (the coffee cup: toggles lock/sleep) and the
+clock; right network, Bluetooth, brightness and battery, media, weather, tray,
+and the notification and power buttons. The bar is 28px high with no vertical
+block padding; BlackNode's 0.8em padding made 42px blocks. Colours come from
+`colors.css`, a fixed Catppuccin Mocha palette with a maroon accent (BlackNode
+generates this file with matugen from the wallpaper; its template is in its
+repo). The font is Iosevka Nerd Font at the regular weight: `font-weight: 600`
+made fontconfig pick Iosevka Heavy.
 
-```text
-home/wayland/waybar.nix
-```
+Changes from upstream:
+
+- The pacman and AUR update counters are replaced by `custom/nixos` (system
+  generation, red when the running kernel differs from the booted one) and
+  `custom/nixPackages` (store paths in the system and user profiles).
+- `notDisturb.sh` uses SwayNC (`swaync-client`) instead of dunst. The
+  notification button next to power opens the SwayNC panel (right-click toggles
+  do-not-disturb).
+- A tray block was added; upstream has none.
+- The power button runs `~/.config/hypr/scripts/power-menu.sh`. `wlogout` was
+  missing from the PATH before this, so the old power button did nothing.
+- Network and Bluetooth clicks open `nmtui` and `bluetoothctl` in kitty instead
+  of rofi scripts that do not exist here. The firewall check also recognises
+  the NixOS `firewall` service.
+- Weather (`Scripts/weather/script.py`): Fahrenheit, mph and inches. The
+  upstream script looked up the IP address through `ip-api.com` (plain HTTP)
+  and `ipapi.co` on every refresh; this one asks GeoClue instead (see the
+  `geoclue2` entry under `modules/desktop.nix`), and only when the Wi-Fi network
+  changes or its cached fix is over six hours old. Fallbacks: the last cached
+  fix, then `weather-location.json`. The fix is city-level (about 26 km from the
+  IP fallback when BeaconDB does not know the nearby access points). There is
+  no place name because Open-Meteo has no reverse geocoding; the tooltip shows
+  coordinates. The forecast request still tells Open-Meteo your IP and
+  coordinates.
+- The media block reads MPRIS through `playerctl`. MPD is not an MPRIS player,
+  so `services.mpd-mpris` (Home Manager) bridges it, and the buttons then
+  control whichever player is active.
+- The battery module has a charging state, and the brightness icon shows the
+  percentage on hover.
 
 ## Theming
 
